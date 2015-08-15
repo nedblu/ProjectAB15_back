@@ -19,8 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password', 60);
-            $table->boolean('actived')->default('false');
-            $table->boolean('banned')->default('false');
+            $table->boolean('actived')->default('0');
+            $table->boolean('banned')->default('0');
             $table->integer('role_id');
             $table->date('last_login');
             $table->rememberToken();

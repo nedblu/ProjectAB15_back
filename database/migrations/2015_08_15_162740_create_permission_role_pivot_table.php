@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class {{class}} extends Migration
+class CreatePermissionRolePivotTable extends Migration
 {
     /**
      * Run the migrations.
