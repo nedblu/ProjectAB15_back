@@ -1,0 +1,23 @@
+body {
+	background: #F0F0F3;
+}
+ul.title-area a img{
+	width: 25px;
+	height: auto;
+	margin-right: 5px;
+}
+.login-box {
+	background: #fff;
+	border: 1px solid #ddd; 
+	margin: 50px 0;
+	padding: 40px 20px 0 20px;
+}
+.login-box div.logo-area {
+	text-align: center;
+	margin-bottom: 20px;
+}
+#login-login {
+	width: 150px;
+	height: auto;
+	text-align: center;
+}

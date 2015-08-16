@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/hola', function() { 
-	return "Hola";
+Route::get('/', function() { 
+	return view('templates.login');
 });

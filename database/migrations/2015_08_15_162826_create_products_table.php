@@ -16,10 +16,10 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('image');
-            $table->text('description');
+            $table->integer('description_id');
             $table->integer('category_id');
             $table->integer('parent_id');
-            $table->string('SKU');
+            $table->string('sku');
             $table->boolean('offer');
             $table->boolean('stock');
             $table->boolean('colors');
