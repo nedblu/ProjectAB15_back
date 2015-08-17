@@ -5,11 +5,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AlphaBeta  | Iniciar Sesión</title>
-    <link rel="stylesheet" href="css/normalize.css" />
-    <link rel="stylesheet" href="css/foundation.css" />
-    <link rel="stylesheet" href="css/font-awesome.css" />
-    <link rel="stylesheet" href="css/custom-login.css" />
-    <script src="js/vendor/modernizr.js"></script>
+    {!! Html::style('css/normalize.css') !!}
+    {!! Html::style('css/foundation.css') !!}
+    {!! Html::style('css/font-awesome.css') !!}
+    {!! Html::style('css/alertboxes.css') !!}
+    {!! Html::style('css/custom-login.css') !!}
+    {!! Html::script('js/vendor/modernizr.js') !!}
+
   </head>
   <body>
     
@@ -29,10 +31,11 @@
               <div class="row logo-area">
                 {!! Html::image('img/logo.png','AlphaBeta CMS', ['id' => 'login-login']) !!}
               </div>
-              <form>
+              <form method="POST" action="">
+              {!! csrf_field() !!}
                 <div class="row">
                   <div class="large-12 columns">
-                    <input type="text" name="username" placeholder="Username o correo electrónico" />
+                    <input type="text" name="email" value="{{ old('email') }}" placeholder="Username o correo electrónico" />
                   </div>
                 </div>
                 <div class="row">
@@ -45,6 +48,25 @@
                     <input type="checkbox" name="remember" /> Recordarme
                   </div>
                 </div>
+                
+              @if (Session::has('errors'))
+                <div class="alert-box alert alert-dismissible" role="alert">
+                  <h4>Oops! Algo salió mal</h4>
+
+                  @foreach ($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                  @endforeach
+                </div>
+              @endif
+              @if (Session::has('status'))
+                 <div class="alert-box info alert-dismissible" role="alert">
+                  <a href="#" class="close">⊗</a>
+
+                  <h4>Algo anda mal</h4>
+                  <p>{{ Session::get('status') }}</p>
+                </div>
+              @endif  
+
                 <div class="row">
                   <div class="large-12 large-centered columns">
                     <input type="submit" class="button expand" value="Iniciar Sesión"/>
@@ -57,8 +79,8 @@
       </div>
     </div>
 
-    <script src="js/vendor/jquery.js"></script>
-    <script src="js/foundation.min.js"></script>
+    {!! Html::script('js/vendor/jquery.js') !!}
+    {!! Html::script('js/foundation.min.js') !!}
     <script>
       $(document).foundation();
     </script>
