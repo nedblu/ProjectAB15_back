@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->integer('category_id');
             $table->integer('parent_id');
             $table->string('sku');
-            $table->boolean('offer');
+            $table->integer('offer_id');
             $table->boolean('stock');
             $table->boolean('colors');
             $table->boolean('ink');

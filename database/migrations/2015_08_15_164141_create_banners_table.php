@@ -20,6 +20,7 @@ class CreateBannersTable extends Migration
             $table->string('uri');
             $table->integer('user_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
