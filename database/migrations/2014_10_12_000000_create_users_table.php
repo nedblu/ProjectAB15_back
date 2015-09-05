@@ -22,6 +22,9 @@ class CreateUsersTable extends Migration
             $table->boolean('actived')->default('0');
             $table->boolean('banned')->default('0');
             $table->integer('role_id');
+            $table->string('ip_address');
+            $table->string('code');
+            $table->boolean('tour')->default('0');
             $table->date('last_login');
             $table->rememberToken();
             $table->timestamps();

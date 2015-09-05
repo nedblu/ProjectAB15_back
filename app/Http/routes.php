@@ -12,6 +12,10 @@
 */
 
 Route::get('/', function() { 
+	
+	// Get the image
+	//$image = Image::make('C:\xampp\htdocs\projects\alphabeta_web\public_html\img\ABlogo.png');
+	//return $image->response();
 	return view('templates.main');
 });
 
