@@ -44,11 +44,14 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="large-12 columns">
+                  <div class="large-6 columns">
                     <input type="checkbox" name="remember" /> Recordarme
                   </div>
+                  <div class="large-6 columns">
+                     {!! Html::link(route('password/email'),'Olvidé mi contraseña') !!}
+                  </div>
                 </div>
-                
+
               @if (Session::has('errors'))
                 <div class="alert-box alert alert-dismissible" role="alert">
                   <h4>Oops! Algo salió mal</h4>

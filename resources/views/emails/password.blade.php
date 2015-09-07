@@ -1,0 +1,1 @@
+Click here to reset your password: {!! Html::link(route('password/reset',$token), 'Reset Password') !!}

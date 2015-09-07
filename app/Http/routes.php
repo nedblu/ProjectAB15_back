@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', function() { 
+Route::get('/', ['middleware' => 'auth', function() { 
 	
 	// Get the image
 	//$image = Image::make('C:\xampp\htdocs\projects\alphabeta_web\public_html\img\ABlogo.png');
 	//return $image->response();
 	return view('templates.main');
-});
+}]);
 
 // Authentication routes...
 Route::get('auth/login', ['uses' => 'Auth\AuthController@getLogin']);
@@ -33,5 +33,5 @@ Route::get('password/email', ['as' => 'password/email', 'uses' => 'Auth\Password
 Route::post('password/email', ['as' => 'password/postEmail', 'uses' => 'Auth\PasswordController@postEmail']);
 
 // Password reset routes...
-Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::get('password/reset/{token}', ['as' => 'password/reset', 'uses' => 'Auth\PasswordController@getReset']);
 Route::post('password/reset', ['as' => 'password/postReset', 'uses' =>  'Auth\PasswordController@postReset']);
