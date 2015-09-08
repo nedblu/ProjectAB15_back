@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Mexico_City',
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -146,6 +146,7 @@ return [
         'Maatwebsite\Excel\ExcelServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'Jenssegers\Date\DateServiceProvider',
+        Snowfire\Beautymail\BeautymailServiceProvider::class,
 
         /*
          * Application Service Providers...

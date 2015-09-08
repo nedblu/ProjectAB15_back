@@ -9,7 +9,8 @@
         "laravel/framework": "5.1.*",
         "intervention/image": "^2.3",
         "jenssegers/date": "^3.0",
-        "intervention/imagecache": "^2.3"
+        "intervention/imagecache": "^2.3",
+        "snowfire/beautymail": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

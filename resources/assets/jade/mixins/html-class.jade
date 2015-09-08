@@ -1,0 +1,12 @@
+//- As you may know, Laravel 5 provides the Elixir to compile assets with no pain.
+  These mixins is for those of you who want to use Jade power combined with that of Laravel Blade.
+  The syntax mimic Blade statements, however identation differs in some cases.
+- var newline = "\r\n"
+- var loopIterator = '$iterator'
+
+//- Html::style mixin
+  Example:  +html-style('layouts/master.css')
+  Compiled: @extends('layouts/master')
+mixin html-style(file)
+  | {!! Html::style('#{file}') }}
+  =newline + newline

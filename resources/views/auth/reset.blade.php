@@ -1,25 +1,45 @@
-<form method="POST" action="{!! route('password/postReset') !!}">
-    {!! csrf_field() !!}
-    <input type="hidden" name="token" value="{{ $token }}">
+@extends('auth.template')
 
-    <div>
-        Email
-        <input type="email" name="email" value="{{ old('email') }}">
-    </div>
+@section('content-form')
 
-    <div>
-        Password
-        <input type="password" name="password">
-    </div>
+    <form method="POST" action="{!! route('password/postReset') !!}">
+        {!! csrf_field() !!}
+        <input type="hidden" name="token" value="{{ $token }}">
 
-    <div>
-        Confirm Password
-        <input type="password" name="password_confirmation">
-    </div>
+        <div class="row">
+            <div class="large-12 columns">
 
-    <div>
-        <button type="submit">
-            Reset Password
-        </button>
-    </div>
-</form>
+                <label><strong>Ingrese su correo electrónico</strong>
+                    <input type="text" name="email" value="{{ old('email') }}" placeholder="Correo electrónico" required>
+                </label>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+
+                <label><strong>Nueva contraseña</strong>
+                    <input type="password" name="password" required>
+                </label>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 columns">
+
+                <label><strong>Confirmar contraseña</strong>
+                    <input type="password" name="password_confirmation" required>
+                </label>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-12 large-centered columns">
+                <input type="submit" class="button expand" value="Restablecer Contraseña"/>
+            </div>
+        </div>
+    </form>
+@stop
