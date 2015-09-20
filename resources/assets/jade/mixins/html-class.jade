@@ -8,5 +8,6 @@
   Example:  +html-style('layouts/master.css')
   Compiled: @extends('layouts/master')
 mixin html-style(file)
-  | {!! Html::style('#{file}') }}
-  =newline + newline
+  =newline
+  | {!! Html::style('#{file}') !!}}
+  =newline

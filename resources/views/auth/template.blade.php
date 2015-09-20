@@ -21,7 +21,7 @@
     <nav class="top-bar" data-topbar role="navigation">
       <ul class="title-area">
         <li class="name">
-          <h1><a href="#">{!! Html::image('img/small-logo.png','AlphaBeta CMS') !!} AlphaBeta CMS</a></h1>
+          <h1><a href="{{ url('auth/login') }}">{!! Html::image('img/small-logo.png','AlphaBeta CMS') !!} AlphaBeta CMS</a></h1>
         </li>
       </ul>
     </nav>

@@ -17,14 +17,14 @@
     <div class="row">
       <div class="large-12 columns">
         
-        <p>Te haremos llegar un mensaje a tu correo con un enlace para resetar tu contraseña. Si no lo ves en tu bandeja revisa en SPAM.</p>
+        <p>Te haremos llegar un mensaje a tu correo con un enlace para restablecer tu contraseña. Si no lo ves en tu bandeja revisa en SPAM.</p>
 
       </div>
     </div>
 
     <div class="row">
         <div class="large-12 large-centered columns">
-            <input type="submit" class="button expand" value="Cambiar Contraseña"/>
+            <input type="submit" class="button expand" value="Enviarme el enlace"/>
         </div>
     </div>
 

@@ -32,6 +32,9 @@
     font-size: 2rem;
     line-height: 1.25rem; }
 
+.alert-custom{
+  font-size: .8em;
+}
 body {
 	background: #F0F0F3;
 }

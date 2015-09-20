@@ -8,7 +8,7 @@
   Example:  +extends('layouts/master')
   Compiled: @extends('layouts/master')
 mixin extends(file)
-  | @extends('#{file}')
+  | @extends('!{file}')
   =newline + newline
 
 //- @include mixin
@@ -50,7 +50,7 @@ mixin include(file, data)
     @section('sidebar')
     @overwrite
 mixin section(name, overwrite)
-  | @section('#{name}')
+  | @section('!{name}')
   =newline
   block
   if overwrite
@@ -66,16 +66,16 @@ mixin section(name, overwrite)
   Example:  +yield('content', "'Default content'")
   Compiled: @yield('content', 'Default content')
 mixin yield(section, defaultContent)
-  | @yield('#{section}', '#{defaultContent}')
+  | @yield('!{section}', #{defaultContent})
   =newline
 
 //- common mixin for a @begin-@end like statements
 mixin statement(stmt, condition)
   =newline
-  | @#{stmt}(!{condition})
+  | @!{stmt}(!{condition})
   block
   =newline
-  | @end#{stmt}
+  | @end!{stmt}
   =newline
 
 //- @if statement mixin
@@ -127,9 +127,9 @@ mixin else()
 //- @elseif statement mixin
 //- see if and else please
 mixin elseif(condition)
-	=newline
-	| @elseif(!{condition})
-	block
+    =newline
+    | @elseif(!{condition})
+    block
 
 //- @for statement mixin
 //-
@@ -146,7 +146,7 @@ mixin elseif(condition)
 mixin for(condition)
   +statement('for', condition)
     block
-    
+
 //- @while statement mixin
 //-
   Example:
@@ -175,22 +175,25 @@ mixin while(condition)
 mixin foreach(items, item, index, iterator, stmt)
   - var stmt = stmt || 'foreach'
   - var index = index || '$idx'
-  - var iterator = iterator || loopIterator
+  - var iterator = iterator || null
 
   =newline
-  | <?php #{iterator} = 0; ?>
+  if (iterator)
+    | <?php !{iterator} = 0; ?>
   =newline
-  | @#{stmt}(#{items} as #{index} => #{item})
+  | @!{stmt}(!{items} as !{index} => !{item})
   if isForelse
     block
   else
     block
     =newline
-    | <?php #{iterator} ++; ?>
+  if (iterator)
+    | <?php !{iterator} ++; ?>
   =newline
-  | @end#{stmt}
+  | @end!{stmt}
   =newline
-  | <?php unset(#{iterator}); ?>
+  if (iterator)
+    | <?php unset(!{iterator}); ?>
   =newline + newline
 
 //- @forelse statement mixin
@@ -213,14 +216,14 @@ mixin forelse(items, item, index, iterator)
   - var iterator = iterator || loopIterator
   
   +foreach(items, item, index, iterator, 'forelse')
-    block<
+    block
 
 //- @empty statement mixin
 mixin empty(iterator)
   - var iterator = iterator || loopIterator
 
   =newline
-  | <?php #{iterator}++; ?>
+  | <?php !{iterator}++; ?>
   =newline + '@empty' + newline
   block
   =newline
@@ -235,11 +238,11 @@ mixin break()
   Example:  +lang('language.line')
   Compiled: @lang('language.line')
 mixin lang(line)
-	| @lang('#{line}')
+    | @lang('!{line}')
 
 //- @choice mixin
 //-
   Example:  +choice('language.line', 1)
   Compiled: @choice('language.line', 1)
 mixin choice(line, choice)
-	| @choice('#{line}', #{choice})
+    | @choice('!{line}', !{choice})

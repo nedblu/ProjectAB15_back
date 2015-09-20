@@ -11,13 +11,26 @@
 |
 */
 
+/*
 Route::get('/', ['middleware' => 'auth', function() { 
 	
 	// Get the image
 	//$image = Image::make('C:\xampp\htdocs\projects\alphabeta_web\public_html\img\ABlogo.png');
 	//return $image->response();
 	return view('templates.main');
-}]);
+}]);*/
+
+Route::get('/', function() { 
+	
+	// Get the image
+	//$image = Image::make('C:\xampp\htdocs\projects\alphabeta_web\public_html\img\ABlogo.png');
+	//return $image->response();
+	return view('templates.test');
+});
+
+
+
+/* AUTHENTICATION SYSTEM */
 
 // Authentication routes...
 Route::get('auth/login', ['uses' => 'Auth\AuthController@getLogin']);
