@@ -21,6 +21,7 @@ class RecipientsController extends Controller
      */
     public function index()
     {
+
         $recipients = Emailcontact::all();
 
         $used = Emailcontact::all()->count();

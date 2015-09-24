@@ -80,6 +80,57 @@ Route::group(['as' => 'Password::', 'prefix' => 'password'], function () {
 
 });
 
+Route::get('/createroles', function() {
+
+	/*$adminRole = Bican\Roles\Models\Role::create([
+	    'name' => 'SUPPORT',
+	    'slug' => str_slug('SUPPORT'),
+	    'description' => 'Account for Support, please don\'t login here.', // optional
+	    'level' => 1, // optional, set to 1 by default
+	]);
+
+	$adminRole = Bican\Roles\Models\Role::create([
+	    'name' => 'OWNER',
+	    'slug' => str_slug('OWNER'),
+	    'description' => 'Main account for the OWNER, with all permissions.', // optional
+	    'level' => 2, // optional, set to 1 by default
+	]);
+
+	$adminRole = Bican\Roles\Models\Role::create([
+	    'name' => 'ADMIN',
+	    'slug' => str_slug('ADMIN'),
+	    'description' => 'Use this for people that have a level for delete things and modify configs.', // optional
+	    'level' => 3, // optional, set to 1 by default
+	]);
+
+	$adminRole = Bican\Roles\Models\Role::create([
+	    'name' => 'EDITOR',
+	    'slug' => str_slug('EDITOR'),
+	    'description' => 'Use this for people that helps to fix typos.', // optional
+	    'level' => 4, // optional, set to 1 by default
+	]);*/
+
+	/*
+	$user = AlphaBeta\User::find(1);
+
+	$user->attachRole(1);
+
+	$user = AlphaBeta\User::find(2);
+
+	$user->attachRole(1);
+
+	$user = AlphaBeta\User::find(3);
+
+	$user->attachRole(2);
+
+	$user = AlphaBeta\User::find(4);
+
+	$user->attachRole(3);*/
+
+
+
+});
+
 // Authentication routes...
 //Route::get('auth/login', ['uses' => 'Auth\AuthController@getLogin']);
 //Route::post('auth/login', ['as' =>'auth/login', 'uses' => 'Auth\AuthController@postLogin']);
