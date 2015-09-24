@@ -147,6 +147,7 @@ return [
         'Intervention\Image\ImageServiceProvider',
         'Jenssegers\Date\DateServiceProvider',
         Snowfire\Beautymail\BeautymailServiceProvider::class,
+        Bican\Roles\RolesServiceProvider::class,
 
         /*
          * Application Service Providers...
