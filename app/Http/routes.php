@@ -108,9 +108,8 @@ Route::get('/createroles', function() {
 	    'slug' => str_slug('EDITOR'),
 	    'description' => 'Use this for people that helps to fix typos.', // optional
 	    'level' => 4, // optional, set to 1 by default
-	]);*/
+	]);
 
-	/*
 	$user = AlphaBeta\User::find(1);
 
 	$user->attachRole(1);
