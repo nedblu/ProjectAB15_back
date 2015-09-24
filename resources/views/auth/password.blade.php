@@ -1,7 +1,7 @@
 @extends('auth.template')
 
 @section('content-form')
-<form method="POST" action="{!! route('password/email') !!}">
+<form method="POST" action="{!! route('Password::email') !!}">
     {!! csrf_field() !!}
 
     <div class="row">

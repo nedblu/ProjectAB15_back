@@ -2,7 +2,7 @@
 
 @section('content-form')
 
-    <form method="POST" action="{!! route('password/postReset') !!}">
+    <form method="POST" action="{!! route('Password::reset') !!}">
         {!! csrf_field() !!}
         <input type="hidden" name="token" value="{{ $token }}">
 

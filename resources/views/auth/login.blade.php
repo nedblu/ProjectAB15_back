@@ -1,8 +1,10 @@
 @extends('auth.template')
 
 @section('content-form')
-  <form method="POST" action="{{ route('auth/login') }}">
+  <form method="post" action="{{ route('Auth::login') }}" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" autocomplete="off">
+
   {!! csrf_field() !!}
+
     <div class="row">
       <div class="large-12 columns">
         <input type="text" name="email" value="{{ old('email') }}" placeholder="Correo electrónico">
@@ -18,7 +20,7 @@
         <input type="checkbox" name="remember" /> Recordarme
       </div>
       <div class="large-6 columns">
-         {!! Html::link(route('password/email'),'Olvidé mi contraseña') !!}
+         {!! Html::link(route('Password::index'),'Olvidé mi contraseña') !!}
       </div>
     </div>
 

@@ -11,7 +11,7 @@
     {!! Html::style('assets/css/foundation.min.css') !!}
     {!! Html::style('assets/css/font-awesome.min.css') !!}
     
-    {!! Html::style( elixir('assets/css/app-login.css') ) !!}
+    {!! Html::style('assets/css/app-login.css') !!}
 
     {!! Html::script('js/vendor/modernizr.js') !!}
 
@@ -47,8 +47,8 @@
     {!! Html::script('assets/js/vendor/jquery.cookie.js') !!}
     {!! Html::script('assets/js/vendor/fastclick.js') !!}
     {!! Html::script('assets/js/foundation.min.js') !!}
-    {!! Html::script( elixir('assets/js/plugins.js') ) !!}
-    {!! Html::script( elixir('assets/js/app.js') ) !!}
+    {!! Html::script('assets/js/plugins.js') !!}
+    {!! Html::script('assets/js/app.js') !!}
 
   </body>
 </html>

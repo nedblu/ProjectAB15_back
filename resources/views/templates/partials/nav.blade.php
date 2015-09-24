@@ -15,19 +15,12 @@
 						<span class="icon-bar"></span>
 					</button>
 
-					<a class="navbar-brand" href="#"> AlphaBeta CMS </a>
+					<a class="navbar-brand" href="{{ route('Home::index') }}"> AlphaBeta CMS </a>
 
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-					<form class="navbar-form navbar-left" method="GET" role="search">
-						<div class="form-group">
-							<input type="text" name="q" class="form-control" placeholder="Buscar...">
-						</div>
-						<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-					</form>
 
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="http://www.alphabeta.com.mx/" target="_blank">Visualizar el Sitio</a></li>
@@ -37,12 +30,10 @@
 								<span class="caret"></span></a>
 
 								<ul class="dropdown-menu" role="menu">
-									<li class="dropdown-header">SETTINGS</li>
-									<li class=""><a href="#">Other Link</a></li>
-									<li class=""><a href="#">Other Link</a></li>
-									<li class=""><a href="#">Other Link</a></li>
+									<li class="dropdown-header">CONFIGURACIONES</li>
+									<li class=""><a href="#">Usuarios</a></li>
 									<li class="divider"></li>
-									<li><a href="#">Logout</a></li>
+									<li><a href="{{ route('Auth::logout') }}">Logout</a></li>
 								</ul>
 
 						</li>

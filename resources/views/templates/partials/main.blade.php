@@ -1,6 +1,6 @@
 
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="es">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,7 +13,7 @@
 		{!! Html::style('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css') !!}
 		{!! Html::style('assets/css/app.css') !!}
 
-		{!! Html::script('js/vendor/modernizr.js') !!}
+		{!! Html::script('assets/js/vendor/modernizr.js') !!}
 	</head>
 	<body>
 
@@ -32,7 +32,7 @@
 			<footer class="pull-left footer">
 				<p class="col-md-12">
 					<hr class="divider">
-					Copyright &COPY; 2015 <a href="http://www.pingpong-labs.com">AlphaBeta CMS</a>
+					Copyright &COPY; 2015 <a href="http://www.alphabeta.com.mx">AlphaBeta CMS</a>
 				</p>
 			</footer>
 
