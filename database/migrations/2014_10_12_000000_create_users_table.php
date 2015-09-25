@@ -21,7 +21,6 @@ class CreateUsersTable extends Migration
             $table->string('password', 60);
             $table->boolean('actived')->default('0');
             $table->boolean('banned')->default('0');
-            $table->integer('role_id');
             $table->string('ip_address');
             $table->string('code');
             $table->boolean('tour')->default('0');

@@ -67,13 +67,11 @@ class RecipientsController extends Controller
 
         }
 
-        $recipient = new Emailcontact;
-
-        $recipient->name = $request->name;
-        $recipient->email = $request->email;
-        $recipient->user_id = 2;
-
-        $recipient->save();
+        Emailcontact::create([
+            'name'    => $request->name,
+            'email'   => $request->email,
+            'user_id' => \Auth::user()->id
+        ]);
 
         return redirect()->route('Recipients::create')->with('status', '¡Destinatario agregado exitosamente!');
     }
