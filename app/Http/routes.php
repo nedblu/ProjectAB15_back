@@ -60,7 +60,7 @@ Route::group(['as' => 'Auth::', 'prefix' => 'auth'], function () {
     
     Route::get('/login', ['as' => 'index', 'uses' => 'Auth\AuthController@getLogin']);
 
-    Route::post('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@postLogin']);
+    Route::post('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@authenticate']);
 
     Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout'] );
 
@@ -125,6 +125,8 @@ Route::get('/createroles', function() {
 	$user = AlphaBeta\User::find(4);
 
 	$user->attachRole(3);*/
+
+	print_r($request);
 
 
 

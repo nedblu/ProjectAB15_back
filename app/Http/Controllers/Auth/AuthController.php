@@ -4,6 +4,9 @@ namespace AlphaBeta\Http\Controllers\Auth;
 
 use AlphaBeta\User;
 use Validator;
+use Illuminate\Http\Request;
+use Auth;
+use DateTime;
 use AlphaBeta\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -63,5 +66,52 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * Handle an authentication attempt.
+     *
+     * @return Response
+     */
+    public function authenticate(Request $request)
+    {
+
+        $this->validate($request, [
+            $this->loginUsername() => 'required', 'password' => 'required',
+        ]);
+
+        $throttles = $this->isUsingThrottlesLoginsTrait();
+
+        if ($throttles && $this->hasTooManyLoginAttempts($request)) {
+            return $this->sendLockoutResponse($request);
+        }
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'active' => 1], $request->has('remember'))) {
+            return $this->handleUserWasAuthenticated($request, $throttles);
+        }
+
+        if ($throttles) {
+            $this->incrementLoginAttempts($request);
+        }
+
+        return redirect($this->loginPath())
+            ->withInput($request->only($this->loginUsername(), 'remember'))
+            ->withErrors([
+                $this->loginUsername() => $this->getFailedLoginMessage(),
+            ]);
+    }
+
+    protected function authenticated(Request $request, $auth)
+    {
+        $now = new DateTime();
+
+        $user = User::findOrFail($auth->id);
+        $user->last_login = $now->format('Y-m-d H:i:s');
+        $user->ip_address = $request->ip();
+
+        $user->save();
+
+        return redirect()->intended($this->redirectPath());
+        
     }
 }

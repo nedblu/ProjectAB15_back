@@ -38,6 +38,14 @@ class Authenticate
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
+
+                
+                return redirect()->guest('auth/login');
+            }
+        } elseif ($this->auth->check()) {
+
+            if($this->auth->user()->active == 0) {
+                \Auth::logout();
                 return redirect()->guest('auth/login');
             }
         }

@@ -126,9 +126,9 @@ class RecipientsController extends Controller
 
             $recipient = Emailcontact::findOrFail($id);
 
-            $recipient->name = $request->name;
-            $recipient->email = $request->email;
-            $recipient->user_id = 2;
+            $recipient->name    = $request->name;
+            $recipient->email   = $request->email;
+            $recipient->user_id = \Auth::user()->id;
 
             $recipient->save();
 
