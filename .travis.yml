@@ -1,11 +1,17 @@
 language: php
 
 php:
-  - 5.5
+  - 5.5.9
+  - hhvm
+
+env:
+  - DB=mysql
 
 before_script:
-  - phpenv config-add travis.php.ini
-  - curl -s http://getcomposer.org/installer | php
-  - php composer.phar install --prefer-source --no-interaction --dev
+  - composer install
+  - mv .env.example .env
+  - php artisan key:generate
+  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS abproject15;" -uroot; fi
 
-script: phpunit
+script:
+  - phpunit
