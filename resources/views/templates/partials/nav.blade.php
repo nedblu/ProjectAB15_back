@@ -23,17 +23,28 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="http://www.alphabeta.com.mx/" target="_blank">Visualizar el Sitio</a></li>
+						<li><a href="http://www.alphabeta.com.mx/" target="_blank">Visualizar el Sitio&nbsp;&nbsp;<i class="fa fa-television"></i></a></li>
 						<li class="dropdown ">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-								Cuenta Master
+								{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}&nbsp;&nbsp;
 								<span class="caret"></span></a>
 
 								<ul class="dropdown-menu" role="menu">
 									<li class="dropdown-header">CONFIGURACIONES</li>
-									<li class=""><a href="#">Usuarios</a></li>
+									<li class=""><a href="#"><i class="fa fa-user"></i> Perfil</a></li>
+
+								@role('support|owner')
+						    		<li><a href="{{ route('Accounts::index') }}"><i class="fa fa-users"></i> Cuentas</a></li>
+								@endrole
+									
+								@role('support')
 									<li class="divider"></li>
-									<li><a href="{{ route('Auth::logout') }}">Logout</a></li>
+									<li class="dropdown-header">SOPORTE</li>
+						    		<li><a href="{{ route('Recipients::index') }}"><span class="glyphicon glyphicon-envelope"></span> Support</a></li>
+								@endrole
+
+									<li class="divider"></li>
+									<li><a href="{{ route('Auth::logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
 								</ul>
 
 						</li>

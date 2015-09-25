@@ -5,6 +5,9 @@ namespace AlphaBeta\Exceptions;
 use Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Bican\Roles\Exceptions\RoleDeniedException;
+use Bican\Roles\Exceptions\PermissionDeniedException;
+use Bican\Roles\Exceptions\LevelDeniedException;
 
 class Handler extends ExceptionHandler
 {
@@ -39,6 +42,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof RoleDeniedException || $e instanceof PermissionDeniedException || $e instanceof LevelDeniedException) {
+            
+            abort('403');
+        }
+
         return parent::render($request, $e);
     }
 }

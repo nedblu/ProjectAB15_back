@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html class="no-js" lang="es">
 	<head>
@@ -25,6 +24,8 @@
 
 			<div class="col-md-10 content">
 
+				@yield('breadcrumbs')
+
 				@yield('content')
 
 			</div>
@@ -37,23 +38,14 @@
 			</footer>
 
 		</div>
-		
-		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-		<script>
-			$(function () {
-				$('.navbar-toggle-sidebar').click(function () {
-					$('.navbar-nav').toggleClass('slide-in');
-					$('.side-body').toggleClass('body-slide-in');
-					$('#search').removeClass('in').addClass('collapse').slideUp(200);
-				});
 
-				$('#search-trigger').click(function () {
-					$('.navbar-nav').removeClass('slide-in');
-					$('.side-body').removeClass('body-slide-in');
-					$('.search-input').focus();
-				});
-			});
-		</script>
+		@yield('extra-content')
+		
+		{!! Html::script('//code.jquery.com/jquery-1.11.3.min.js') !!}
+		{!! Html::script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js') !!}
+		{!! Html::script('assets/js/vendor/jquery.cookie.js') !!}
+		{!! Html::script('assets/js/vendor/fastclick.js') !!}
+		{!! Html::script('assets/js/plugins.js') !!}
+		{!! Html::script('assets/js/app.js') !!}
 	</body>
 </html>

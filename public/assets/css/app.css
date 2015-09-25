@@ -161,6 +161,7 @@ h1.page-header {
 	-webkit-animation-name: pulse; 
     animation-name: pulse;
 }
+
 @-webkit-keyframes pulse { 
     0% { -webkit-transform: scale(1); } 
     50% { -webkit-transform: scale(1.1); } 

@@ -31,6 +31,24 @@ Route::group(['middleware' => 'auth'], function () {
 		return view('templates.test');
 	}]);
 
+	/* ACCOUNTS APP */
+
+	Route::group(['as' => 'Accounts::', 'prefix' => 'accounts'], function () {
+	    
+	    Route::get('/', ['as' => 'index', 'uses' => 'AccountsController@index']);
+
+	    Route::get('/create', ['as' => 'create', 'uses' => 'AccountsController@create']);
+
+	    Route::post('/create', ['as' => 'store', 'uses' => 'AccountsController@store']);
+
+	    Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'AccountsController@edit'])->where('id','[0-9]+');
+
+	    Route::put('/update/{id}', ['as' => 'update', 'uses' => 'AccountsController@update'])->where('id','[0-9]+');
+
+	    Route::delete('/destroy/{id}', ['as' => 'destroy', 'uses' => 'AccountsController@destroy'])->where('id','[0-9]+');
+
+	});
+
 
 	/* RECIPIENTS APP */
 
@@ -125,10 +143,6 @@ Route::get('/createroles', function() {
 	$user = AlphaBeta\User::find(4);
 
 	$user->attachRole(3);*/
-
-	print_r($request);
-
-
 
 });
 

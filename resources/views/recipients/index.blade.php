@@ -1,6 +1,13 @@
 @extends('templates.partials.main')
 
+
 @section('title') Destinatarios @stop
+
+@section('extra-content')
+
+	@include('templates.partials.modals-delete')
+
+@stop
 
 @section('content')
 
@@ -48,7 +55,7 @@
                     {!! method_field('DELETE') !!}
                     {!! csrf_field() !!}
 
-                    <button type="submit" class="btn btn-danger btn-xs btn-animated"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                    <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Destinatario" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar a <strong>{{ $recipient->email }}</strong>?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
 
                     <a href="{{ route('Recipients::edit', $recipient->id) }}" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
                     
