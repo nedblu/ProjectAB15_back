@@ -150,6 +150,10 @@ h1.page-header {
 }
 
 /* OVERRIDES */
+.bg-custom-grey {
+	background-color: #F8F8F8 !important;
+    padding: 10px;
+    margin-top: 15px;}
 
 .btn-animated {
 	-webkit-animation-duration: 0.5s; 

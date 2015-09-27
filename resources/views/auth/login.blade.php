@@ -3,12 +3,21 @@
 @section('content-form')
   <form method="post" action="{{ route('Auth::login') }}" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" autocomplete="off">
 
-  {!! csrf_field() !!}
+    {!! csrf_field() !!}
+
+    
 
     <div class="row">
+    @if(Input::get('email'))
+      <div class="large-12 columns">
+        <input type="text" name="email" value="{{ Input::get('email') }}" placeholder="Correo electrónico">
+      </div>
+    @else
       <div class="large-12 columns">
         <input type="text" name="email" value="{{ old('email') }}" placeholder="Correo electrónico">
       </div>
+    @endif
+      
     </div>
     <div class="row">
       <div class="large-12 columns">

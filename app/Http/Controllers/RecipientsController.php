@@ -13,7 +13,6 @@ use AlphaBeta\Emailcontact;
 class RecipientsController extends Controller
 {
 
-    protected $maximum = 4;
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +25,7 @@ class RecipientsController extends Controller
 
         $used = Emailcontact::all()->count();
 
-        return view('recipients.index')->with('recipients',$recipients)->with('used',$used)->with('max',$this->maximum);
+        return view('recipients.index')->with('recipients',$recipients)->with('used',$used)->with('max', env('RECIPIENTS_LIMIT'));
     }
 
     /**
@@ -36,7 +35,7 @@ class RecipientsController extends Controller
      */
     public function create()
     {
-        if(Emailcontact::all()->count() >= $this->maximum)
+        if(Emailcontact::all()->count() >= env('RECIPIENTS_LIMIT'))
         {
             return abort('404');
 
@@ -55,7 +54,7 @@ class RecipientsController extends Controller
 
         $validator = \Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|email|unique:emailcontacts,email',
+            'email' => 'required|email|unique:emailcontacts,email'
         ]);
 
         if ($validator->fails()) {
@@ -95,7 +94,6 @@ class RecipientsController extends Controller
             return redirect()->route('Recipients::index');
 
         }
-
         
     }
 
@@ -106,7 +104,7 @@ class RecipientsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $request)
+    public function update(Request $request, $id)
     {
         $validator = \Validator::make($request->all(), [
             'name' => 'required',
@@ -135,9 +133,7 @@ class RecipientsController extends Controller
             return redirect()->route('Recipients::edit',$id)->with('status', '¡El destinatario se ha editado exitosamente!');
 
         } catch(ModelNotFoundException $e) {
-
             return redirect()->route('Recipients::edit',$id);
-
         }
     }
 

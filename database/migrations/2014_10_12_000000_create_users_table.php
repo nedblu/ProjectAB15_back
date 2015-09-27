@@ -20,12 +20,13 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password', 60);
             $table->boolean('active')->default('0');
-            $table->string('ip_address');
-            $table->string('code');
+            $table->integer('ip_address')->nullable()->unsigned();
+            $table->string('code')->nullable();
             $table->boolean('tour')->default('0');
-            $table->dateTime('last_login');
+            $table->dateTime('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

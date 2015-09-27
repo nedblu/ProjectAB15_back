@@ -9,10 +9,11 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Bican\Roles\Traits\HasRoleAndPermission;
 use Bican\Roles\Contracts\HasRoleAndPermission as HasRoleAndPermissionContract;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
-    use Authenticatable, CanResetPassword, HasRoleAndPermission;
+    use Authenticatable, CanResetPassword, HasRoleAndPermission, SoftDeletes;
 
     /**
      * The database table used by the model.
@@ -26,7 +27,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['first_name', 'email', 'password'];
+    protected $fillable = ['first_name','last_name','email','code','username','active','password'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -35,20 +36,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $hidden = ['password', 'remember_token'];
 
-    protected $bindings = [
-        'select' => [],
-        'join'   => [],
-        'where'  => [],
-        'having' => [],
-        'order'  => [],
-        'union'  => [],
-    ];
-
     /**
-     * Role belongs to many users.
+     * The attributes that should be mutated to dates.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @var array
      */
+    protected $dates = ['deleted_at'];
 
     /* 
     *   framework/src/Illuminate/Database/Query/Builder.php Line 1244: 
@@ -68,11 +61,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         }
 
         if (!is_null($except)) {
-
-
+            
             $users = $selfUserModel::join('role_user', 'users.id', '=', 'role_user.user_id')
                 ->join('roles', 'roles.id', '=', 'role_user.role_id')
-                ->select('users.*')
+                ->select('users.id','users.first_name','users.last_name','users.email','users.username','users.active','users.ip_address','users.last_login','roles.name as role','roles.slug', 'roles.description')
                 ->where('roles.slug','=',$roles[0])
                 ->where('users.id', '<>', $except);
 
@@ -83,7 +75,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                 if ($count > 0) {
                     $users_for_union = $selfUserModel::join('role_user', 'users.id', '=', 'role_user.user_id')
                                     ->join('roles', 'roles.id', '=', 'role_user.role_id')
-                                    ->select('users.*')
+                                    ->select('users.id','users.first_name','users.last_name','users.email','users.username','users.active','users.ip_address','users.last_login','roles.name as role','roles.slug', 'roles.description')
                                     ->where('roles.slug','=',$role)
                                     ->where('users.id', '<>', $except);
 
@@ -100,7 +92,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
             $users = $selfUserModel::join('role_user', 'users.id', '=', 'role_user.user_id')
                 ->join('roles', 'roles.id', '=', 'role_user.role_id')
-                ->select('users.*')
+                ->select('users.id','users.first_name','users.last_name','users.email','users.username','users.active','users.ip_address','users.last_login','roles.name as role','roles.slug', 'roles.description')
                 ->where('roles.slug','=',$roles[0]);
 
             $count = 0;
@@ -110,7 +102,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                 if ($count > 0) {
                     $users_for_union = $selfUserModel::join('role_user', 'users.id', '=', 'role_user.user_id')
                                         ->join('roles', 'roles.id', '=', 'role_user.role_id')
-                                        ->select('users.*')
+                                        ->select('users.id','users.first_name','users.last_name','users.email','users.username','users.active','users.ip_address','users.last_login','roles.name as role','roles.slug', 'roles.description')
                                         ->where('roles.slug','=',$role);
 
                     $users = $users->unionAll($users_for_union);
@@ -137,7 +129,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         if (!is_null($except)) {
 
-            return $selfUserModel::select('users.*')
+            return $selfUserModel::select('users.id','users.first_name','users.last_name','users.email','users.username','users.active','users.ip_address','users.last_login','roles.name as role','roles.slug', 'roles.description')
                 ->join('role_user', 'users.id', '=', 'role_user.user_id')
                 ->join('roles', 'roles.id', '=', 'role_user.role_id')
                 ->where('roles.slug','<>',$roles)
@@ -147,7 +139,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         }
         else {
 
-            return $selfUserModel::select('users.*')
+            return $selfUserModel::select('users.id','users.first_name','users.last_name','users.email','users.username','users.active','users.ip_address','users.last_login','roles.name as role','roles.slug', 'roles.description')
                 ->join('role_user', 'users.id', '=', 'role_user.user_id')
                 ->join('roles', 'roles.id', '=', 'role_user.role_id')
                 ->where('roles.slug','<>',$roles)

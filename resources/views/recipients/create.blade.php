@@ -13,22 +13,7 @@
 
 <hr class="divider">
 
-@if (session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
-@endif
-
-@if ($errors->all())
-    <div class="alert alert-danger">
-    	{{ session('error') }}
-    	<ul>
-		@foreach ($errors->all() as $error)
-			<li><strong>{{ $error }}</strong></li>
-		@endforeach
-		</ul>
-    </div>
-@endif
+@include('templates.partials.alerts')
 
 <form class="row col-md-6" method="post" action="{{ route('Recipients::store' ) }}" accept-charset="UTF-8" enctype="application/x-www-form-urlencoded" autocomplete="off">
 	

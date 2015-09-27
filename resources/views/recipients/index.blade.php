@@ -23,10 +23,11 @@
 	<div class="panel-body">
 		<strong>Descripción:</strong> Aplicación para el direccionamiento de los mensajes que provienen del formulario de contacto.
 	</div>
-	<div class="alert alert-warning" role="alert">
-		Esta aplicación tiene un máximo de <strong>{{ $max }} correos</strong> para reenvío. (Recomendable)<br>
-		<p class="lead"><strong>Usados:</strong> {{ $used }} | <strong>Restan:</strong> {{ $max - $used }}</p>
-	</div>
+</div>
+
+<div class="alert alert-warning" role="alert">
+	Esta aplicación tiene un máximo de <strong>{{ $max }} correos</strong> para reenvío. (Recomendable)<br>
+	<p class="lead"><strong>Usados:</strong> {{ $used }} | <strong>Restan:</strong> {{ $max - $used }}</p>
 </div>
 
 <div class="btn-group" role="group" aria-label="ad">

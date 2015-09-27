@@ -107,11 +107,34 @@ class AuthController extends Controller
 
         $user = User::findOrFail($auth->id);
         $user->last_login = $now->format('Y-m-d H:i:s');
-        $user->ip_address = $request->ip();
+        $user->ip_address = ip2long($request->ip());
 
         $user->save();
 
         return redirect()->intended($this->redirectPath());
+        
+    }
+
+    public function activate(Request $request)
+    {
+        if ($request->email && $request->code) {
+
+            $validator = \Validator::make($request->all(), [
+                'email'   => 'required|email',
+                'code'    => 'required'
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->route('Auth::index');
+            }
+
+            User::where('email',$request->email)->where('code',$request->code)->update(['active' => 1]);
+
+            return redirect()->route('Auth::index','email=' . $request->email);
+        }
+        else {
+            return redirect()->route('Auth::index');
+        }
         
     }
 }

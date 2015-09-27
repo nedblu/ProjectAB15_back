@@ -43,6 +43,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 	    Route::get('/edit/{id}', ['as' => 'edit', 'uses' => 'AccountsController@edit'])->where('id','[0-9]+');
 
+	    Route::put('/activation/{id}', ['as' => 'activation', 'uses' => 'AccountsController@activation'])->where('id','[0-9]+');
+
+	    Route::put('/reset/{id}', ['as' => 'reset', 'uses' => 'AccountsController@reset'])->where('id','[0-9]+');
+
 	    Route::put('/update/{id}', ['as' => 'update', 'uses' => 'AccountsController@update'])->where('id','[0-9]+');
 
 	    Route::delete('/destroy/{id}', ['as' => 'destroy', 'uses' => 'AccountsController@destroy'])->where('id','[0-9]+');
@@ -77,6 +81,8 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['as' => 'Auth::', 'prefix' => 'auth'], function () {
     
     Route::get('/login', ['as' => 'index', 'uses' => 'Auth\AuthController@getLogin']);
+
+    Route::get('/activate', ['as' => 'activate', 'uses' => 'Auth\AuthController@activate']);
 
     Route::post('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@authenticate']);
 
