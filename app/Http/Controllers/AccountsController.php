@@ -1,12 +1,12 @@
 <?php
 
-namespace AlphaBeta\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use AlphaBeta\Http\Requests;
-use AlphaBeta\Http\Controllers\Controller;
-use AlphaBeta\User;
-use AlphaBeta\Role;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\User;
+use App\Role;
 use Auth;
 
 class AccountsController extends Controller

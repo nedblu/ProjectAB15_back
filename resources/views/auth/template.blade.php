@@ -1,18 +1,15 @@
-
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <title>AlphaBeta  | Iniciar Sesión</title>
+    <title>{{ env('SYSTEM_NAME','SYSTEM_NAME') }}  | Inicio de Sesión</title>
 
     {!! Html::style('assets/css/normalize.css') !!}
     {!! Html::style('assets/css/foundation.min.css') !!}
     {!! Html::style('assets/css/font-awesome.min.css') !!}
-    
     {!! Html::style('assets/css/app-login.css') !!}
-
     {!! Html::script('js/vendor/modernizr.js') !!}
 
   </head>
@@ -21,7 +18,7 @@
     <nav class="top-bar" data-topbar role="navigation">
       <ul class="title-area">
         <li class="name">
-          <h1><a href="{{ url('auth/login') }}">{!! Html::image('img/small-logo.png','AlphaBeta CMS') !!} AlphaBeta CMS</a></h1>
+          <h1><a href="{{ url('auth/login') }}">{!! Html::image('img/small-' . env('SYSTEM_LOGO','SYSTEM_LOGO'), env('SYSTEM_NAME','SYSTEM_NAME')) !!} {{ env('SYSTEM_NAME','SYSTEM_NAME') }}</a></h1>
         </li>
       </ul>
     </nav>
@@ -32,7 +29,7 @@
           <div class="row">
             <div class="large-12 columns">
               <div class="row logo-area">
-                {!! Html::image('img/logo.png','AlphaBeta CMS', ['id' => 'login-login']) !!}
+                {!! Html::image('img/' .env('SYSTEM_LOGO','SYSTEM_LOGO'), env('SYSTEM_NAME','SYSTEM_NAME'), ['id' => 'login-login']) !!}
               </div>
               
               @yield('content-form')

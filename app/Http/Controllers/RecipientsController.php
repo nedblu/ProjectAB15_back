@@ -1,14 +1,14 @@
 <?php
 
-namespace AlphaBeta\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use AlphaBeta\Http\Requests;
-use AlphaBeta\Http\Controllers\Controller;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-use AlphaBeta\Emailcontact;
+use App\Emailcontact;
 
 class RecipientsController extends Controller
 {

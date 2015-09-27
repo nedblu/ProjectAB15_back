@@ -5,8 +5,6 @@
 
     {!! csrf_field() !!}
 
-    
-
     <div class="row">
     @if(Input::get('email'))
       <div class="large-12 columns">

@@ -15,7 +15,7 @@
 						<span class="icon-bar"></span>
 					</button>
 
-					<a class="navbar-brand" href="{{ route('Home::index') }}"> AlphaBeta CMS </a>
+					<a class="navbar-brand" href="{{ route('Home::index') }}">{{ env('SYSTEM_NAME','SYSTEM_NAME') }}</a>
 
 				</div>
 
@@ -23,7 +23,7 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="http://www.alphabeta.com.mx/" target="_blank">Visualizar el Sitio&nbsp;&nbsp;<i class="fa fa-television"></i></a></li>
+						<li><a href="{{ env('SYSTEM_URL','SYSTEM_URL') }}" target="_blank">Visualizar el Sitio&nbsp;&nbsp;<i class="fa fa-television"></i></a></li>
 						<li class="dropdown ">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 								{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}&nbsp;&nbsp;

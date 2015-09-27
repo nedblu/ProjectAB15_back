@@ -134,19 +134,19 @@ Route::get('/createroles', function() {
 	    'level' => 4, // optional, set to 1 by default
 	]);
 
-	$user = AlphaBeta\User::find(1);
+	$user = App\User::find(1);
 
 	$user->attachRole(1);
 
-	$user = AlphaBeta\User::find(2);
+	$user = App\User::find(2);
 
 	$user->attachRole(1);
 
-	$user = AlphaBeta\User::find(3);
+	$user = App\User::find(3);
 
 	$user->attachRole(2);
 
-	$user = AlphaBeta\User::find(4);
+	$user = App\User::find(4);
 
 	$user->attachRole(3);*/
 

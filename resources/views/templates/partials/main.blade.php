@@ -33,7 +33,7 @@
 			<footer class="pull-left footer">
 				<p class="col-md-12">
 					<hr class="divider">
-					Copyright &COPY; 2015 <a href="http://www.alphabeta.com.mx">AlphaBeta CMS</a>
+					Copyright &COPY; 2015 <a href="{{ env('SYSTEM_URL') }}">{{ env('SYSTEM_NAME') }}</a>
 				</p>
 			</footer>
 

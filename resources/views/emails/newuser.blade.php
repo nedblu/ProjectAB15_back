@@ -128,30 +128,6 @@
 </head>
 <body style="margin: 0; padding: 0;">
 
-<!-- HEADER -->
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
-    <tr>
-        <td bgcolor="#ffffff" align="center" width="100%" style="padding: 20px 15px 20px 15px;" class="section-header">
-            <!-- HIDDEN PREHEADER TEXT -->
-            <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
-                Entice the open with some amazing preheader text. Use a little mystery and get those subscribers to read through... 
-            </div>
-            <table border="0" cellpadding="0" cellspacing="0" width="500" class="wrapper" align="center">
-                <!-- LOGO/PREHEADER TEXT -->
-                <tr>
-                    <td align="center">
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                            <tr>
-                                <td bgcolor="#ffffff" align="center"><a href="#" target="_blank"><img alt="Logo" src="{{ asset('img/logo.png') }}" width="150" height="150" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0"></a></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
-
 <!-- ONE COLUMN SECTION -->
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr>
@@ -165,11 +141,11 @@
                                     <!-- COPY -->
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td align="left" style="font-size: 25px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;" class="padding-copy">Hola {{ $account->first_name }}, AlphaBeta te agregó como {{ $role->name }}</td>
+                                            <td align="left" style="font-size: 25px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;" class="padding-copy">Hola {{ $account->first_name }}, {{ env('SYSTEM_NAME','SYSTEM_NAME') }}  te agregó como {{ $role->name }}</td>
                                         </tr>
                                         <tr>
                                             <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">
-                                                AlphaBeta te ha agregado a su sistema de contenidos para su sitio web como {{ $role->name }}, por lo que podrás realizar las siguientes operaciones:<br><i>{{ $role->description }}</i>
+                                                {{ env('SYSTEM_NAME','SYSTEM_NAME') }}  te ha agregado a su sistema de contenidos para su sitio web como {{ $role->name }}, por lo que podrás realizar las siguientes operaciones:<br><i>{{ $role->description }}</i>
                                             </td>
                                             
                                         </tr>
@@ -216,7 +192,7 @@
                         <table width="500" border="0" cellspacing="0" cellpadding="0" align="center" class="responsive-table">
                             <tr>
                                 <td align="center" class="padding-copy" style="font-size: 12px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color:#666666;">
-                                    <span class="appleFooter" style="color:#666666;">Av. Arcos #791, Jardines del bosque, Guadalajara, Jal., México; C.P. 44520.</span>
+                                    <span class="appleFooter" style="color:#666666;">{{ env('SYSTEM_ADDRESS','SYSTEM_ADDRESS') }}</span>
                                 </td>
                             </tr>
                         </table>
