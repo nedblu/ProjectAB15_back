@@ -127,7 +127,24 @@
 </style>
 </head>
 <body style="margin: 0; padding: 0;">
-
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+        <td bgcolor="#ffffff" align="center" width="100%" style="padding: 20px 15px 20px 15px;" class="section-header">
+            <table border="0" cellpadding="0" cellspacing="0" width="500" class="wrapper" align="center">
+                <!-- LOGO/PREHEADER TEXT -->
+                <tr>
+                    <td align="center">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td bgcolor="#ffffff" align="center"><a href="{{ env('SYSTEM_URL', '#SYSTEM_URL') }}" target="_blank"><img alt="{{ env('SYSTEM_NAME', 'SYSTEM_NAME') }}" src="{{ asset('img/' . {{ env('SYSTEM_LOGO', 'SYSTEM_LOGO') }}) }}" width="150" height="150" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0"></a></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
 <!-- ONE COLUMN SECTION -->
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr>
