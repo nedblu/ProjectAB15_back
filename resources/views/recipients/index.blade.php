@@ -41,9 +41,9 @@
 
 		<thead>
 			<tr>
-				<th class="col-md-5">Nombre</th>
-				<th class="col-md-5">Correo Electrónico</th>
-				<th class="col-md-2">Acciones</th>
+				<th>Nombre</th>
+				<th>Correo Electrónico</th>
+				<th>Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -53,7 +53,7 @@
 				<td>{{ $recipient->email }}</td>
 				<td>
 
-				<form class="row col-md-6" action="{{ route('Recipients::destroy', $recipient->id) }}" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">
+				<form action="{{ route('Recipients::destroy', $recipient->id) }}" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">
                     
                     {!! method_field('DELETE') !!}
                     {!! csrf_field() !!}
