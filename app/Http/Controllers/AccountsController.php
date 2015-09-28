@@ -28,12 +28,21 @@ class AccountsController extends Controller
 						->select('users.*', 'roles.name as role', 'roles.slug', 'roles.level')
 						->get();
 		} 
-		else {
+		else if (Auth::user()->is('owner')) {
 			
 			$accounts = User::join('role_user', 'users.id','=', 'role_user.user_id')
 						->join('roles', 'roles.id', '=', 'role_user.role_id')
 						->where('users.id', '<>', Auth::id())
 						->where('roles.slug', '<>', 'support')
+						->select('users.*', 'roles.name as role', 'roles.slug', 'roles.level')
+						->get();
+		}
+		else {
+			$accounts = User::join('role_user', 'users.id','=', 'role_user.user_id')
+						->join('roles', 'roles.id', '=', 'role_user.role_id')
+						->where('users.id', '<>', Auth::id())
+						->where('roles.slug', '<>', 'support')
+						->where('roles.slug', '<>', 'owner')
 						->select('users.*', 'roles.name as role', 'roles.slug', 'roles.level')
 						->get();
 		}

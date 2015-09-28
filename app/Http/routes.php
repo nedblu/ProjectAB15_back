@@ -57,6 +57,16 @@ Route::group(['middleware' => 'auth'], function () {
 
 	});
 
+	/* CATALOG APP */
+
+	Route::group(['as' => 'Catalogs::', 'prefix' => 'catalogs'], function () {
+	    
+	    Route::get('/', ['as' => 'index', 'uses' => 'CatalogsController@index']);
+
+	    Route::get('/json', ['as' => 'json_colors', 'uses' => 'CatalogsController@getJSONColors']);
+
+	});
+
 
 	/* RECIPIENTS APP */
 
@@ -77,6 +87,8 @@ Route::group(['middleware' => 'auth'], function () {
 	});
 
 });
+
+Route::get('/test', ['as' => 'json_colors', 'uses' => 'CatalogsController@getJSONColors']);
 
 /* AUTHENTICATION SYSTEM */
 
@@ -103,11 +115,6 @@ Route::group(['as' => 'Password::', 'prefix' => 'password'], function () {
     Route::get('/reset/{token}', ['as' => 'resetToken', 'uses' => 'Auth\PasswordController@getReset'] );
 
     Route::post('/reset', ['as' => 'reset', 'uses' => 'Auth\PasswordController@postReset'] );
-
-});
-
-Route::get('/test', function() {
-
 
 });
 
