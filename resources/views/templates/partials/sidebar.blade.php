@@ -17,7 +17,7 @@
 								<div id="dropdown-lvl1" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul class="nav navbar-nav">
-											<li><a href="#"><i class="fa fa-cubes"></i>Pruductos</a></li>
+											<li><a href="#"><i class="fa fa-cubes"></i>Productos</a></li>
 											<li><a href="#"><i class="fa fa-tint"></i>Colores</a></li>
 										</ul>
 									</div>
