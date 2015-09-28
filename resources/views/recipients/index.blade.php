@@ -24,7 +24,7 @@
 	</div>
 </div>
 
-@role('admin|owner|moderator|editor', 'all')
+@role('admin|owner|moderator|editor')
     <div class="alert alert-warning" role="alert">
 		Esta aplicación tiene un máximo de <strong>{{ $max }} correos</strong> para reenvío. (Recomendable)<br>
 		<p class="lead"><strong>Usados:</strong> {{ $used }} | <strong>Restan:</strong> {{ $max - $used }}</p>
