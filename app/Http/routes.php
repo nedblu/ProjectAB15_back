@@ -108,9 +108,6 @@ Route::group(['as' => 'Password::', 'prefix' => 'password'], function () {
 
 Route::get('/test', function() {
 
-	$users = DB::table('view_role_user')->get();
-	echo "<pre>";
-	print_r($users);
 
 });
 

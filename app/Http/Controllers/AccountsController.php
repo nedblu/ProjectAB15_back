@@ -21,10 +21,21 @@ class AccountsController extends Controller
 	{
 
 		if (Auth::user()->is('support')) {
-			$accounts = \DB::table('view_role_user')->where('id', '<>', Auth::id())->get();
+
+			$accounts = User::join('role_user', 'users.id','=', 'role_user.user_id')
+						->join('roles', 'roles.id', '=', 'role_user.role_id')
+						->where('users.id', '<>', Auth::id())
+						->select('users.*', 'roles.name as role', 'roles.slug', 'roles.level')
+						->get();
 		} 
 		else {
-			$accounts = \DB::table('view_role_user')->where('slug','<>','support')->where('id', '<>', Auth::id())->get();
+			
+			$accounts = User::join('role_user', 'users.id','=', 'role_user.user_id')
+						->join('roles', 'roles.id', '=', 'role_user.role_id')
+						->where('users.id', '<>', Auth::id())
+						->where('roles.slug', '<>', 'support')
+						->select('users.*', 'roles.name as role', 'roles.slug', 'roles.level')
+						->get();
 		}
 		
 		$used = User::where('id','<>',1)->where('id','<>',2)->count();
