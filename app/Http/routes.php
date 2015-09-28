@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
 		//$image = Image::make('C:\xampp\htdocs\projects\alphabeta_web\public_html\img\ABlogo.png');
 		//return $image->response();
 		
-		return view('templates.test');
+		return view('home');
 	}]);
 
 	/* ACCOUNTS APP */
@@ -50,6 +50,10 @@ Route::group(['middleware' => 'auth'], function () {
 	    Route::put('/update/{id}', ['as' => 'update', 'uses' => 'AccountsController@update'])->where('id','[0-9]+');
 
 	    Route::delete('/destroy/{id}', ['as' => 'destroy', 'uses' => 'AccountsController@destroy'])->where('id','[0-9]+');
+
+	    Route::get('/notice', ['as' => 'notice', 'uses' => 'AccountsController@notice']);
+
+	    Route::put('/notice', ['as' => 'update-notice', 'uses' => 'AccountsController@updateNotice']);
 
 	});
 
@@ -73,8 +77,6 @@ Route::group(['middleware' => 'auth'], function () {
 	});
 
 });
-
-
 
 /* AUTHENTICATION SYSTEM */
 
@@ -104,51 +106,11 @@ Route::group(['as' => 'Password::', 'prefix' => 'password'], function () {
 
 });
 
-Route::get('/createroles', function() {
+Route::get('/test', function() {
 
-	/*$adminRole = Bican\Roles\Models\Role::create([
-	    'name' => 'SUPPORT',
-	    'slug' => str_slug('SUPPORT'),
-	    'description' => 'Account for Support, please don\'t login here.', // optional
-	    'level' => 1, // optional, set to 1 by default
-	]);
-
-	$adminRole = Bican\Roles\Models\Role::create([
-	    'name' => 'OWNER',
-	    'slug' => str_slug('OWNER'),
-	    'description' => 'Main account for the OWNER, with all permissions.', // optional
-	    'level' => 2, // optional, set to 1 by default
-	]);
-
-	$adminRole = Bican\Roles\Models\Role::create([
-	    'name' => 'ADMIN',
-	    'slug' => str_slug('ADMIN'),
-	    'description' => 'Use this for people that have a level for delete things and modify configs.', // optional
-	    'level' => 3, // optional, set to 1 by default
-	]);
-
-	$adminRole = Bican\Roles\Models\Role::create([
-	    'name' => 'EDITOR',
-	    'slug' => str_slug('EDITOR'),
-	    'description' => 'Use this for people that helps to fix typos.', // optional
-	    'level' => 4, // optional, set to 1 by default
-	]);
-
-	$user = App\User::find(1);
-
-	$user->attachRole(1);
-
-	$user = App\User::find(2);
-
-	$user->attachRole(1);
-
-	$user = App\User::find(3);
-
-	$user->attachRole(2);
-
-	$user = App\User::find(4);
-
-	$user->attachRole(3);*/
+	$users = DB::table('view_role_user')->get();
+	echo "<pre>";
+	print_r($users);
 
 });
 

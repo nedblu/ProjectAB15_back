@@ -21,22 +21,10 @@ class AccountsController extends Controller
 	{
 
 		if (Auth::user()->is('support')) {
-			$roles = Role::select('slug')->get();
-			$limit = 1;
-			$roles_var = '';
-
-			foreach ($roles as $role) {
-				if ($limit < count($roles))
-					$roles_var .= $role->slug . '|';
-				else
-					$roles_var .= $role->slug;
-				++$limit;
-			}
-
-			$accounts = User::getUsersWhereRoleIs($roles_var, Auth::id());
+			$accounts = \DB::table('view_role_user')->where('id', '<>', Auth::id())->get();
 		} 
 		else {
-			$accounts = User::getUsersExceptRole('support', Auth::id());
+			$accounts = \DB::table('view_role_user')->where('slug','<>','support')->where('id', '<>', Auth::id())->get();
 		}
 		
 		$used = User::where('id','<>',1)->where('id','<>',2)->count();
@@ -262,5 +250,60 @@ class AccountsController extends Controller
             return redirect()->route('Accounts::index');
 
         }
+	}
+
+	/**
+	 * Edit notice
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function notice()
+	{
+		$notice = \DB::table('notices')->where('id',1)->get();
+
+		return view('accounts.notice')->with('notice',$notice);
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function updateNotice(Request $request)
+	{
+		$notice = \DB::table('notices')->where('id',1)->count();
+
+		if ($notice) {
+
+			if ($request->has('body')) {
+
+				\DB::table('notices')
+	            ->where('id', 1)
+	            ->update(['body' => $request->body, 'published' => $request->publish]);
+	            return redirect()->route('Accounts::notice');
+			}
+			else {
+
+				\DB::table('notices')
+	            ->where('id', 1)
+	            ->update(['published' => $request->publish]);
+	             return redirect()->route('Accounts::notice');
+			}
+		}
+		else {
+			if ($request->has('body')) {
+				\DB::table('notices')->insert(
+				    ['body' => $request->body, 'published' => $request->publish]
+				);
+				return redirect()->route('Accounts::notice');
+			}
+			else
+			{
+				return redirect()->route('Accounts::notice');
+			}
+			
+		}
+
 	}
 }

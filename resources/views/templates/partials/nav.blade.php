@@ -35,6 +35,7 @@
 
 								@role('support|owner')
 						    		<li><a href="{{ route('Accounts::index') }}"><i class="fa fa-users"></i> Cuentas</a></li>
+						    		<li><a href="{{ route('Accounts::notice') }}"><i class="fa fa-bullhorn"></i> Publicar aviso</a></li>
 								@endrole
 									
 								@role('support')

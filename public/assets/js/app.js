@@ -31,5 +31,22 @@ $(document).ready(function() {
 
 	});
 
+	$('[data-toggle="popover"]').popover();
+
+	$('input[name=publish').on('click', function(){
+		var value = $('input[name=publish]:checked').val();
+		if (value == 0)
+		{
+			$('textarea[name=body').prop( "disabled", true );
+			$('textarea[name=body').prop( "required", false );
+		}
+		else
+		{
+			$('textarea[name=body').prop( "disabled", false );
+			$('textarea[name=body').prop( "required", true );
+		}
+	});
+
+	
 
 });

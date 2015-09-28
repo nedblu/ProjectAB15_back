@@ -47,7 +47,7 @@ h1.page-header {
 .side-menu .navbar-nav li a {
 	padding: 15px;
 }
-.side-menu .navbar-nav li a .glyphicon {
+.side-menu .navbar-nav li a .fa {
 	padding-right: 10px;
 }
 .side-menu #dropdown {
@@ -153,7 +153,17 @@ h1.page-header {
 .bg-custom-grey {
 	background-color: #F8F8F8 !important;
     padding: 10px;
-    margin-top: 15px;}
+    margin-top: 15px;
+}
+.alert-notice {
+	text-align: center;
+	background-color: #052436;
+	margin-bottom: 0;
+	border-radius:0;
+}
+.alert-notice span {
+	font-weight: bold;
+}
 
 .btn-animated {
 	-webkit-animation-duration: 0.5s; 

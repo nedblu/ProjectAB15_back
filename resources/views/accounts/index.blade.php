@@ -1,5 +1,4 @@
-@extends('templates.partials.main')
-
+@extends('templates.main')
 
 @section('title') Cuentas @stop
 

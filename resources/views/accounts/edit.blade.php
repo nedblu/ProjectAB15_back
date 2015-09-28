@@ -1,4 +1,4 @@
-@extends('templates.partials.main')
+@extends('templates.main')
 
 @section('title') Editar cuenta @stop
 

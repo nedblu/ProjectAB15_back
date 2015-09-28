@@ -1,5 +1,4 @@
-@extends('templates.partials.main')
-
+@extends('templates.main')
 
 @section('title') Destinatarios @stop
 
@@ -25,10 +24,13 @@
 	</div>
 </div>
 
-<div class="alert alert-warning" role="alert">
-	Esta aplicación tiene un máximo de <strong>{{ $max }} correos</strong> para reenvío. (Recomendable)<br>
-	<p class="lead"><strong>Usados:</strong> {{ $used }} | <strong>Restan:</strong> {{ $max - $used }}</p>
-</div>
+@role('admin|owner|moderator', 'all')
+    <div class="alert alert-warning" role="alert">
+		Esta aplicación tiene un máximo de <strong>{{ $max }} correos</strong> para reenvío. (Recomendable)<br>
+		<p class="lead"><strong>Usados:</strong> {{ $used }} | <strong>Restan:</strong> {{ $max - $used }}</p>
+	</div>
+@endrole
+
 
 <div class="btn-group" role="group" aria-label="ad">
 	<a href="{{ route('Recipients::create') }}" class="btn btn-primary {{ ($used == $max ) ? 'disabled' : null }}"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Nuevo Destinatario</a> 
