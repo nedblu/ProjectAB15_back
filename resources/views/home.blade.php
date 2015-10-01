@@ -62,7 +62,7 @@ Bienvenido
 				<tr>
 					<td class="col-md-2"><strong><i class="fa fa-desktop"></i> Dirección IP</strong></td>
 					<td>
-						@if(Auth::user()->ip_address)
+						@if(Auth::user()->ip_address !== null)
 							@ip(Auth::user()->ip_address)
 						@else
 							<span class="label label-warning">No disponible</span>
