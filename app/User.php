@@ -138,7 +138,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @return array
      */
-    public static function getUsersWithRoles()
+    public static function allUsersWithRoles()
     {
 
         $users = \DB::table('users')->join('role_user', 'users.id','=', 'role_user.user_id')

@@ -57,7 +57,7 @@
 			<tbody>
 			@forelse ($accounts as $account)
 				<tr>
-					<td>{{ $account->first_name . ' ' . $account->last_name }}</td>
+					<td><a href="{{ route('Accounts::profile',$account->id) }}" title="{{ $account->first_name . ' ' . $account->last_name }}">{{ $account->first_name . ' ' . $account->last_name }}</a></td>
 					<td>{{ $account->username }}</td>
 					<td>{{ $account->role }}</td>
 					<td>{{ $account->email }}</td>

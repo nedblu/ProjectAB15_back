@@ -50,6 +50,7 @@
 		{!! Html::script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js') !!}
 		{!! Html::script('assets/js/vendor/jquery.cookie.js') !!}
 		{!! Html::script('assets/js/vendor/fastclick.js') !!}
+		{!! Html::script('//cdn.jsdelivr.net/jquery.dirtyforms/2.0.0-beta00005/jquery.dirtyforms.min.js') !!}
 		{!! Html::script('assets/js/plugins.js') !!}
 		{!! Html::script('assets/js/app.js') !!}
 	</body>

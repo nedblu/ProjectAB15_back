@@ -31,7 +31,7 @@
 
 								<ul class="dropdown-menu" role="menu">
 									<li class="dropdown-header">CONFIGURACIONES</li>
-									<li class=""><a href="#"><i class="fa fa-user"></i> Perfil</a></li>
+									<li class=""><a href="{{ route('Accounts::profile') }}"><i class="fa fa-user"></i> Perfil</a></li>
 
 								@role('support|owner')
 						    		<li><a href="{{ route('Accounts::index') }}"><i class="fa fa-users"></i> Cuentas</a></li>

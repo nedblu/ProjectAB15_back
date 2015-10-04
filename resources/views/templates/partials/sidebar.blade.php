@@ -25,7 +25,6 @@
 							</li>
 							<li><a href="#"><i class="fa fa-briefcase"></i>Técnicas</a></li>
 							<li><a href="{{ route('Recipients::index') }}"><i class="fa fa-envelope"></i>Destinatarios</a></li>
-							<li><a href="{{ route('Accounts::notice') }}"><i class="fa fa-bullhorn"></i>Publicar aviso</a></li>
 			
 						</ul>
 					</div><!-- /.navbar-collapse -->

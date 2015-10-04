@@ -30,8 +30,8 @@
 		{!! method_field('PUT') !!}
 		<div class="col-md-6">
 			<div class="form-group">
-				<label for="name"><strong>Nombre</strong></label>
-				<input type="text" class="form-control" id="name" name="name" placeholder="Nombre" value="{{ $account->first_name }}" disabled>
+				<label for="first_name"><strong>Nombre</strong></label>
+				<input type="text" class="form-control" id="name" name="first_name" placeholder="Nombre" value="{{ $account->first_name }}" disabled>
 			</div>
 			
 			<div class="form-group">
@@ -41,8 +41,8 @@
 		</div>
 		<div class="col-md-6">
 			<div class="form-group">
-				<label for="name"><strong>Apellido</strong></label>
-				<input type="text" class="form-control" id="name" name="name" placeholder="Nombre" value="{{ $account->last_name }}" disabled>
+				<label for="last_name"><strong>Apellido</strong></label>
+				<input type="text" class="form-control" id="name" name="last_name" placeholder="Apellido" value="{{ $account->last_name }}" disabled>
 			</div>
 			<div class="form-group">
 				<label for="type_account"><strong>Tipo de Cuenta</strong></label>

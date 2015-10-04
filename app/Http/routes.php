@@ -55,6 +55,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 	    Route::put('/notice', ['as' => 'update-notice', 'uses' => 'AccountsController@updateNotice']);
 
+	    Route::get('/profile/{id?}', ['as' => 'profile', 'uses' => 'AccountsController@profile'])->where('id','[0-9]+');
+
+	    Route::get('/profile/edit', ['as' => 'profile_edit', 'uses' => 'AccountsController@profile_edit']);
+
+	    Route::put('/profile/update', ['as' => 'profile_update', 'uses' => 'AccountsController@profile_update']);
+
 	});
 
 	/* CATALOG APP */
