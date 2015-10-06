@@ -47,6 +47,31 @@ $(document).ready(function() {
 		}
 	});
 
+	$('.flexslider').flexslider({
+        animation: "slide",
+        animationLoop: false,
+        itemWidth: 300,
+        itemMargin: 5,
+    	directionNav: false
+    });
+
+    var token = $('.token').attr('data-token');
+
+	Dropzone.autoDiscover = false;
+	var myDropzone = new Dropzone("#dropzoneFileUpload", {
+		url: "http://localhost:8080/projects/alphabeta_cms/public/slides/upload",
+		params: {
+			_token: token
+		}
+	});
 	
+	Dropzone.options.myAwesomeDropzone = {
+		paramName: "file", // The name that will be used to transfer the file
+		maxFilesize: 2, // MB
+		addRemoveLinks: true,
+		accept: function(file, done) {
+			
+		},
+	};
 
 });

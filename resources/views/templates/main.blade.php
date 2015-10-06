@@ -11,6 +11,8 @@
 		{!! Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css') !!}
 		{!! Html::style('https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/paper/bootstrap.min.css') !!}
 		{!! Html::style('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css') !!}
+		{!! Html::style('assets/css/vendor/flexslider.css') !!}
+		{!! Html::style('assets/css/vendor/dropzone.css') !!}
 		{!! Html::style('assets/css/app.css') !!}
 		{!! Html::script('assets/js/vendor/modernizr.js') !!}
 	</head>
@@ -28,8 +30,6 @@
 		@include('templates.partials.sidebar')
 
 			<div class="col-md-10 content">
-
-				@yield('breadcrumbs')
 
 				@yield('content')
 
@@ -50,6 +50,8 @@
 		{!! Html::script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js') !!}
 		{!! Html::script('assets/js/vendor/jquery.cookie.js') !!}
 		{!! Html::script('assets/js/vendor/fastclick.js') !!}
+		{!! Html::script('assets/js/vendor/jquery.flexslider.js') !!}
+		{!! Html::script('assets/js/vendor/dropzone.js') !!}
 		{!! Html::script('//cdn.jsdelivr.net/jquery.dirtyforms/2.0.0-beta00005/jquery.dirtyforms.min.js') !!}
 		{!! Html::script('assets/js/plugins.js') !!}
 		{!! Html::script('assets/js/app.js') !!}

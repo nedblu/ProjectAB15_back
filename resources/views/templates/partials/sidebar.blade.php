@@ -5,7 +5,7 @@
 					<!-- Main Menu -->
 					<div class="side-menu-container">
 						<ul class="nav navbar-nav">
-							<li><a href="#"><i class="fa fa-camera"></i>Slider</a></li>
+							<li><a href="{{ route('Slides::index') }}"><i class="fa fa-picture-o"></i>Slider</a></li>
 
 							<!-- Dropdown-->
 							<li class="panel panel-default" id="dropdown">

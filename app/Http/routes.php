@@ -73,6 +73,16 @@ Route::group(['middleware' => 'auth'], function () {
 
 	});
 
+	/* SLIDESHOW APP */
+
+	Route::group(['as' => 'Slides::', 'prefix' => 'slides'], function () {
+	    
+	    Route::get('/', ['as' => 'index', 'uses' => 'SlidesController@index']);
+
+	    Route::post('/upload', ['as' => 'upload', 'uses' => 'SlidesController@upload']);
+
+	});
+
 
 	/* RECIPIENTS APP */
 
