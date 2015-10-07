@@ -47,7 +47,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('.flexslider').flexslider({
+	/*$('.flexslider').flexslider({
         animation: "slide",
         animationLoop: false,
         itemWidth: 300,
@@ -56,10 +56,11 @@ $(document).ready(function() {
     });
 
     var token = $('.token').attr('data-token');
+    var baseURL = window.location.href;
 
 	Dropzone.autoDiscover = false;
 	var myDropzone = new Dropzone("#dropzoneFileUpload", {
-		url: "http://localhost:8080/projects/alphabeta_cms/public/slides/upload",
+		url: baseURL + "/upload",
 		params: {
 			_token: token
 		}
@@ -72,6 +73,6 @@ $(document).ready(function() {
 		accept: function(file, done) {
 			
 		},
-	};
+	};*/
 
 });

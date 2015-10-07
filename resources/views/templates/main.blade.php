@@ -46,7 +46,8 @@
 
 		@yield('extra-content')
 		
-		{!! Html::script('//code.jquery.com/jquery-1.11.3.min.js') !!}
+		@section('scripts')
+        {!! Html::script('//code.jquery.com/jquery-1.11.3.min.js') !!}
 		{!! Html::script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js') !!}
 		{!! Html::script('assets/js/vendor/jquery.cookie.js') !!}
 		{!! Html::script('assets/js/vendor/fastclick.js') !!}
@@ -55,5 +56,7 @@
 		{!! Html::script('//cdn.jsdelivr.net/jquery.dirtyforms/2.0.0-beta00005/jquery.dirtyforms.min.js') !!}
 		{!! Html::script('assets/js/plugins.js') !!}
 		{!! Html::script('assets/js/app.js') !!}
+        @show
+		
 	</body>
 </html>
