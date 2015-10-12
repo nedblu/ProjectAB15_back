@@ -8,16 +8,44 @@ $(document).ready(function() {
     	directionNav: false
     });
 
-    var token = $('.token').attr('data-token');
+    Sortable.create(simpleList, { 
+		animation: 150,
+    	onSort: function (evt) {
+    		var itemEl = evt.item;
+    		var itemfrom = evt.from;
+	    	console.log( "test" );
+	    },
+    });
+
+     $(".fancy-btn").fancybox({
+    	openEffect	: 'elastic',
+    	closeEffect	: 'elastic',
+    	helpers : {
+    		title : {
+    			type : 'float'
+    		}
+    	}
+    });
+
+    /*var token = $('.token').attr('data-token');
     var baseURL = window.location.href;
 
 	Dropzone.autoDiscover = false;
+
+	console.log (baseURL);
+
 	var myDropzone = new Dropzone("#dropzoneFileUpload", {
-		url: baseURL + "/create/image/upload",
+		url: baseURL + "/image/upload",
+		autoProcessQueue: false,
 		params: {
 			_token: token
 		}
 	});
+
+	$('#add').on('click',function(e){
+        e.preventDefault();
+        myDropzone.processQueue();  
+	}); 
 	
 	Dropzone.options.myAwesomeDropzone = {
 		paramName: "file", // The name that will be used to transfer the file
@@ -26,6 +54,6 @@ $(document).ready(function() {
 		accept: function(file, done) {
 			
 		},
-	};
+	};*/
 
 });

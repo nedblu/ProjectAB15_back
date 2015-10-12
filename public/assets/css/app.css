@@ -181,7 +181,9 @@ h1.page-header {
 .alert-notice span {
 	font-weight: bold;
 }
-
+.slide-sortable-list {
+	cursor: move;
+}
 .btn-animated {
 	-webkit-animation-duration: 0.5s; 
     animation-duration: 0.5s; 

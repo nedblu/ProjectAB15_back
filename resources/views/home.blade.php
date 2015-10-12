@@ -7,7 +7,7 @@ Bienvenido
 
 @section('content')
 <div class="page-header">
-  <h1>Bievenido {{ Auth::user()->first_name }}</h1>
+  <h1>Bienvenido {{ Auth::user()->first_name }}</h1>
 </div>
 <p>
 	Hola {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}, bienvenido a <strong>{{ env('SYSTEM_NAME', 'SYSTEM_NAME') }}</strong>, sistema adquirido por <strong>{{ env('SYSTEM_COMPANY','SYSTEM_COMPANY') }}</strong> donde encontrarás todas las funciones relacionadas con la gestión del <a href="{{ env('SYSTEM_URL') }}" class="link">sitio web</a>, se cuidadoso con cada cambio que realices.

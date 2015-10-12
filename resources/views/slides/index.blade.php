@@ -18,61 +18,81 @@
 
 <div class="col-md-12 row">
 
+  @if(count($banners) > 0)
+
 	<h4>Imágenes actuales</h4>
 
 	<p class="bg-custom-grey">
 		Las imágenes que se muestran aquí, han sido recortadas con el fin de presentarlas de manera óptima, si deseas ver las imágenes que actualmente se encuentran en el sitio, te recomentamos presionar el botón superior que dice "Visualizar el Sitio".
 	</p>
-
+  
 	<div class="flexslider carousel">
-        <ul class="slides">
-            <li>
-  	    	    <img src="../../public_html/content/slide-show/caption_momentos.gif" alt="">
-  	    	</li>
-  	    	<li>
-  	    	    <img src="../../public_html/content/slide-show/caption_momentos.gif" alt="">
-  	    	</li>
-  	    	<li>
-  	    	    <img src="../../public_html/content/slide-show/caption_momentos.gif" alt="">
-  	    	</li>
-  	    	<li>
-  	    	    <img src="../../public_html/content/slide-show/caption_momentos.gif" alt="">
-  	    	</li>
-  	    	<li>
-  	    	    <img src="../../public_html/content/slide-show/caption_momentos.gif" alt="">
-  	    	</li>
-  	    	<li>
-  	    	    <img src="../../public_html/content/slide-show/caption_momentos.gif" alt="">
-  	    	</li>
-  	    	<li>
-  	    	    <img src="../../public_html/content/slide-show/caption_momentos.gif" alt="">
-  	    	</li>
-  	    	<li>
-  	    	    <img src="../../public_html/content/slide-show/caption_momentos.gif" alt="">
-  	    	</li>
-        </ul>
-    </div>
+    <ul class="slides">
+    @foreach($banners as $banner)
+      <li>
+      {!! Html::image('assets/content_application/thumbnail_' . $banner->image, $banner->title) !!}
+    	</li>
+    @endforeach
+    </ul>
+  </div>
+  @endif
 
-    <div>
-    	<h4>Subir nuevo slide</h4>
-
-    	<form enctype="multipart/form-data" action=" " method="POST" class="bg-custom-grey dropzone custom-dropzone" id="dropzoneFileUpload">
-    		<div class="dz-message">
-    			<i class="fa fa-upload"></i><br>
-    			<span class="lead"><strong>Arrastra aquí tu imagen</strong></span><br>
-    			<small>Las especificaciones óptimas para una nueva imágen deben ser: <strong>1366px x 400px</strong> optimizadas, su peso máximo debe ser de <strong>2MB</strong> de lo contrario la imagen no se subirá.</small>
-        </div>
-  			<div class="fallback">
-    			<input name="file" type="file" multiple />
-  			</div>
-		  </form>
-		  <div class="token" data-token="{{ Session::getToken() }}"></div>
-		
-    </div>
-	
+  <ul id="simpleList" class="list-group">
+  <li class="list-group-item slide-sortable-list">
+    Pruebaasd
+    
+    <form action=" " class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">                        
+        {!! method_field('DELETE') !!}
+        {!! csrf_field() !!}
+        <a class="btn btn-primary btn-xs fancy-btn" href="http://farm4.staticflickr.com/3826/18875570170_e20cf27a4d_b.jpg" title="Colorful Feldberg II (STEFFEN EGLY)"><i class="fa fa-picture-o"></i></a>
+        <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Destinatario" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+        <a href="asd" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+    </form>
+  
+  </li>
+  <li class="list-group-item slide-sortable-list">
+    Cras justo odio
+    <form action=" " class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">                        
+        {!! method_field('DELETE') !!}
+        {!! csrf_field() !!}
+        <a class="btn btn-primary btn-xs fancy-btn" href="http://farm4.staticflickr.com/3826/18875570170_e20cf27a4d_b.jpg" title="Colorful Feldberg II (STEFFEN EGLY)"><i class="fa fa-picture-o"></i></a>
+        <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Destinatario" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+        <a href="asd" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+    </form>
+  </li>
+  <li class="list-group-item slide-sortable-list">
+    Cras justo odio
+    <form action=" " class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">                        
+        {!! method_field('DELETE') !!}
+        {!! csrf_field() !!}
+        <a class="btn btn-primary btn-xs fancy-btn" href="http://farm4.staticflickr.com/3826/18875570170_e20cf27a4d_b.jpg" title="Colorful Feldberg II (STEFFEN EGLY)"><i class="fa fa-picture-o"></i></a>
+        <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Destinatario" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+        <a href="asd" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+    </form>
+  </li>
+  <li class="list-group-item slide-sortable-list">
+    Cras justo odio
+    <form action=" " class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">                        
+        {!! method_field('DELETE') !!}
+        {!! csrf_field() !!}
+        <a class="btn btn-primary btn-xs fancy-btn" href="http://farm4.staticflickr.com/3826/18875570170_e20cf27a4d_b.jpg" title="Colorful Feldberg II (STEFFEN EGLY)"><i class="fa fa-picture-o"></i></a>
+        <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Destinatario" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+        <a href="asd" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+    </form>
+  </li>
+  <li class="list-group-item slide-sortable-list">
+    Cras justo odio
+    <form action=" " class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">                        
+        {!! method_field('DELETE') !!}
+        {!! csrf_field() !!}
+        <a class="btn btn-primary btn-xs fancy-btn" href="http://farm4.staticflickr.com/3826/18875570170_e20cf27a4d_b.jpg" title="Colorful Feldberg II (STEFFEN EGLY)"><i class="fa fa-picture-o"></i></a>
+        <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Destinatario" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+        <a href="asd" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+    </form>
+  </li>
+</ul>
 </div>
 
-</div>
 
 @stop
 

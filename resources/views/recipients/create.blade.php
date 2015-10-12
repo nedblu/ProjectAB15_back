@@ -27,7 +27,7 @@
 		<input type="email" class="form-control" id="email"  name="email" placeholder="nombre@dominio.com" value="{{ old('email') }}" required>
 	</div>
 
-	<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	{!! csrf_field() !!}
 
 	<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Agregar</button>
 	<a href="{{ route('Recipients::index' ) }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancelar</a>
