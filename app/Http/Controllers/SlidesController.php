@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Banner;
 use Image;
 use Auth;
+use File;
 
 class SlidesController extends Controller
 {
@@ -20,8 +21,8 @@ class SlidesController extends Controller
      */
     public function index()
     {
-        $banners = Banner::all();
-
+        $banners = Banner::select(\DB::raw('*'))->orderBy('order_id')->get();
+        
         return view('slides.index')->with('banners', $banners);
     }
 
@@ -65,32 +66,79 @@ class SlidesController extends Controller
         if ($request->has('url'))
         {
             $banner = Banner::create([
-                'title' => $request->input('title'),
-                'image' => $fullName,
-                'uri'   => $request->input('url'),
+                'title'     => $request->input('title'),
+                'image'     => $fullName,
+                'uri'       => $request->input('url'),
                 'published' => 0,
-                'user_id' => Auth::id(),
+                'user_id'   => Auth::id(),
             ]);
+
+            $bannerUpdateOrder = Banner::find($banner->id);
+
+            $bannerUpdateOrder->order_id = $banner->id;
+
+            $bannerUpdateOrder->save();
+
         } else {
             $banner = Banner::create([
-                'title' => $request->input('title'),
-                'image' => $fullName,
+                'title'     => $request->input('title'),
+                'image'     => $fullName,
                 'published' => 0,
-                'user_id' => Auth::id(),
+                'user_id'   => Auth::id(),
             ]);
+
+            $bannerUpdateOrder = Banner::find($banner->id);
+
+            $bannerUpdateOrder->order_id = $banner->id;
+
+            $bannerUpdateOrder->save();
         }
         
 
         $destinationPath = base_path() . $this->app_path;
         $destinationAdmin = public_path() . $this->admin_path;
 
-        Image::make($img)->fit(200, 120)->save($destinationAdmin . 'thumbnail_' . $fullName, 100);
+        Image::make($img)->fit(250, 150)->save($destinationAdmin . 'thumbnail_' . $fullName, 100);
+        Image::make($img)->fit(1366, 400)->save($destinationAdmin . 'photo_' . $fullName, 100);
         Image::make($img)->fit(1366, 400)->save($destinationPath . $fullName, 100);
 
         return redirect()->route('Slides::create')->with('status', '¡El slide se ha creado exitosamente!');
     }
 
-    
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function saveOrder(Request $request)
+    {
+
+        $order_id = explode(',', $request->input('order'));
+        $idsSorted = $order_id;
+        $assoc = [];
+        sort($idsSorted);
+
+        $i = 0;
+
+        foreach ($idsSorted as $key) {
+            $assoc[$i]['id'] = $key;
+            ++$i;
+        }
+
+        $i = 0;
+
+        foreach ($order_id as $key) {
+            $assoc[$i]['order_id'] = $key;
+            ++$i;
+        }
+
+        foreach ($assoc as $key) {
+            \DB::table('banners')->where('id', $key['id'])->update(['order_id' => $key['order_id']]);
+        }
+
+        return response()->json(['status' => 'Success', 'msg' => 'El nuevo orden de los slides se ha guardado correctamente.']);
+    }
     /**
      * Uncomment in case of use Dropzone.js
      */

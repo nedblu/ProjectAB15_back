@@ -35,62 +35,42 @@
     @endforeach
     </ul>
   </div>
+
+  <div id="alertForAjax"></div>
+
+  <form action="" id="saveOrder" accept-charset="UTF-8" method="POST">
+    {!! method_field('PUT') !!}
+    {!! csrf_field() !!}
+    <button class="btn btn-primary" id="saveorder" type="submit"><i class="fa fa-floppy-o"></i> Guardar orden</button>
+    <button class="btn btn-primary" id="switcher" type="button"><i class="fa fa-unlock"></i> Habilitar edición</button>
+    <a class="btn btn-primary" href="{{ route('Slides::create') }}" role="button"><i class="fa fa-plus-circle"></i> Nuevo slide</a>
+  </form>
+
+  <ul id="slideList" class="list-group">
+    @foreach($banners as $banner)
+
+    <li class="list-group-item slide-sortable-list" data-id="{{ $banner->id }}">
+      {{ $banner->title }}
+      <form action=" " class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">                        
+        {!! method_field('DELETE') !!}
+        {!! csrf_field() !!}
+        @if($banner->published)
+        <span class="label label-success">Público</span>
+        @else
+        <span class="label label-default">No público</span>
+        @endif
+        <a class="btn btn-primary btn-xs fancy-btn" href="{!! asset('assets/content_application/photo_' . $banner->image) !!}" title="{{ $banner->title }}"><i class="fa fa-picture-o"></i></a>
+        <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Destinatario" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+        <a href="asd" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+      </form>
+    </li>
+
+    @endforeach
+
+  </ul>
+
   @endif
 
-  <ul id="simpleList" class="list-group">
-  <li class="list-group-item slide-sortable-list">
-    Pruebaasd
-    
-    <form action=" " class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">                        
-        {!! method_field('DELETE') !!}
-        {!! csrf_field() !!}
-        <a class="btn btn-primary btn-xs fancy-btn" href="http://farm4.staticflickr.com/3826/18875570170_e20cf27a4d_b.jpg" title="Colorful Feldberg II (STEFFEN EGLY)"><i class="fa fa-picture-o"></i></a>
-        <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Destinatario" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-        <a href="asd" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-    </form>
-  
-  </li>
-  <li class="list-group-item slide-sortable-list">
-    Cras justo odio
-    <form action=" " class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">                        
-        {!! method_field('DELETE') !!}
-        {!! csrf_field() !!}
-        <a class="btn btn-primary btn-xs fancy-btn" href="http://farm4.staticflickr.com/3826/18875570170_e20cf27a4d_b.jpg" title="Colorful Feldberg II (STEFFEN EGLY)"><i class="fa fa-picture-o"></i></a>
-        <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Destinatario" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-        <a href="asd" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-    </form>
-  </li>
-  <li class="list-group-item slide-sortable-list">
-    Cras justo odio
-    <form action=" " class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">                        
-        {!! method_field('DELETE') !!}
-        {!! csrf_field() !!}
-        <a class="btn btn-primary btn-xs fancy-btn" href="http://farm4.staticflickr.com/3826/18875570170_e20cf27a4d_b.jpg" title="Colorful Feldberg II (STEFFEN EGLY)"><i class="fa fa-picture-o"></i></a>
-        <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Destinatario" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-        <a href="asd" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-    </form>
-  </li>
-  <li class="list-group-item slide-sortable-list">
-    Cras justo odio
-    <form action=" " class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">                        
-        {!! method_field('DELETE') !!}
-        {!! csrf_field() !!}
-        <a class="btn btn-primary btn-xs fancy-btn" href="http://farm4.staticflickr.com/3826/18875570170_e20cf27a4d_b.jpg" title="Colorful Feldberg II (STEFFEN EGLY)"><i class="fa fa-picture-o"></i></a>
-        <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Destinatario" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-        <a href="asd" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-    </form>
-  </li>
-  <li class="list-group-item slide-sortable-list">
-    Cras justo odio
-    <form action=" " class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">                        
-        {!! method_field('DELETE') !!}
-        {!! csrf_field() !!}
-        <a class="btn btn-primary btn-xs fancy-btn" href="http://farm4.staticflickr.com/3826/18875570170_e20cf27a4d_b.jpg" title="Colorful Feldberg II (STEFFEN EGLY)"><i class="fa fa-picture-o"></i></a>
-        <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Destinatario" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-        <a href="asd" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-    </form>
-  </li>
-</ul>
 </div>
 
 

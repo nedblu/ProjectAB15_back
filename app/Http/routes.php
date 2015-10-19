@@ -79,13 +79,11 @@ Route::group(['middleware' => 'auth'], function () {
 	    
 	    Route::get('/', ['as' => 'index', 'uses' => 'SlidesController@index']);
 
+	    Route::put('order', ['as' => 'saveorder', 'uses' => 'SlidesController@saveOrder']);
+
 	    Route::get('create', ['as' => 'create', 'uses' => 'SlidesController@create']);
 
 	    Route::post('create', ['as' => 'create', 'uses' => 'SlidesController@store']);
-
-	    Route::get('create/image', ['as' => 'image', 'uses' => 'SlidesController@image']);
-
-	    Route::post('create/image/upload', ['as' => 'upload', 'uses' => 'SlidesController@upload']);
 
 	});
 
