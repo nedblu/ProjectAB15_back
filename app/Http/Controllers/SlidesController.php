@@ -140,37 +140,6 @@ class SlidesController extends Controller
 
         return response()->json(['status' => 'Success', 'msg' => 'El nuevo orden de los slides se ha guardado correctamente.']);
     }
-    /**
-     * Uncomment in case of use Dropzone.js
-     */
-    /*
-    public function upload(Request $request)
-    {
-
-        $validator = \Validator::make($request->all(), [
-            'file' => 'image|max:3000',
-        ]);
-
-
-        if ($validator->fails()) {
-            return response()->json(['Error'], 400);
-        }
-
-        $img = $request->file('file');
-
-        $ext = $img->getClientOriginalExtension();
-
-        $fullName = "slide_" . str_random(16) . "." . $ext;
-
-        $destinationPath = base_path() . $this->app_path;
-        $destinationAdmin = public_path() . $this->admin_path;
-
-        Image::make($img)->fit(200, 120)->save($destinationAdmin . 'thumbnail_' . $fullName, 100);
-        Image::make($img)->fit(1366, 400)->save($destinationPath . $fullName, 100);
-
-        return response()->json(['OK'], 200);
-    }
-    */
 
     /**
      * Display the specified resource.
@@ -213,7 +182,74 @@ class SlidesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = \Validator::make($request->all(), [
+            'title' => 'required',
+            'url'   => 'url',
+            'image' => 'image|max:3000',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('Slides::edit', $id)
+                            ->withErrors($validator)
+                            ->withInput()
+                            ->with('error', '¡Ops! Algo ha salido mal, por favor atiende a los siguientes mensajes:');
+        }
+
+        try {
+
+            $banner = Banner::findOrFail($id);
+
+            if ($request->has('url')) {
+                $banner->uri = $request->input('url');
+            }
+            if ($request->hasFile('image'))
+            {
+                $destinationPath = base_path() . $this->app_path;
+                $destinationAdmin = public_path() . $this->admin_path;
+
+                $thumbnail = $destinationAdmin . 'thumbnail_' . $banner->image;
+                $photo = $destinationAdmin . 'photo_' . $banner->image;
+                $preview = $destinationAdmin . 'preview_' . $banner->image;
+                $slide = $destinationPath . $banner->image;
+
+                if (File::exists($thumbnail) && File::exists($photo) && File::exists($slide) && File::exists($preview)) {
+                    File::delete($thumbnail);
+                    File::delete($photo);
+                    File::delete($slide);
+                    File::delete($preview);
+                }
+
+                $img = $request->file('image');
+
+                $ext = $img->getClientOriginalExtension();
+
+                $fullName = "slide_" . str_random(16) . "." . $ext;
+
+                $banner->image = $fullName;
+
+                Image::make($img)->fit(250, 150)->save($destinationAdmin . 'thumbnail_' . $fullName, 100);
+                Image::make($img)->fit(1366, 400)->save($destinationAdmin . 'photo_' . $fullName, 100);
+                Image::make($img)->fit(489, 253)->save($destinationAdmin . 'preview_' . $fullName, 100);
+                Image::make($img)->fit(1366, 400)->save($destinationPath . $fullName, 100);
+
+            }
+
+            $banner->title = $request->input('title');
+            $banner->published = $request->has('published') ? $request->input('published') : 0;
+            $banner->user_id = Auth::id();
+
+            $banner->save();
+
+            return redirect()->route('Slides::index');
+
+
+        } catch (ModelNotFoundException $e) {
+
+            return redirect()->route('Slides::index');
+
+        }
+
+
     }
 
     /**
@@ -240,7 +276,7 @@ class SlidesController extends Controller
             if (File::exists($thumbnail) && File::exists($photo) && File::exists($slide) && File::exists($preview)) {
                 File::delete($thumbnail);
                 File::delete($photo);
-                File::delete($photo);
+                File::delete($slide);
                 File::delete($preview);
             }
             

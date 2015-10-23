@@ -57,7 +57,7 @@
 			<tbody>
 			@forelse ($accounts as $account)
 				<tr>
-					<td><a href="{{ route('Accounts::profile',$account->id) }}" title="{{ $account->first_name . ' ' . $account->last_name }}">{{ $account->first_name . ' ' . $account->last_name }}</a></td>
+					<td><a href="{{ route('Profile::index',$account->id) }}" title="{{ $account->first_name . ' ' . $account->last_name }}">{{ $account->first_name . ' ' . $account->last_name }}</a></td>
 					<td>{{ $account->username }}</td>
 					<td>{{ $account->role }}</td>
 					<td>{{ $account->email }}</td>
@@ -69,7 +69,7 @@
 						@endif
 					</td>
 					<td>
-						@if($account->ip_address)
+						@if($account->ip_address !== null)
 							@ip($account->ip_address)
 						@else
 							<span class="label label-warning">No disponible</span>

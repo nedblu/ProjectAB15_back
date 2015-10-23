@@ -31,7 +31,7 @@
 
 								<ul class="dropdown-menu" role="menu">
 									<li class="dropdown-header">CONFIGURACIONES</li>
-									<li class=""><a href="{{ route('Accounts::profile') }}"><i class="fa fa-user"></i> Perfil</a></li>
+									<li class=""><a href="{{ route('Profile::index') }}"><i class="fa fa-user"></i> Perfil</a></li>
 
 								@role('support|owner')
 						    		<li><a href="{{ route('Accounts::index') }}"><i class="fa fa-users"></i> Cuentas</a></li>
@@ -41,7 +41,7 @@
 								@role('support')
 									<li class="divider"></li>
 									<li class="dropdown-header">SOPORTE</li>
-						    		<li><a href="{{ route('Recipients::index') }}"><span class="glyphicon glyphicon-envelope"></span> Support</a></li>
+						    		<li><a href="{{ route('support-event') }}"><span class="glyphicon glyphicon-envelope"></span> Registro de Eventos</a></li>
 								@endrole
 
 									<li class="divider"></li>

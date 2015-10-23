@@ -15,7 +15,7 @@ Bienvenido
 <div class="panel panel-primary">
 	
 	<div class="panel-heading">
-		<strong>Perfil</strong> <span class="pull-right"><a class="btn btn-default btn-xs" href="{{ route('Accounts::profile_edit') }}" role="button"><i class="fa fa-pencil-square-o"></i> Editar perfil</a></span>
+		<strong>Perfil</strong> <span class="pull-right"><a class="btn btn-default btn-xs" href="{{ route('Profile::edit') }}" role="button"><i class="fa fa-pencil-square-o"></i> Editar perfil</a></span>
 	</div>
 
 	<div class="table-responsive">

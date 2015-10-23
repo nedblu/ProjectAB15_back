@@ -95,7 +95,7 @@ return [
     |
     */
 
-    'log' => 'single',
+    'log' => 'daily',
 
     /*
     |--------------------------------------------------------------------------
@@ -148,6 +148,7 @@ return [
         'Jenssegers\Date\DateServiceProvider',
         Snowfire\Beautymail\BeautymailServiceProvider::class,
         Bican\Roles\RolesServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
         /*
          * Application Service Providers...

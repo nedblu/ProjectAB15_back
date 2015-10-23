@@ -11,31 +11,18 @@
 |
 */
 
-/*
-Route::get('/', ['middleware' => 'auth', function() { 
-	
-	// Get the image
-	//$image = Image::make('C:\xampp\htdocs\projects\alphabeta_web\public_html\img\ABlogo.png');
-	//return $image->response();
-	return view('templates.main');
-}]);*/
-
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', ['as' => 'Home::index', function() { 
-		
-		// Get the image
-		//$image = Image::make('C:\xampp\htdocs\projects\alphabeta_web\public_html\img\ABlogo.png');
-		//return $image->response();
 		
 		return view('home');
 	}]);
 
 	/* ACCOUNTS APP */
 
-	Route::group(['as' => 'Accounts::', 'prefix' => 'accounts'], function () {
-	    
-	    Route::get('/', ['as' => 'index', 'uses' => 'AccountsController@index']);
+	Route::group(['as' => 'Accounts::', 'middleware' => 'role:support|owner|admin', 'prefix' => 'accounts'], function () {
+
+    	Route::get('/', ['as' => 'index', 'uses' => 'AccountsController@index']);
 
 	    Route::get('create', ['as' => 'create', 'uses' => 'AccountsController@create']);
 
@@ -53,15 +40,23 @@ Route::group(['middleware' => 'auth'], function () {
 
 	    Route::get('notice', ['as' => 'notice', 'uses' => 'AccountsController@notice']);
 
-	    Route::put('notice', ['as' => 'update-notice', 'uses' => 'AccountsController@updateNotice']);
-
-	    Route::get('profile/{id?}', ['as' => 'profile', 'uses' => 'AccountsController@profile'])->where('id','[0-9]+');
-
-	    Route::get('profile/edit', ['as' => 'profile_edit', 'uses' => 'AccountsController@profile_edit']);
-
-	    Route::put('profile/update', ['as' => 'profile_update', 'uses' => 'AccountsController@profile_update']);
+    	Route::put('notice', ['as' => 'update-notice', 'uses' => 'AccountsController@updateNotice']);
 
 	});
+
+	/* PROFILE APP */
+
+	Route::group(['as' => 'Profile::', 'prefix' => 'profile'], function () {
+
+	    Route::get('/{id?}', ['as' => 'index', 'uses' => 'AccountsController@profile'])->where('id','[0-9]+');
+
+	    Route::get('edit', ['as' => 'edit', 'uses' => 'AccountsController@profile_edit']);
+
+	    Route::put('update', ['as' => 'update', 'uses' => 'AccountsController@profile_update']);
+
+	});
+
+	Route::get('logs', ['middleware' => 'role:support', 'as' => 'support-event', 'uses' => '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index']);
 
 	/* CATALOG APP */
 
@@ -89,7 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	    Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'SlidesController@edit'])->where('id','[0-9]+');
 
-	    Route::get('update/{id}', ['as' => 'update', 'uses' => 'SlidesController@update'])->where('id','[0-9]+');
+	    Route::put('update/{id}', ['as' => 'update', 'uses' => 'SlidesController@update'])->where('id','[0-9]+');
 
 	});
 
@@ -113,8 +108,6 @@ Route::group(['middleware' => 'auth'], function () {
 	});
 
 });
-
-Route::get('/test', ['as' => 'json_colors', 'uses' => 'CatalogsController@getJSONColors']);
 
 /* AUTHENTICATION SYSTEM */
 

@@ -22,7 +22,8 @@
 <div class="col-md-12 row">
 
   <div class="col-md-6">
-    <form enctype="multipart/form-data" method="post" action="{{ route('Slides::update' ) }}" accept-charset="UTF-8" autocomplete="off">
+    <form enctype="multipart/form-data" method="post" action="{{ route('Slides::update', $banner->id ) }}" accept-charset="UTF-8" autocomplete="off">
+      {!! method_field('PUT') !!}
       <div class="form-group">
         <label for="title"><strong>Título del Slider</strong></label>
         <input type="text" class="form-control" id="title" name="title" placeholder="Nuevo slider" value="{{ $banner->title }}" required>

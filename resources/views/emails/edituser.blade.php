@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Nuevo usuario</title>
+<title>Edición de usuario</title>
 <!--
 
     An email present from your friends at Litmus (@litmusapp)
@@ -136,7 +136,7 @@
                     <td align="center">
                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
                             <tr>
-                                <td bgcolor="#ffffff" align="center"><a href="{{ env('SYSTEM_URL', '#SYSTEM_URL') }}" target="_blank"><img alt="{{ env('SYSTEM_NAME', 'SYSTEM_NAME') }}" src="{{ asset('img/' . {{ env('SYSTEM_LOGO', 'SYSTEM_LOGO') }}) }}" width="150" height="150" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0"></a></td>
+                                <td bgcolor="#ffffff" align="center"><a href="{{ env('SYSTEM_URL', '#SYSTEM_URL') }}" target="_blank"><img alt="{{ env('SYSTEM_NAME', 'SYSTEM_NAME') }}" src="{{ asset('img/' . env('SYSTEM_LOGO', 'SYSTEM_LOGO')) }}" width="150" height="150" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0"></a></td>
                             </tr>
                         </table>
                     </td>

@@ -6,7 +6,7 @@
 
 <ol class="breadcrumb">
 	<li><a href="{{ route('Accounts::index' ) }}">Cuentas</a></li>
-	<li><a href="{{ route('Accounts::profile' ) }}">Perfil</a></li>
+	<li><a href="{{ route('Profile::index' ) }}">Perfil</a></li>
 	<li class="active">Editar perfil</li>
 </ol>
 
@@ -18,7 +18,7 @@
 
 <div class="row col-md-12">
 
-	<form class="row" action="{{ route('Accounts::profile_update') }}" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">
+	<form class="row" action="{{ route('Profile::update') }}" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">
 		
 		{!! method_field('PUT') !!}
 		
@@ -66,7 +66,7 @@
 
 		<div class="col-md-12 text-center">
 			<button type="submit" class="btn btn-primary btn-lg btn-animated"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Actualizar perfil</button>
-			<a href="{{ route('Accounts::profile' ) }}" class="btn btn-danger btn-lg btn-animated"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancelar</a>
+			<a href="{{ route('Profile::index' ) }}" class="btn btn-danger btn-lg btn-animated"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancelar</a>
 		</div>
 	</form>
 

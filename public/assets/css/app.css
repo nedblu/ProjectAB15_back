@@ -12,6 +12,18 @@ h1.page-header {
 	margin-top: -20px;
 }
 
+.stack {
+	font-size: 0.85em;
+}
+.date {
+	min-width: 75px;
+}
+.text {
+	word-break: break-all;
+}
+
+
+
 .footer {
 	width: 100%;
 }  

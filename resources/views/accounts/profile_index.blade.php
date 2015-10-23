@@ -5,7 +5,10 @@
 @section('content')
 
 <ol class="breadcrumb">
-	<li><a href="{{ route('Accounts::index' ) }}">Cuentas</a></li>
+	@role('support|owner|admin')
+    <li><a href="{{ route('Accounts::index' ) }}">Cuentas</a></li>
+	@endrole
+	
 	@if($flag)
 		<li class="active">Perfil de {{ $profile->first_name . ' ' . $profile->last_name }}</li>
 	@else
@@ -30,7 +33,7 @@
 		@if($flag)
 			<span class="pull-right"><a class="btn btn-default btn-xs" href="{{ route('Accounts::edit',$profile->id) }}" role="button"><i class="fa fa-pencil-square-o"></i> Cambiar tipo cuenta</a></span>
 		@else
-			<span class="pull-right"><a class="btn btn-default btn-xs" href="{{ route('Accounts::profile_edit') }}" role="button"><i class="fa fa-pencil-square-o"></i> Editar perfil</a></span>
+			<span class="pull-right"><a class="btn btn-default btn-xs" href="{{ route('Profile::edit') }}" role="button"><i class="fa fa-pencil-square-o"></i> Editar perfil</a></span>
 		@endif
 	</div>
 
