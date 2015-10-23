@@ -69,7 +69,7 @@ class SlidesController extends Controller
                 'title'     => $request->input('title'),
                 'image'     => $fullName,
                 'uri'       => $request->input('url'),
-                'published' => 0,
+                'published' => $request->has('published') ? $request->input('published') : 0,
                 'user_id'   => Auth::id(),
             ]);
 
@@ -83,7 +83,7 @@ class SlidesController extends Controller
             $banner = Banner::create([
                 'title'     => $request->input('title'),
                 'image'     => $fullName,
-                'published' => 0,
+                'published' => $request->has('published') ? $request->input('published') : 0,
                 'user_id'   => Auth::id(),
             ]);
 
@@ -100,6 +100,7 @@ class SlidesController extends Controller
 
         Image::make($img)->fit(250, 150)->save($destinationAdmin . 'thumbnail_' . $fullName, 100);
         Image::make($img)->fit(1366, 400)->save($destinationAdmin . 'photo_' . $fullName, 100);
+        Image::make($img)->fit(489, 253)->save($destinationAdmin . 'preview_' . $fullName, 100);
         Image::make($img)->fit(1366, 400)->save($destinationPath . $fullName, 100);
 
         return redirect()->route('Slides::create')->with('status', '¡El slide se ha creado exitosamente!');
@@ -190,7 +191,17 @@ class SlidesController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+
+            $banner = Banner::findOrFail($id);
+
+            return view('slides.edit')->with('banner', $banner);
+
+        } catch (ModelNotFoundException $e) {
+
+            return redirect()->route('Slides::index');
+
+        }
     }
 
     /**
@@ -214,5 +225,33 @@ class SlidesController extends Controller
     public function destroy($id)
     {
         //
+        try {
+
+            $banner = Banner::findOrFail($id);
+
+            $destinationPath = base_path() . $this->app_path;
+            $destinationAdmin = public_path() . $this->admin_path;
+
+            $thumbnail = $destinationAdmin . 'thumbnail_' . $banner->image;
+            $photo = $destinationAdmin . 'photo_' . $banner->image;
+            $preview = $destinationAdmin . 'preview_' . $banner->image;
+            $slide = $destinationPath . $banner->image;
+
+            if (File::exists($thumbnail) && File::exists($photo) && File::exists($slide) && File::exists($preview)) {
+                File::delete($thumbnail);
+                File::delete($photo);
+                File::delete($photo);
+                File::delete($preview);
+            }
+            
+            $banner->delete();
+
+            return redirect()->route('Slides::index');
+
+        } catch (ModelNotFoundException $e) {
+
+            return redirect()->route('Slides::index');
+
+        }
     }
 }

@@ -50,18 +50,21 @@
     @foreach($banners as $banner)
 
     <li class="list-group-item slide-sortable-list" data-id="{{ $banner->id }}">
-      {{ $banner->title }}
-      <form action=" " class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">                        
+      <strong>{{ $banner->title }}</strong>
+      @if($banner->uri)
+        <a href="{{ $banner->uri }}" target="_blank" title="Enlace disponible a {{ $banner->uri }}"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
+      @endif
+      <form action="{{ route('Slides::destroy', $banner->id) }}" class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">                        
         {!! method_field('DELETE') !!}
         {!! csrf_field() !!}
         @if($banner->published)
-        <span class="label label-success">Público</span>
+        <span class="label label-success">Público</span> <small>@datetime($banner->updated_at)</small>
         @else
-        <span class="label label-default">No público</span>
+        <span class="label label-default">No público</span> <small>@datetime($banner->updated_at)</small>
         @endif
         <a class="btn btn-primary btn-xs fancy-btn" href="{!! asset('assets/content_application/photo_' . $banner->image) !!}" title="{{ $banner->title }}"><i class="fa fa-picture-o"></i></a>
-        <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Destinatario" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-        <a href="asd" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+        <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Slide" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar el slide <strong>{{ $banner->title }}</strong>?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+        <a href="{{ route('Slides::edit',  $banner->id) }}" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
       </form>
     </li>
 
@@ -69,6 +72,14 @@
 
   </ul>
 
+  @else
+  <div class="col-md-12 row">
+    <div class="text-center">
+      <h3>Upsss! <i class="fa fa-frown-o"></i></h3>
+      <p>Parece que no has agregado slides hasta el momento, ¿Te gustaría comenzar añadiendo uno?</p>
+      <a href="{{ route('Slides::create') }}" class="btn btn-primary btn-lg" role="button"><i class="fa fa-plane"></i> Empezar aquí</a>
+    </div>
+  </div>
   @endif
 
 </div>

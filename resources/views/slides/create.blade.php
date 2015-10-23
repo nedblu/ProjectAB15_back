@@ -25,18 +25,24 @@
     <form enctype="multipart/form-data" method="post" action="{{ route('Slides::create' ) }}" accept-charset="UTF-8" autocomplete="off">
       <div class="form-group">
         <label for="title"><strong>Título del Slider</strong></label>
-        <input type="text" class="form-control" id="title" name="title" placeholder="Nuevo slider" required>
+        <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" placeholder="Nuevo slider" required>
       </div>
       
       <div class="form-group">
         <label for="url"><strong>Dirección de vinculación</strong></label>
-        <input type="text" class="form-control" id="url"  name="url" placeholder="http://www.alphabeta.com.mx/" >
+        <input type="text" class="form-control" id="url"  name="url" value="{{ old('url') }}" placeholder="http://www.alphabeta.com.mx/" >
       </div>
 
       <div class="form-group">
-        <label for="image">Imagen</label>
-        <input type="file" name="image" id="image">
+        <label for="image"><strong>Subir imagen</strong></label>
+        <input type="file" name="image" id="image" value="{{ old('image') }}">
         <p class="help-block">Para mejor visualización, las dimensiones deben ser <strong>1366px x 400px</strong> </p>
+      </div>
+
+      <div class="checkbox">
+        <label for="published">
+          <input type="checkbox" name="published" value="1"> Publicar slideshow en el sitio web
+        </label>        
       </div>
 
       {!! csrf_field() !!}
