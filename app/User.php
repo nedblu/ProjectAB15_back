@@ -60,6 +60,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                         ->join('roles', 'roles.id', '=', 'role_user.role_id')
                         ->where('users.id', '<>', \Auth::id())
                         ->where('roles.slug', '=', $roles[0])
+                        ->whereNull('users.deleted_at')
                         ->select('users.*', 'roles.name as role', 'roles.slug', 'roles.level');
 
             $iterator = 1;
@@ -72,6 +73,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                         ->join('roles', 'roles.id', '=', 'role_user.role_id')
                         ->where('users.id', '<>', \Auth::id())
                         ->where('roles.slug', '=', $role)
+                        ->whereNull('users.deleted_at')
                         ->select('users.*', 'roles.name as role', 'roles.slug', 'roles.level');
 
                     $users = $users->unionAll($new_instance);
@@ -105,6 +107,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                         ->join('roles', 'roles.id', '=', 'role_user.role_id')
                         ->where('users.id', '<>', \Auth::id())
                         ->where('roles.slug', '<>', $roles[0])
+                        ->whereNull('users.deleted_at')
                         ->select('users.*', 'roles.name as role', 'roles.slug', 'roles.level');
 
             $iterator = 1;
@@ -117,6 +120,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                         ->join('roles', 'roles.id', '=', 'role_user.role_id')
                         ->where('users.id', '<>', \Auth::id())
                         ->where('roles.slug', '<>', $role)
+                        ->whereNull('users.deleted_at')
                         ->select('users.*', 'roles.name as role', 'roles.slug', 'roles.level');
 
                     $users = $users->unionAll($new_instance);
@@ -144,6 +148,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $users = \DB::table('users')->join('role_user', 'users.id','=', 'role_user.user_id')
                     ->join('roles', 'roles.id', '=', 'role_user.role_id')
                     ->where('users.id', '<>', \Auth::id())
+                    ->whereNull('users.deleted_at')
                     ->select('users.*', 'roles.name as role', 'roles.slug', 'roles.level');
 
         return $users->orderBy('first_name', 'asc')->get();

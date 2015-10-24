@@ -346,12 +346,14 @@ class AccountsController extends Controller
         //
         try {
 
-            $account = User::findOrFail($id);
+            $account = User::find($id);
+            
+            $aux = $account->first_name . ' ' . $account->last_name;
 
             $account->delete();
 
             Log::info(
-                'Accounts Info: The account of ' . $account->first_name . ' ' . $account->last_name . ' has been deleted.',
+                'Accounts Info: The account of ' . $aux . ' has been deleted.',
                 [
                    'user-id'   => Auth::id(),
                    'user-name' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
