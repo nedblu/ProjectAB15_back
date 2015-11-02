@@ -155,4 +155,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         
     }
 
+    public function techniques()
+    {
+        return $this->hasMany('App\Technique');
+    }
+
 }

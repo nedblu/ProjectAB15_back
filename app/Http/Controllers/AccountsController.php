@@ -166,32 +166,18 @@ class AccountsController extends Controller
      */
     public function edit($id)
     {
-        try {
 
-            $account = User::findOrFail($id);
+        $account = User::findOrFail($id);
 
-            if (Auth::user()->is('support'))
-                $rolesAvailables = Role::all();
-            elseif (Auth::user()->is('admin'))
-                $rolesAvailables = Role::where('slug','<>','support')->where('slug','<>','owner')->get();
-            else
-                $rolesAvailables = Role::where('slug','<>','support')->get();
+        if (Auth::user()->is('support'))
+            $rolesAvailables = Role::all();
+        elseif (Auth::user()->is('admin'))
+            $rolesAvailables = Role::where('slug','<>','support')->where('slug','<>','owner')->get();
+        else
+            $rolesAvailables = Role::where('slug','<>','support')->get();
 
-            return view('accounts.edit')->with('account',$account)->with('rolesAvailables',$rolesAvailables);
+        return view('accounts.edit')->with('account',$account)->with('rolesAvailables',$rolesAvailables);
 
-        } catch(ModelNotFoundException $e) {
-
-            Log::error(
-                'Accounts Error: The user doesn\'t exist.',
-                [
-                   'user-id'   => Auth::id(),
-                   'user-name' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
-                   'action'    => 'AccountsController@edit',
-                   'type'      => 'ERR002 = Not found'
-            ]);
-
-            return redirect()->route('Accounts::index');
-        }
     }
 
     /**
@@ -203,58 +189,43 @@ class AccountsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        try {
 
-            $account = User::findOrFail($id);
+        $account = User::findOrFail($id);
 
-            $account->detachAllRoles();
+        $account->detachAllRoles();
 
-            $account->attachRole($request->type_account);
+        $account->attachRole($request->type_account);
 
-            $roleAssigned = $account->roles[0];
+        $roleAssigned = $account->roles[0];
 
-            Log::info(
-                'Accounts Info: The role has changed for user ' . $account->first_name . ' ' . $account->last_name . '.',
-                [
-                   'user-id'   => Auth::id(),
-                   'user-name' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
-                   'action'    => 'AccountsController@update',
-                   'type'      => 'INF003 = Role change Successful'
-            ]);
+        Log::info(
+            'Accounts Info: The role has changed for user ' . $account->first_name . ' ' . $account->last_name . '.',
+            [
+               'user-id'   => Auth::id(),
+               'user-name' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+               'action'    => 'AccountsController@update',
+               'type'      => 'INF003 = Role change Successful'
+        ]);
 
-            \Mail::send('emails.edituser',  ['account' => $account, 'role' => $roleAssigned], function($message) use ($account,$roleAssigned) {
+        \Mail::send('emails.edituser',  ['account' => $account, 'role' => $roleAssigned], function($message) use ($account,$roleAssigned) {
 
-                $message->from('no-reply@alphabeta.com.mx', 'No-Reply');
-                $message->to($account->email, $account->first_name);
-                $message->subject('Hola ' . $account->first_name . ' ' . $account->last_name . ' AlphaBeta te ha reasignado a ' . $roleAssigned->name);
-            
-            });
+            $message->from('no-reply@alphabeta.com.mx', 'No-Reply');
+            $message->to($account->email, $account->first_name);
+            $message->subject('Hola ' . $account->first_name . ' ' . $account->last_name . ' AlphaBeta te ha reasignado a ' . $roleAssigned->name);
+        
+        });
 
-            Log::info(
-                'Accounts Info: New mail for notification has been sent to ' . $account->first_name . ' ' . $account->last_name . '.',
-                [
-                   'user-id'   => Auth::id(),
-                   'user-name' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
-                   'action'    => 'AccountsController@update',
-                   'type'      => 'INF002 = Email Successful'
-            ]);
+        Log::info(
+            'Accounts Info: New mail for notification has been sent to ' . $account->first_name . ' ' . $account->last_name . '.',
+            [
+               'user-id'   => Auth::id(),
+               'user-name' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+               'action'    => 'AccountsController@update',
+               'type'      => 'INF002 = Email Successful'
+        ]);
 
-            return redirect()->route('Accounts::edit', $id)->with('status', '¡La cuenta se ha editado exitosamente!');
+        return redirect()->route('Accounts::edit', $id)->with('status', '¡La cuenta se ha editado exitosamente!');
 
-        } catch(ModelNotFoundException $e) {
-
-            Log::error(
-                'Accounts Error: The user doesn\'t exist.',
-                [
-                   'user-id'   => Auth::id(),
-                   'user-name' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
-                   'action'    => 'AccountsController@update',
-                   'type'      => 'ERR002 = Not found'
-            ]);
-
-            return redirect()->route('Accounts::edit', $id);
-        }
     }
 
     /**
@@ -265,38 +236,25 @@ class AccountsController extends Controller
      */
     public function activation($id)
     {
-        try {
 
-            $account = User::findOrFail($id);
-            
-            if ($account->active) {
-                $account->active = 0;
-                $message = 'La cuenta se ha desactivado exitosamente.';
-                Log::info('Accounts Info: The user ' . Auth::user()->first_name . ' has disabled to user ' . $account->first_name);
-            }
-            else {
-                $account->active = 1;
-                $message = 'La cuenta se activó exitosamente.';
-                Log::info('Accounts Info: The user ' . Auth::user()->first_name . ' has enabled to user ' . $account->first_name);
-            }
 
-            $account->save();
-            
-            return redirect()->route('Accounts::edit',$id)->with('status', $message);
-
-        } catch(ModelNotFoundException $e) {
-
-            Log::error(
-                'Accounts Error: The user doesn\'t exist.',
-                [
-                   'user-id'   => Auth::id(),
-                   'user-name' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
-                   'action'    => 'AccountsController@activation',
-                   'type'      => 'ERR002 = Not found'
-            ]);
-            
-            return redirect()->route('Accounts::edit',$id);
+        $account = User::findOrFail($id);
+        
+        if ($account->active) {
+            $account->active = 0;
+            $message = 'La cuenta se ha desactivado exitosamente.';
+            Log::info('Accounts Info: The user ' . Auth::user()->first_name . ' has disabled to user ' . $account->first_name);
         }
+        else {
+            $account->active = 1;
+            $message = 'La cuenta se activó exitosamente.';
+            Log::info('Accounts Info: The user ' . Auth::user()->first_name . ' has enabled to user ' . $account->first_name);
+        }
+
+        $account->save();
+        
+        return redirect()->route('Accounts::edit',$id)->with('status', $message);
+
 
     }
 
@@ -308,30 +266,15 @@ class AccountsController extends Controller
      */
     public function reset($id)
     {
-        try {
 
-            $account = User::findOrFail($id);
-            
-            $account->password = \Hash::make('Password123@');
+        $account = User::findOrFail($id);
+        
+        $account->password = \Hash::make('Password123@');
 
-            $account->save();
-            
-            return redirect()->route('Accounts::edit',$id)->with('status', 'La contraseña ha sido restablecida exitosamente a Password123@');
+        $account->save();
+        
+        return redirect()->route('Accounts::edit',$id)->with('status', 'La contraseña ha sido restablecida exitosamente a Password123@');
 
-        } catch(ModelNotFoundException $e) {
-
-            Log::error(
-                'Accounts Error: The user doesn\'t exist.',
-                [
-                   'user-id'   => Auth::id(),
-                   'user-name' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
-                   'action'    => 'AccountsController@reset',
-                   'type'      => 'ERR002 = Not found'
-            ]);
-
-            return redirect()->route('Accounts::edit',$id);
-
-        }
 
     }
 
@@ -344,39 +287,23 @@ class AccountsController extends Controller
     public function destroy($id)
     {
         //
-        try {
 
-            $account = User::find($id);
-            
-            $aux = $account->first_name . ' ' . $account->last_name;
+        $account = User::find($id);
+        
+        $aux = $account->first_name . ' ' . $account->last_name;
 
-            $account->delete();
+        $account->delete();
 
-            Log::info(
-                'Accounts Info: The account of ' . $aux . ' has been deleted.',
-                [
-                   'user-id'   => Auth::id(),
-                   'user-name' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
-                   'action'    => 'AccountsController@destroy',
-                   'type'      => 'INF001 = Event Successful'
-            ]);
+        Log::info(
+            'Accounts Info: The account of ' . $aux . ' has been deleted.',
+            [
+               'user-id'   => Auth::id(),
+               'user-name' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+               'action'    => 'AccountsController@destroy',
+               'type'      => 'INF001 = Event Successful'
+        ]);
 
-            return redirect()->route('Accounts::index');
-
-        } catch (ModelNotFoundException $e) {
-
-            Log::error(
-                'Accounts Error: The user doesn\'t exist.',
-                [
-                   'user-id'   => Auth::id(),
-                   'user-name' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
-                   'action'    => 'AccountsController@destroy',
-                   'type'      => 'ERR002 = Not found'
-            ]);
-
-            return redirect()->route('Accounts::index');
-
-        }
+        return redirect()->route('Accounts::index');
     }
 
     /**
@@ -445,31 +372,16 @@ class AccountsController extends Controller
 
         if (!is_null($id)) {
 
-            try {
-                $profile = User::findOrFail($id);
-                
-                return view('accounts.profile_index')->with('profile',$profile)->with('flag', true);
-
-            } catch (ModelNotFoundException $e) {
-
-                return redirect()->route('Accounts::index');
-
-            }
-
+            $profile = User::findOrFail($id);
+            
+            return view('accounts.profile_index')->with('profile',$profile)->with('flag', true);
 
         } else {
 
-            try 
-            {
-                $profile = User::findOrFail(Auth::id());
+            $profile = User::find(Auth::id());
 
-                return view('accounts.profile_index')->with('profile',$profile)->with('flag', false);
+            return view('accounts.profile_index')->with('profile',$profile)->with('flag', false);
 
-            } catch (ModelNotFoundException $e) {
-
-                return redirect()->route('Accounts::index');
-
-            }
         }  
 
     }
@@ -482,17 +394,9 @@ class AccountsController extends Controller
     public function profile_edit()
     {
 
-        try {
-
-            $profile = User::findOrFail(Auth::id());
-            
-            return view('accounts.profile_edit')->with('profile',$profile);
-
-        } catch (ModelNotFoundException $e) {
-
-            return redirect()->route('Profile::index');
-
-        }
+        $profile = User::findOrFail(Auth::id());
+        
+        return view('accounts.profile_edit')->with('profile',$profile);
 
 
     }

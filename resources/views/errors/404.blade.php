@@ -1,32 +1,49 @@
-@extends('templates.main')
+@extends('errors.template')
 
-@section('title') Not Found @stop
+@section('title') 404 No encontrado @stop
 
 @section('content')
 
-<h3 class="text-danger"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Página no encontrada <small>[Error 404]</small></h3>
-
-<hr class="divider">
-
-<div class="panel panel-default">
-	<div class="panel-body">
-		<span class="lead"><strong>Descripción</strong></span><br>
-		Lo sentimos el recurso no ha sido encontrado en el servidor. Existen posibles causas de este error que pudieran ser el origen de ello:
-		<ul>
-			<li>La <strong>URL</strong> ha cambiado</li>
-			<li>La <strong>URL</strong> no está escrita correctamente</li>
-			<li>El <strong>recurso</strong> ha sido movido</li>
-			<li>La <strong>URL</strong> se ha deshabilitado automáticamente *</li>
-		</ul>
-		Si crees que esto no es un problema descrito ateriormente, entonces no dudes en ponerte en contacto con los desarrolladores explicando el problema, explicando la <strong>acción</strong> que provocó este error.<br><br>
-
-		<div class="well well-sm">
-			<em>* Al entregar el sistema se le han asignado los parámetros correspondientes, cuando estos parámetros son sobrepasados, el sistema automáticamente protege los recursos y desactiva las rutas correspondientes.</em>
-		</div>
-
+	<div class="error-box">
 		
-	</div>
-</div>
+		<h1 class="text-danger"><i class="fa fa-frown-o"></i> 404 No encontrado</h1>
+    	
+    	<p class="lead">¡Lo sentimos! No hemos podido localizar lo que estás buscando.</p>
+    	<p><a href="{{ route('Home::index') }}" class="btn btn-default btn-lg"><span class="green">¡Sácame de aqui!</span></a></p>
 
+  	</div>
+
+  	<hr class="divider">
+	
+	<div class="container">
+  		<div class="body-content">
+    		<div class="row">
+      			<div class="col-md-6">
+        			<h2>¿Que sucedió?</h2>
+        			<p class="lead">Un error 404 implica que el recurso (archivo o página) que estás buscando no ha sido encontrado en el servidor.</p>
+        			<p>
+        			Las posibles causas son:
+        			<ul>
+						<li>La <strong>URL</strong> ha cambiado</li>
+						<li>La <strong>URL</strong> no está escrita correctamente</li>
+						<li>El <strong>recurso</strong> ha sido movido</li>
+						<li>La <strong>URL</strong> se ha deshabilitado automáticamente *</li>
+					</ul>
+        			</p>
+        			<div class="well well-sm">
+						<em>* El bloqueo automático occurre cuando los parámetros del sistema ha sido sobre pasados.</em>
+					</div>
+      				
+      			</div>
+      			
+      			<div class="col-md-6">
+        			<h2>¿Qué puedo hacer?</h2>
+        			<p class="lead">Administrador</p>
+        			<p>Por favor, regresa a la página anterior y verifica si estás en el lugar correcto. Si es necesaria asistencia técnica, por favor envía un correo electrónico al equipo de soporte para que sea verificado.</p>
+        			
+     			</div>
+    		</div>
+  		</div>
+  	</div>
 
 @stop

@@ -107,6 +107,26 @@ Route::group(['middleware' => 'auth'], function () {
 
 	});
 
+	/* TECHNIQUES APP */
+
+	Route::group(['as' => 'Techniques::', 'prefix' => 'techniques'], function () {
+	    
+	    Route::get('/', ['as' => 'index', 'uses' => 'TechniquesController@index']);
+
+	    Route::get('show/{id}', ['as' => 'show', 'uses' => 'TechniquesController@show'])->where('id','[0-9]+');
+
+	    Route::get('create', ['as' => 'create', 'uses' => 'TechniquesController@create']);
+
+	    Route::post('create', ['as' => 'store', 'uses' => 'TechniquesController@store']);
+
+	    Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'TechniquesController@edit'])->where('id','[0-9]+');
+
+	    Route::put('update/{id}', ['as' => 'update', 'uses' => 'TechniquesController@update'])->where('id','[0-9]+');
+
+	    Route::delete('destroy/{id}', ['as' => 'destroy', 'uses' => 'TechniquesController@destroy'])->where('id','[0-9]+');
+
+	});
+
 });
 
 /* AUTHENTICATION SYSTEM */

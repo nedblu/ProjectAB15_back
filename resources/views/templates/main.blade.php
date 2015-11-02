@@ -8,8 +8,7 @@
 		<link rel="shortcut icon" href="{{ asset('/favicon.ico') }}" type="image/x-icon">
 		<link rel="icon" href="{{ asset('/favicon.ico') }}" type="image/x-icon">
 		{!! Html::style('assets/css/normalize.css') !!}
-		{!! Html::style('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css') !!}
-		{!! Html::style('https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/paper/bootstrap.min.css') !!}
+		{!! Html::style('https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/lumen/bootstrap.min.css') !!}
 		{!! Html::style('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css') !!}
 		{!! Html::style('assets/css/vendor/flexslider.css') !!}
 		{!! Html::style('assets/js/vendor/fancybox/jquery.fancybox.css') !!}
@@ -53,6 +52,8 @@
 		{!! Html::script('assets/js/vendor/fastclick.js') !!}
 		{!! Html::script('assets/js/vendor/jquery.flexslider.js') !!}
 		{!! Html::script('assets/js/vendor/dropzone.js') !!}
+		{!! Html::script('assets/js/vendor/moment.min.js') !!}
+		{!! Html::script('assets/js/vendor/moment-with-locales.min.js') !!}
 		{!! Html::script('//cdn.jsdelivr.net/sortable/latest/Sortable.min.js') !!}
 		{!! Html::script('assets/js/vendor/fancybox/jquery.fancybox.pack.js') !!}
 		{!! Html::script('//cdn.jsdelivr.net/jquery.dirtyforms/2.0.0-beta00005/jquery.dirtyforms.min.js') !!}

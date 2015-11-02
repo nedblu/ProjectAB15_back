@@ -35,7 +35,7 @@
 
       <div class="form-group">
         <label for="image"><strong>Subir imagen</strong></label>
-        <input type="file" name="image" id="image" value="{{ old('image') }}">
+        <input type="file" name="image" id="image" accept="image/*" value="{{ old('image') }}">
         <p class="help-block">Para mejor visualización, las dimensiones deben ser <strong>1366px x 400px</strong> </p>
       </div>
 

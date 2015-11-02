@@ -31,8 +31,6 @@ $(document).ready(function() {
 
 	});
 
-	$('[data-toggle="popover"]').popover();
-
 	$('input[name=publish').on('click', function(){
 		var value = $('input[name=publish]:checked').val();
 		if (value == 0)
@@ -47,32 +45,32 @@ $(document).ready(function() {
 		}
 	});
 
-	/*$('.flexslider').flexslider({
-        animation: "slide",
-        animationLoop: false,
-        itemWidth: 300,
-        itemMargin: 5,
-    	directionNav: false
+	/*
+	 * Dates of the system
+	 */
+
+	moment.locale('es');
+	
+    var dateWithId = moment($('#created_at').attr('datetime'));
+    $('#created_at').attr( 'title', dateWithId.format('LLLL') );
+    $('#created_at').text( dateWithId.fromNow() );
+
+    $(".created_at").each(function(){
+       	var $el = $(this);
+       	var date = $el.attr("datetime");
+		$el.text(moment(date).fromNow());
+		$el.attr('title', moment(date).format("LLLL"));
     });
 
-    var token = $('.token').attr('data-token');
-    var baseURL = window.location.href;
+    var dateWithId = moment($('#updated_at').attr('datetime'));
+    $('#updated_at').attr( 'title', dateWithId.format('LLLL') );
+    $('#updated_at').text( dateWithId.fromNow() );
 
-	Dropzone.autoDiscover = false;
-	var myDropzone = new Dropzone("#dropzoneFileUpload", {
-		url: baseURL + "/upload",
-		params: {
-			_token: token
-		}
-	});
-	
-	Dropzone.options.myAwesomeDropzone = {
-		paramName: "file", // The name that will be used to transfer the file
-		maxFilesize: 2, // MB
-		addRemoveLinks: true,
-		accept: function(file, done) {
-			
-		},
-	};*/
+    $(".updated_at").each(function(){
+       	var $el = $(this);
+       	var date = $el.attr("datetime");
+		$el.text(moment(date).fromNow());
+		$el.attr('title', moment(date).format("LLLL"));
+    });
 
 });

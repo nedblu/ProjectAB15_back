@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-
 use App\Emailcontact;
 
 class RecipientsController extends Controller
@@ -83,17 +81,11 @@ class RecipientsController extends Controller
      */
     public function edit($id)
     {
-        try {
 
-            $recipient = Emailcontact::findOrFail($id);
+        $recipient = Emailcontact::findOrFail($id);
 
-            return view('recipients.edit')->with('recipient',$recipient);
+        return view('recipients.edit')->with('recipient',$recipient);
 
-        } catch(ModelNotFoundException $e) {
-
-            return redirect()->route('Recipients::index');
-
-        }
         
     }
 
@@ -120,21 +112,16 @@ class RecipientsController extends Controller
 
         }
 
-        try {
+        $recipient = Emailcontact::findOrFail($id);
 
-            $recipient = Emailcontact::findOrFail($id);
+        $recipient->name    = $request->name;
+        $recipient->email   = $request->email;
+        $recipient->user_id = \Auth::user()->id;
 
-            $recipient->name    = $request->name;
-            $recipient->email   = $request->email;
-            $recipient->user_id = \Auth::user()->id;
+        $recipient->save();
 
-            $recipient->save();
+        return redirect()->route('Recipients::edit',$id)->with('status', '¡El destinatario se ha editado exitosamente!');
 
-            return redirect()->route('Recipients::edit',$id)->with('status', '¡El destinatario se ha editado exitosamente!');
-
-        } catch(ModelNotFoundException $e) {
-            return redirect()->route('Recipients::edit',$id);
-        }
     }
 
     /**
@@ -145,18 +132,8 @@ class RecipientsController extends Controller
      */
     public function destroy($id)
     {
-        try {
+        
+        return redirect()->route('Recipients::index');
 
-            $recipient = Emailcontact::findOrFail($id);
-
-            $recipient->delete();
-
-            return redirect()->route('Recipients::index');
-
-        } catch(ModelNotFoundException $e) {
-
-            return redirect()->route('Recipients::index');
-
-        }
     }
 }

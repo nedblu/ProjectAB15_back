@@ -53,7 +53,7 @@
       {!! csrf_field() !!}
 
       <button type="submit" id="add" class="btn btn-primary">Actualizar</button>
-      <button type="reset" class="btn btn-default">Cancelar</button>
+      <a href="{!! route('Slides::index') !!}" class="btn btn-default">Cancelar</a>
     </form>
   </div>
   <div class="col-md-6">

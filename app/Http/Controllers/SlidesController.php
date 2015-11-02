@@ -12,8 +12,8 @@ use File;
 
 class SlidesController extends Controller
 {
-    protected $admin_path = '/assets/content_application/';
-    protected $app_path = '/../alphabeta_web/public_html/content/slide-show/';
+    //protected $admin_path = '/assets/content_application/';
+    //protected $app_path = '/../alphabeta_web/public_html/content/slide-show/';
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +21,7 @@ class SlidesController extends Controller
      */
     public function index()
     {
-        $banners = Banner::select(\DB::raw('*'))->orderBy('order_id')->get();
+        $banners = Banner::orderBy('order_id')->get();
         
         return view('slides.index')->with('banners', $banners);
     }
@@ -74,9 +74,7 @@ class SlidesController extends Controller
             ]);
 
             $bannerUpdateOrder = Banner::find($banner->id);
-
             $bannerUpdateOrder->order_id = $banner->id;
-
             $bannerUpdateOrder->save();
 
         } else {
@@ -88,20 +86,14 @@ class SlidesController extends Controller
             ]);
 
             $bannerUpdateOrder = Banner::find($banner->id);
-
             $bannerUpdateOrder->order_id = $banner->id;
-
             $bannerUpdateOrder->save();
         }
-        
 
-        $destinationPath = base_path() . $this->app_path;
-        $destinationAdmin = public_path() . $this->admin_path;
-
-        Image::make($img)->fit(250, 150)->save($destinationAdmin . 'thumbnail_' . $fullName, 100);
-        Image::make($img)->fit(1366, 400)->save($destinationAdmin . 'photo_' . $fullName, 100);
-        Image::make($img)->fit(489, 253)->save($destinationAdmin . 'preview_' . $fullName, 100);
-        Image::make($img)->fit(1366, 400)->save($destinationPath . $fullName, 100);
+        Image::make($img)->fit(250, 150)->save($this->admin_content_path() . 'thumbnail_' . $fullName, 100);
+        Image::make($img)->fit(1366, 400)->save($this->admin_content_path() . 'photo_' . $fullName, 100);
+        Image::make($img)->fit(489, 253)->save($this->admin_content_path() . 'preview_' . $fullName, 100);
+        Image::make($img)->fit(1366, 400)->save($this->app_content_path() . $this->slide_path . $fullName, 100);
 
         return redirect()->route('Slides::create')->with('status', '¡El slide se ha creado exitosamente!');
     }
@@ -160,17 +152,11 @@ class SlidesController extends Controller
      */
     public function edit($id)
     {
-        try {
 
-            $banner = Banner::findOrFail($id);
+        $banner = Banner::findOrFail($id);
 
-            return view('slides.edit')->with('banner', $banner);
+        return view('slides.edit')->with('banner', $banner);
 
-        } catch (ModelNotFoundException $e) {
-
-            return redirect()->route('Slides::index');
-
-        }
     }
 
     /**
@@ -195,78 +181,14 @@ class SlidesController extends Controller
                             ->with('error', '¡Ops! Algo ha salido mal, por favor atiende a los siguientes mensajes:');
         }
 
-        try {
 
-            $banner = Banner::findOrFail($id);
+        $banner = Banner::findOrFail($id);
 
-            if ($request->has('url')) {
-                $banner->uri = $request->input('url');
-            }
-            if ($request->hasFile('image'))
-            {
-                $destinationPath = base_path() . $this->app_path;
-                $destinationAdmin = public_path() . $this->admin_path;
-
-                $thumbnail = $destinationAdmin . 'thumbnail_' . $banner->image;
-                $photo = $destinationAdmin . 'photo_' . $banner->image;
-                $preview = $destinationAdmin . 'preview_' . $banner->image;
-                $slide = $destinationPath . $banner->image;
-
-                if (File::exists($thumbnail) && File::exists($photo) && File::exists($slide) && File::exists($preview)) {
-                    File::delete($thumbnail);
-                    File::delete($photo);
-                    File::delete($slide);
-                    File::delete($preview);
-                }
-
-                $img = $request->file('image');
-
-                $ext = $img->getClientOriginalExtension();
-
-                $fullName = "slide_" . str_random(16) . "." . $ext;
-
-                $banner->image = $fullName;
-
-                Image::make($img)->fit(250, 150)->save($destinationAdmin . 'thumbnail_' . $fullName, 100);
-                Image::make($img)->fit(1366, 400)->save($destinationAdmin . 'photo_' . $fullName, 100);
-                Image::make($img)->fit(489, 253)->save($destinationAdmin . 'preview_' . $fullName, 100);
-                Image::make($img)->fit(1366, 400)->save($destinationPath . $fullName, 100);
-
-            }
-
-            $banner->title = $request->input('title');
-            $banner->published = $request->has('published') ? $request->input('published') : 0;
-            $banner->user_id = Auth::id();
-
-            $banner->save();
-
-            return redirect()->route('Slides::index');
-
-
-        } catch (ModelNotFoundException $e) {
-
-            return redirect()->route('Slides::index');
-
+        if ($request->has('url')) {
+            $banner->uri = $request->input('url');
         }
-
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-        try {
-
-            $banner = Banner::findOrFail($id);
-
-            $destinationPath = base_path() . $this->app_path;
-            $destinationAdmin = public_path() . $this->admin_path;
+        if ($request->hasFile('image'))
+        {
 
             $thumbnail = $destinationAdmin . 'thumbnail_' . $banner->image;
             $photo = $destinationAdmin . 'photo_' . $banner->image;
@@ -279,15 +201,57 @@ class SlidesController extends Controller
                 File::delete($slide);
                 File::delete($preview);
             }
-            
-            $banner->delete();
 
-            return redirect()->route('Slides::index');
+            $img = $request->file('image');
 
-        } catch (ModelNotFoundException $e) {
+            $ext = $img->getClientOriginalExtension();
 
-            return redirect()->route('Slides::index');
+            $fullName = "slide_" . str_random(16) . "." . $ext;
+
+            $banner->image = $fullName;
+
+            Image::make($img)->fit(250, 150)->save($this->admin_content_path() . 'thumbnail_' . $fullName, 100);
+            Image::make($img)->fit(1366, 400)->save($this->admin_content_path() . 'photo_' . $fullName, 100);
+            Image::make($img)->fit(489, 253)->save($this->admin_content_path() . 'preview_' . $fullName, 100);
+            Image::make($img)->fit(1366, 400)->save($this->app_content_path() . $this->slide_path . $fullName, 100);
 
         }
+
+        $banner->title = $request->input('title');
+        $banner->published = $request->has('published') ? $request->input('published') : 0;
+        $banner->user_id = Auth::id();
+
+        $banner->save();
+
+        return redirect()->route('Slides::index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+
+        $banner = Banner::findOrFail($id);
+
+        $thumbnail = $this->admin_content_path() . 'thumbnail_' . $banner->image;
+        $photo = $this->admin_content_path() . 'photo_' . $banner->image;
+        $preview = $this->admin_content_path() . 'preview_' . $banner->image;
+        $slide = $this->app_content_path() . $this->slide_path . $banner->image;
+
+        if (File::exists($thumbnail) && File::exists($photo) && File::exists($slide) && File::exists($preview)) {
+            File::delete($thumbnail);
+            File::delete($photo);
+            File::delete($slide);
+            File::delete($preview);
+        }
+        
+        $banner->delete();
+
+        return redirect()->route('Slides::index');
+
     }
 }
