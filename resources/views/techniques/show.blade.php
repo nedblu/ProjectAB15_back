@@ -23,10 +23,15 @@
 
 <hr class="divider">
 
-<div class="btn-group" role="group" aria-label="buttons">
-  <a href="#" role="button" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Editar esta entrada</a>
-  <a href="#" role="button" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar esta entrada</a>
-</div>
+<form action="{{ route('Techniques::destroy', $technique->id) }}" accept-charset="UTF-8" method="POST" >
+  {!! method_field('DELETE') !!}
+  {!! csrf_field() !!}
+
+  <div class="btn-group" role="group" aria-label="buttons">
+    <a href="{{ route('Techniques::edit', $technique->id) }}" role="button" class="btn btn-primary"><i class="fa fa-pencil-square-o"></i> Editar esta entrada</a>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Artículo" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar el artículo <strong>{{ $technique->title }}</strong>?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Eliminar esta entrada</button>
+  </div>
+</form>
 
 <div class="panel panel-default">
   <div class="panel-body">

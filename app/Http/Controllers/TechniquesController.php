@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Technique;
 use Auth;
 use Image;
+use File;
 
 class TechniquesController extends Controller
 {
@@ -119,6 +120,53 @@ class TechniquesController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validator = \Validator::make($request->all(), [
+            'title'  => 'required',
+            'about'  => 'required',
+            'image'  => 'image|max:3000',
+            'detail' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('Techniques::edit', $id)
+                            ->withErrors($validator)
+                            ->withInput()
+                            ->with('error', '¡Ops! Algo ha salido mal, por favor atiende a los siguientes mensajes:');
+        }
+
+        $technique = Technique::findOrFail($id);
+
+        $technique->title = $request->input('title');
+        $technique->about = $request->input('about');
+        $technique->detail = $request->input('detail');
+
+        if ($request->hasFile('image')) {
+
+            $img = $request->file('image');
+            $ext = $img->getClientOriginalExtension();
+            $image = "img" . str_random(16) . "." . $ext;
+
+            $thumbnail = $this->admin_content_path() . 'thumbnail_' . $technique->image;
+            $thumbnail_show = $this->admin_content_path() . 'thumbnail_show_' . $technique->image;
+            $technique_image = $this->app_content_path() . $this->technique_path . $technique->image;
+
+            if (File::exists($thumbnail) && File::exists($thumbnail_show) && File::exists($technique_image)) {
+                File::delete($thumbnail);
+                File::delete($thumbnail_show);
+                File::delete($technique_image);
+            }
+
+            $technique->image = $image;
+
+            Image::make($img)->fit(100, 100)->save($this->admin_content_path() . 'thumbnail_' . $image, 100);
+            Image::make($img)->fit(150, 100)->save($this->admin_content_path() . 'thumbnail_show_' . $image, 100);
+            Image::make($img)->fit(400, 400)->save($this->app_content_path() . $this->technique_path . $image, 100);
+        }
+
+        $technique->save();
+
+        return redirect()->route('Techniques::edit', $id)->with('status', '¡La técnica ha sido editada correctamente!');
+
     }
 
     /**
@@ -130,5 +178,21 @@ class TechniquesController extends Controller
     public function destroy($id)
     {
         //
+        $technique = Technique::findOrFail($id);
+
+        $thumbnail = $this->admin_content_path() . 'thumbnail_' . $technique->image;
+        $thumbnail_show = $this->admin_content_path() . 'thumbnail_show_' . $technique->image;
+        $technique_image = $this->app_content_path() . $this->technique_path . $technique->image;
+
+        if (File::exists($thumbnail) && File::exists($thumbnail_show) && File::exists($technique_image)) {
+
+            File::delete($thumbnail);
+            File::delete($thumbnail_show);
+            File::delete($technique_image);
+        }
+
+        $technique->delete();
+
+        return redirect()->route('Techniques::index');
     }
 }

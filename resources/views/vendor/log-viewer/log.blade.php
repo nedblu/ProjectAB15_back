@@ -93,6 +93,9 @@
         $('#table-log').DataTable({
           "order": [ 1, 'desc' ],
           "stateSave": true,
+          "search": {
+            "search": "error"
+          },
           "stateSaveCallback": function (settings, data) {
             window.localStorage.setItem("datatable", JSON.stringify(data));
           },

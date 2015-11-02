@@ -190,10 +190,10 @@ class SlidesController extends Controller
         if ($request->hasFile('image'))
         {
 
-            $thumbnail = $destinationAdmin . 'thumbnail_' . $banner->image;
-            $photo = $destinationAdmin . 'photo_' . $banner->image;
-            $preview = $destinationAdmin . 'preview_' . $banner->image;
-            $slide = $destinationPath . $banner->image;
+            $thumbnail = $this->admin_content_path() . 'thumbnail_' . $banner->image;
+            $photo = $this->admin_content_path() . 'photo_' . $banner->image;
+            $preview = $this->admin_content_path() . 'preview_' . $banner->image;
+            $slide = $this->app_content_path() . $this->slide_path . $banner->image;
 
             if (File::exists($thumbnail) && File::exists($photo) && File::exists($slide) && File::exists($preview)) {
                 File::delete($thumbnail);

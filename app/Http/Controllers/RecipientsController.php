@@ -132,6 +132,9 @@ class RecipientsController extends Controller
      */
     public function destroy($id)
     {
+        $recipient = Emailcontact::findOrFail($id);
+
+        $recipient->delete();
         
         return redirect()->route('Recipients::index');
 
