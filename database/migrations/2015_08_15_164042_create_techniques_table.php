@@ -17,7 +17,7 @@ class CreateTechniquesTable extends Migration
             $table->string('title');
             $table->text('about');
             $table->text('detail');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->integer('user_id');
             $table->timestamps();
             $table->softDeletes();

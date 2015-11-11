@@ -7,6 +7,7 @@ use App\Http\Requests;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Color;
+use App\Product;
 
 class CatalogsController extends Controller
 {
@@ -18,6 +19,12 @@ class CatalogsController extends Controller
     public function index()
     {
         //
+        $products = Product::paginate(30);
+
+        $products->setPath('products');
+
+        return view('catalogs.index')->with('products', $products);
+
     }
 
     /**

@@ -96,7 +96,7 @@
 				</tr>
 			@empty
 				<tr>
-					<td class="text-center" colspan="3">Ningún destinatario ha sido agregado.</td>
+					<td class="text-center" colspan="3">Ningún usuario ha sido agregado.</td>
 				</tr>
 			@endforelse
 			</tbody>

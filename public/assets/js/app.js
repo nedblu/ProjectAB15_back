@@ -73,4 +73,28 @@ $(document).ready(function() {
 		$el.attr('title', moment(date).format("LLLL"));
     });
 
+    $('#category_name').keyup(function(event){
+    	var name = $(this).val();
+    	$('#category_slug').val(string_to_slug(name));
+    });
+
+    function string_to_slug(str) {
+
+		str = str.replace(/^\s+|\s+$/g, '');
+		str = str.toLowerCase();
+
+		var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
+		var to   = "aaaaeeeeiiiioooouuuunc------";
+		
+		for (var i=0, l=from.length ; i<l ; i++) {
+			str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
+		}
+
+		str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+			.replace(/\s+/g, '-') // collapse whitespace and replace by -
+			.replace(/-+/g, '-'); // collapse dashes
+
+		return str;
+	}
+
 });

@@ -12,6 +12,8 @@ abstract class Controller extends BaseController
 
     protected $slide_path = 'slide-show/';
     protected $technique_path = 'technique/';
+    protected $category_path = 'category-images/';
+    protected $color_path = 'colors/';
 
     protected function admin_content_path() {
         $path = public_path('assets/content_application/');

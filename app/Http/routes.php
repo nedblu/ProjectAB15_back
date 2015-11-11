@@ -60,11 +60,21 @@ Route::group(['middleware' => 'auth'], function () {
 
 	/* CATALOG APP */
 
-	Route::group(['as' => 'Catalogs::', 'prefix' => 'catalogs'], function () {
+	Route::group(['as' => 'Catalogs::', 'prefix' => 'products'], function () {
 	    
 	    Route::get('/', ['as' => 'index', 'uses' => 'CatalogsController@index']);
 
 	    Route::get('json', ['as' => 'json_colors', 'uses' => 'CatalogsController@getJSONColors']);
+
+	});
+
+	Route::group(['as' => 'Categories::', 'prefix' => 'categories'], function () {
+	    
+	    Route::get('/', ['as' => 'index', 'uses' => 'CategoriesController@index']);
+
+	    Route::get('create', ['as' => 'create', 'uses' => 'CategoriesController@create']);
+
+	    Route::post('store', ['as' => 'store', 'uses' => 'CategoriesController@store']);
 
 	});
 

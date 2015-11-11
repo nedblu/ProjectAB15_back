@@ -58,9 +58,9 @@
         {!! method_field('DELETE') !!}
         {!! csrf_field() !!}
         @if($banner->published)
-        <span class="label label-success">Público</span> <small>@datetime($banner->updated_at)</small>
+        <small>Creado <time datetime="{{ $banner->created_at }}" title="{{ $banner->created_at }}" class="created_at">{{ $banner->created_at }}</time> como</small> <span class="label label-success">Público</span>
         @else
-        <span class="label label-default">No público</span> <small>@datetime($banner->updated_at)</small>
+        <small>Creado <time datetime="{{ $banner->created_at }}" title="{{ $banner->created_at }}" class="created_at">{{ $banner->created_at }}</time> como</small> <span class="label label-default">No público</span>
         @endif
         <a class="btn btn-primary btn-xs fancy-btn" href="{!! asset('assets/content_application/photo_' . $banner->image) !!}" title="{{ $banner->title }}"><i class="fa fa-picture-o"></i></a>
         <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Slide" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar el slide <strong>{{ $banner->title }}</strong>?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>

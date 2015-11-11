@@ -36,7 +36,7 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <div class="col-md-2">
-      @if($technique->image === 'na.png')
+      @if($technique->image === null)
       <img class="img-responsive img-rounded" src="http://placehold.it/150x100/A0D2F2/2980b9/?text=150x100" alt="{{ $technique->title }}">
       @else
       <img class="img-responsive img-rounded" src="{!! asset('assets/content_application/thumbnail_show_' . $technique->image) !!}" alt="{{ $technique->title }}">

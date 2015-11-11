@@ -17,12 +17,13 @@
 								<div id="dropdown-lvl1" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul class="nav navbar-nav">
-											<li><a href="#"><i class="fa fa-cubes"></i>Productos</a></li>
-											<li><a href="#"><i class="fa fa-tint"></i>Colores</a></li>
+											<li><a href="{{ route('Catalogs::index') }}"><i class="fa fa-cubes"></i>Productos</a></li>
+											<li><a href="#"><i class="fa fa-tint"></i>Recurso de colores</a></li>
 										</ul>
 									</div>
 								</div>
 							</li>
+							<li><a href="{{ route('Categories::index') }}"><i class="fa fa-code-fork"></i>Categorías</a></li>
 							<li><a href="{{ route('Techniques::index') }}"><i class="fa fa-briefcase"></i>Técnicas</a></li>
 							<li><a href="{{ route('Recipients::index') }}"><i class="fa fa-envelope"></i>Destinatarios</a></li>
 						</ul>
