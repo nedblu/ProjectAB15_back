@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Category;
+use App\Product;
 use Auth;
 use Image;
+use File;
 
 class CategoriesController extends Controller
 {
@@ -80,7 +82,7 @@ class CategoriesController extends Controller
                 'parent_id'   => $request->input('parent')
             ]);
 
-            Image::make($img)->fit(400, 400)->save($this->admin_content_path() . $this->category_path . $image_name, 100);
+            Image::make($img)->fit(200, 200)->save($this->admin_content_path() . $this->category_path . $image_name, 100);
             Image::make($img)->fit(200, 200)->save($this->app_content_path() . $this->category_path . $image_name, 100);
 
         } else {
@@ -95,7 +97,7 @@ class CategoriesController extends Controller
 
         }
 
-        return redirect()->route('Categories::create')->with('status', '¡El slide se ha creado exitosamente!');
+        return redirect()->route('Categories::create')->with('status', '¡La categoría se ha creado exitosamente!');
 
     }
 
@@ -108,6 +110,14 @@ class CategoriesController extends Controller
     public function show($id)
     {
         //
+        $category = Category::findOrFail($id);
+
+        if($category->parent_id > 0) {
+            $parent = Category::find($category->parent_id);
+            $category->parent = $parent->name;
+        }
+        
+        return view('catalogs.categories.show')->with('category', $category);
     }
 
     /**
@@ -119,6 +129,14 @@ class CategoriesController extends Controller
     public function edit($id)
     {
         //
+        if ($id == 1) {
+            return abort('403');
+        }
+
+        $category = Category::findOrFail($id);
+        $selectCategories = Category::all();
+
+        return view('catalogs.categories.edit')->with('category', $category)->with('selectCategories', $selectCategories);
     }
 
     /**
@@ -131,6 +149,55 @@ class CategoriesController extends Controller
     public function update(Request $request, $id)
     {
         //
+        //
+        $validator = \Validator::make($request->all(), [
+            'name'        => 'required',
+            'slug'        => 'required',
+            'description' => 'required',
+            'image'       => 'image|max:3000',
+            'parent'      => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('Categories::edit', $id)
+                            ->withErrors($validator)
+                            ->withInput()
+                            ->with('error', '¡Ops! Algo ha salido mal, por favor atiende a los siguientes mensajes:');
+        }
+
+        if ($request->hasFile('image')) {
+
+            $img = $request->file('image');
+
+            $ext = $img->getClientOriginalExtension();
+
+            $image_name = "category_" . str_random(16) . "." . $ext;
+
+            $category = Category::where('id', $id)->update([
+                'name'        => $request->input('name'),
+                'description' => $request->input('description'),
+                'slug'        => str_slug($request->input('slug')),
+                'image'       => $image_name,
+                'user_id'     => Auth::id(),
+                'parent_id'   => $request->input('parent')
+            ]);
+
+            Image::make($img)->fit(200, 200)->save($this->admin_content_path() . $this->category_path . $image_name, 100);
+            Image::make($img)->fit(200, 200)->save($this->app_content_path() . $this->category_path . $image_name, 100);
+
+        } else {
+
+            $category = Category::where('id', $id)->update([
+                'name'        => $request->input('name'),
+                'description' => $request->input('description'),
+                'slug'        => $request->input('slug'),
+                'user_id'     => Auth::id(),
+                'parent_id'   => $request->input('parent')
+            ]);
+
+        }
+
+        return redirect()->route('Categories::edit', $id)->with('status', '¡La categoría ha sido editada exitosamente!');
     }
 
     /**
@@ -142,5 +209,26 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         //
+        $category = Category::findOrFail($id);
+
+        $categoriesAffected = Category::where('parent_id', $id)->count();
+        $productsAffected = Product::where('parent_id', $id)->count();
+
+        $uncategorizeCategories = Category::where('parent_id', $id)->update(['parent_id' => 1]);
+        $uncategorizeProducts = Product::where('parent_id', $id)->update(['parent_id' => 1]);
+
+        if ($category->image !== null) {
+            if (File::exists($this->admin_content_path() . $this->category_path . $category->image) && File::exists($this->app_content_path() . $this->category_path . $category->image)) {
+                File::delete($this->admin_content_path() . $this->category_path . $category->image);
+                File::delete($this->app_content_path() . $this->category_path . $category->image);    
+            }
+        }
+
+        $auxName = $category->name;
+
+        $category->delete();
+
+        return redirect()->route('Categories::index')->with('status', 'La eliminación de la categoría <strong>'. $auxName .'</strong> se ha realizado exitosamente: ' . $categoriesAffected . ' categorías afectadas, ' . $productsAffected . ' productos afectados.');
+
     }
 }

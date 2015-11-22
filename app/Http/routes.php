@@ -68,6 +68,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	});
 
+	/* CATEGORIES APP */
+
 	Route::group(['as' => 'Categories::', 'prefix' => 'categories'], function () {
 	    
 	    Route::get('/', ['as' => 'index', 'uses' => 'CategoriesController@index']);
@@ -75,6 +77,12 @@ Route::group(['middleware' => 'auth'], function () {
 	    Route::get('create', ['as' => 'create', 'uses' => 'CategoriesController@create']);
 
 	    Route::post('store', ['as' => 'store', 'uses' => 'CategoriesController@store']);
+
+	    Route::get('show/{id}', ['as' => 'show', 'uses' => 'CategoriesController@show'])->where('id','[0-9]+');
+
+		Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'CategoriesController@edit'])->where('id','[0-9]+');
+
+	    Route::delete('destroy/{id}', ['as' => 'destroy', 'uses' => 'CategoriesController@destroy'])->where('id','[0-9]+');
 
 	});
 
