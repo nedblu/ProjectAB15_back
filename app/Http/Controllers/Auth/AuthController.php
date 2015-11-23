@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
+use Illuminate\Http\Request;
+use Auth;
+use DateTime;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -20,6 +23,8 @@ class AuthController extends Controller
     | a simple trait to add these behaviors. Why don't you explore it?
     |
     */
+    protected $redirectTo = '/';
+    protected $loginPath = '/auth/login';
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
@@ -61,5 +66,75 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * Handle an authentication attempt.
+     *
+     * @return Response
+     */
+    public function authenticate(Request $request)
+    {
+
+        $this->validate($request, [
+            $this->loginUsername() => 'required', 'password' => 'required',
+        ]);
+
+        $throttles = $this->isUsingThrottlesLoginsTrait();
+
+        if ($throttles && $this->hasTooManyLoginAttempts($request)) {
+            return $this->sendLockoutResponse($request);
+        }
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'active' => 1], $request->has('remember'))) {
+            return $this->handleUserWasAuthenticated($request, $throttles);
+        }
+
+        if ($throttles) {
+            $this->incrementLoginAttempts($request);
+        }
+
+        return redirect($this->loginPath())
+            ->withInput($request->only($this->loginUsername(), 'remember'))
+            ->withErrors([
+                $this->loginUsername() => $this->getFailedLoginMessage(),
+            ]);
+    }
+
+    protected function authenticated(Request $request, $auth)
+    {
+        $now = new DateTime();
+
+        $user = User::findOrFail($auth->id);
+        $user->last_login = $now->format('Y-m-d H:i:s');
+        $user->ip_address = ip2long($request->ip());
+
+        $user->save();
+
+        return redirect()->intended($this->redirectPath());
+        
+    }
+
+    public function activate(Request $request)
+    {
+        if ($request->email && $request->code) {
+
+            $validator = \Validator::make($request->all(), [
+                'email'   => 'required|email',
+                'code'    => 'required'
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->route('Auth::index');
+            }
+
+            User::where('email',$request->email)->where('code',$request->code)->update(['active' => 1]);
+
+            return redirect()->route('Auth::index','email=' . $request->email);
+        }
+        else {
+            return redirect()->route('Auth::index');
+        }
+        
     }
 }

@@ -5,6 +5,11 @@ namespace App\Exceptions;
 use Exception;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException as ModelNotFoundException;
+use Bican\Roles\Exceptions\RoleDeniedException;
+use Bican\Roles\Exceptions\PermissionDeniedException;
+use Bican\Roles\Exceptions\LevelDeniedException;
+use Symfony\Component\Debug\Exception\FatalErrorException as FatalErrorException;
 
 class Handler extends ExceptionHandler
 {
@@ -39,6 +44,24 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        if ($e instanceof RoleDeniedException || $e instanceof PermissionDeniedException || $e instanceof LevelDeniedException) {
+        
+            abort('403');
+        
+        } else if ($e instanceof FatalErrorException) {
+
+            if (app()->environment() == 'production') {
+                return response()->view('errors.500', [], 500);
+            }
+
+        } else if ($e instanceof ModelNotFoundException) {
+
+            if (app()->environment() == 'production') {
+                abort('404');
+            }
+
+        }
+
         return parent::render($request, $e);
     }
 }

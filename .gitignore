@@ -1,4 +1,7 @@
 /vendor
 /node_modules
 .env
-.env.example
+.env.local
+.env.production
+.env.testing
+.DS_Store

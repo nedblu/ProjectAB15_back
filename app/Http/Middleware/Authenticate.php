@@ -40,6 +40,12 @@ class Authenticate
             } else {
                 return redirect()->guest('auth/login');
             }
+        } elseif ($this->auth->check()) {
+
+            if($this->auth->user()->active == 0) {
+                \Auth::logout();
+                return redirect()->guest('auth/login');
+            }
         }
 
         return $next($request);

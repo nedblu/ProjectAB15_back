@@ -1,47 +1,35 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Be right back.</title>
+@extends('errors.template')
 
-        <link href="//fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('title') 503 Servicio no disponible @stop
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+@section('content')
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
+    <div class="error-box">
+        
+        <h1 class="text-warning"><i class="fa fa-exclamation-triangle"></i> 503 Servicio no disponible</h1>
+        
+        <p class="lead">El servidor está retornando un error temporal</p>
+        <p><a href="javascript:location.reload()" class="btn btn-default btn-lg"><span class="green">Recargar la página nuevamente</span></a></p>
 
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
+    </div>
 
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Be right back.</div>
+    <hr class="divider">
+    
+    <div class="container">
+        <div class="body-content">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>¿Que sucedió?</h2>
+                    <p class="lead">Un error 503 indica una condición temporal debido a una sobrecarga temporal o mantenimiento del servidor. Este error normalmente es un breve interrupción.</p>
+                </div>
+                
+                <div class="col-md-6">
+                    <h2>¿Qué puedo hacer?</h2>
+                    <p class="lead">Administrador</p>
+                    <p>Si es necesaria asistencia técnica, por favor envía un correo electrónico al equipo de soporte para que sea verificado. Lamentamos los inconvenientes.</p>
+                </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+
+@stop

@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Mexico_City',
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 'SomeRandomString'),
+    'key' => env('APP_KEY', 'SomeRandomStringWith32Characters'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -95,7 +95,7 @@ return [
     |
     */
 
-    'log' => 'single',
+    'log' => 'daily',
 
     /*
     |--------------------------------------------------------------------------
@@ -136,7 +136,19 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+
+        /*
+         * External providers
+         */
+
         'Illuminate\Html\HtmlServiceProvider',
+        'GrahamCampbell\HTMLMin\HTMLMinServiceProvider',
+        'Maatwebsite\Excel\ExcelServiceProvider',
+        'Intervention\Image\ImageServiceProvider',
+        'Jenssegers\Date\DateServiceProvider',
+        Snowfire\Beautymail\BeautymailServiceProvider::class,
+        Bican\Roles\RolesServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -192,8 +204,16 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+
+        /*
+         * External classes
+         */
         'Html'      => 'Illuminate\Html\HtmlFacade',
         'Form'      => 'Illuminate\Html\FormFacade',
+        'HTMLMin'   => 'GrahamCampbell\HTMLMin\Facades\HTMLMin',
+        'Excel'     => 'Maatwebsite\Excel\Facades\Excel',
+        'Image'     => 'Intervention\Image\Facades\Image',
+        'Date'      => 'Jenssegers\Date\Date',
 
     ],
 

@@ -16,8 +16,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UserTableSeeder::class);
         $this->call(RoleTableSeeder::class);
-        $this->call(PermissionTableSeeder::class);
-        $this->call(PermissionRoleTableSeeder::class);
+        $this->call(RoleUserTableSeeder::class);
         $this->call(ProductTableSeeder::class);
         $this->call(CategoryTableSeeder::class);
         $this->call(OfferTableSeeder::class);
@@ -26,7 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductEquipTableSeeder::class);
         $this->call(ColorTableSeeder::class);
         $this->call(TechniqueTableSeeder::class);
-        $this->call(BannerTableSeeder::class);
         $this->call(EmailcontactTableSeeder::class);
         $this->call(DescriptionTableSeeder::class);
 

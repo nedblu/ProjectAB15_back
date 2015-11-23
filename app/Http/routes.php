@@ -11,6 +11,205 @@
 |
 */
 
-Route::get('/', function() { 
-	return view('templates.login');
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/', ['as' => 'Home::index', function() { 
+		
+		return view('home');
+	}]);
+
+	/* ACCOUNTS APP */
+
+	Route::group(['as' => 'Accounts::', 'middleware' => 'role:support|owner|admin', 'prefix' => 'accounts'], function () {
+
+    	Route::get('/', ['as' => 'index', 'uses' => 'AccountsController@index']);
+
+	    Route::get('create', ['as' => 'create', 'uses' => 'AccountsController@create']);
+
+	    Route::post('create', ['as' => 'store', 'uses' => 'AccountsController@store']);
+
+	    Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'AccountsController@edit'])->where('id','[0-9]+');
+
+	    Route::put('activation/{id}', ['as' => 'activation', 'uses' => 'AccountsController@activation'])->where('id','[0-9]+');
+
+	    Route::put('reset/{id}', ['as' => 'reset', 'uses' => 'AccountsController@reset'])->where('id','[0-9]+');
+
+	    Route::put('update/{id}', ['as' => 'update', 'uses' => 'AccountsController@update'])->where('id','[0-9]+');
+
+	    Route::delete('destroy/{id}', ['as' => 'destroy', 'uses' => 'AccountsController@destroy'])->where('id','[0-9]+');
+
+	    Route::get('notice', ['as' => 'notice', 'uses' => 'AccountsController@notice']);
+
+    	Route::put('notice', ['as' => 'update-notice', 'uses' => 'AccountsController@updateNotice']);
+
+	});
+
+	/* PROFILE APP */
+
+	Route::group(['as' => 'Profile::', 'prefix' => 'profile'], function () {
+
+	    Route::get('/{id?}', ['as' => 'index', 'uses' => 'AccountsController@profile'])->where('id','[0-9]+');
+
+	    Route::get('edit', ['as' => 'edit', 'uses' => 'AccountsController@profile_edit']);
+
+	    Route::put('update', ['as' => 'update', 'uses' => 'AccountsController@profile_update']);
+
+	});
+
+	Route::get('logs', ['middleware' => 'role:support', 'as' => 'support-event', 'uses' => '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index']);
+
+	/* CATALOG APP */
+
+	Route::group(['as' => 'Catalogs::', 'prefix' => 'products'], function () {
+	    
+	    Route::get('/', ['as' => 'index', 'uses' => 'CatalogsController@index']);
+
+	    Route::get('json', ['as' => 'json_colors', 'uses' => 'CatalogsController@getJSONColors']);
+
+	});
+
+	/* CATEGORIES APP */
+
+	Route::group(['as' => 'Categories::', 'prefix' => 'categories'], function () {
+	    
+	    Route::get('/', ['as' => 'index', 'uses' => 'CategoriesController@index']);
+
+	    Route::get('create', ['as' => 'create', 'uses' => 'CategoriesController@create']);
+
+	    Route::post('store', ['as' => 'store', 'uses' => 'CategoriesController@store']);
+
+	    Route::get('show/{id}', ['as' => 'show', 'uses' => 'CategoriesController@show'])->where('id','[0-9]+');
+
+		Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'CategoriesController@edit'])->where('id','[0-9]+');
+
+		Route::put('update/{id}', ['as' => 'update', 'uses' => 'CategoriesController@update'])->where('id','[0-9]+');
+
+	    Route::delete('destroy/{id}', ['as' => 'destroy', 'uses' => 'CategoriesController@destroy'])->where('id','[0-9]+');
+
+	});
+
+	/* COLORS APP */
+
+	Route::group(['as' => 'Colors::', 'prefix' => 'colors'], function () {
+	    
+	    Route::get('/', ['as' => 'index', 'uses' => 'ColorsController@index']);
+
+	    Route::get('create', ['as' => 'create', 'uses' => 'ColorsController@create']);
+
+	    Route::post('store', ['as' => 'store', 'uses' => 'ColorsController@store']);
+
+	    Route::get('show/{id}', ['as' => 'show', 'uses' => 'ColorsController@show'])->where('id','[0-9]+');
+
+		Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'ColorsController@edit'])->where('id','[0-9]+');
+
+		Route::put('update/{id}', ['as' => 'update', 'uses' => 'ColorsController@update'])->where('id','[0-9]+');
+
+	    Route::delete('destroy/{id}', ['as' => 'destroy', 'uses' => 'ColorsController@destroy'])->where('id','[0-9]+');
+
+	});
+
+	/* SLIDESHOW APP */
+
+	Route::group(['as' => 'Slides::', 'prefix' => 'slides'], function () {
+	    
+	    Route::get('/', ['as' => 'index', 'uses' => 'SlidesController@index']);
+
+	    Route::put('order', ['as' => 'saveorder', 'uses' => 'SlidesController@saveOrder']);
+
+	    Route::get('create', ['as' => 'create', 'uses' => 'SlidesController@create']);
+
+	    Route::post('create', ['as' => 'create', 'uses' => 'SlidesController@store']);
+
+	    Route::delete('destroy/{id}', ['as' => 'destroy', 'uses' => 'SlidesController@destroy'])->where('id','[0-9]+');
+
+	    Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'SlidesController@edit'])->where('id','[0-9]+');
+
+	    Route::put('update/{id}', ['as' => 'update', 'uses' => 'SlidesController@update'])->where('id','[0-9]+');
+
+	});
+
+
+	/* RECIPIENTS APP */
+
+	Route::group(['as' => 'Recipients::', 'prefix' => 'recipients'], function () {
+	    
+	    Route::get('/', ['as' => 'index', 'uses' => 'RecipientsController@index']);
+
+	    Route::get('create', ['as' => 'create', 'uses' => 'RecipientsController@create']);
+
+	    Route::post('create', ['as' => 'store', 'uses' => 'RecipientsController@store']);
+
+	    Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'RecipientsController@edit'])->where('id','[0-9]+');
+
+	    Route::put('update/{id}', ['as' => 'update', 'uses' => 'RecipientsController@update'])->where('id','[0-9]+');
+
+	    Route::delete('destroy/{id}', ['as' => 'destroy', 'uses' => 'RecipientsController@destroy'])->where('id','[0-9]+');
+
+	});
+
+	/* TECHNIQUES APP */
+
+	Route::group(['as' => 'Techniques::', 'prefix' => 'techniques'], function () {
+	    
+	    Route::get('/', ['as' => 'index', 'uses' => 'TechniquesController@index']);
+
+	    Route::get('show/{id}', ['as' => 'show', 'uses' => 'TechniquesController@show'])->where('id','[0-9]+');
+
+	    Route::get('create', ['as' => 'create', 'uses' => 'TechniquesController@create']);
+
+	    Route::post('create', ['as' => 'store', 'uses' => 'TechniquesController@store']);
+
+	    Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'TechniquesController@edit'])->where('id','[0-9]+');
+
+	    Route::put('update/{id}', ['as' => 'update', 'uses' => 'TechniquesController@update'])->where('id','[0-9]+');
+
+	    Route::delete('destroy/{id}', ['as' => 'destroy', 'uses' => 'TechniquesController@destroy'])->where('id','[0-9]+');
+
+	});
+
 });
+
+/* AUTHENTICATION SYSTEM */
+
+Route::group(['as' => 'Auth::', 'prefix' => 'auth'], function () {
+    
+    Route::get('/login', ['as' => 'index', 'uses' => 'Auth\AuthController@getLogin']);
+
+    Route::get('/activate', ['as' => 'activate', 'uses' => 'Auth\AuthController@activate']);
+
+    Route::post('/login', ['as' => 'login', 'uses' => 'Auth\AuthController@authenticate']);
+
+    Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AuthController@getLogout'] );
+
+});
+
+/* PASSWORD REMAINDER APP */
+
+Route::group(['as' => 'Password::', 'prefix' => 'password'], function () {
+    
+    Route::get('/email', ['as' => 'index', 'uses' => 'Auth\PasswordController@getEmail']);
+
+    Route::post('/email', ['as' => 'email', 'uses' => 'Auth\PasswordController@postEmail']);
+
+    Route::get('/reset/{token}', ['as' => 'resetToken', 'uses' => 'Auth\PasswordController@getReset'] );
+
+    Route::post('/reset', ['as' => 'reset', 'uses' => 'Auth\PasswordController@postReset'] );
+
+});
+
+// Authentication routes...
+//Route::get('auth/login', ['uses' => 'Auth\AuthController@getLogin']);
+//Route::post('auth/login', ['as' =>'auth/login', 'uses' => 'Auth\AuthController@postLogin']);
+//Route::get('auth/logout', ['as' => 'auth/logout', 'uses' => 'Auth\AuthController@getLogout']);
+
+// Registration routes...
+//Route::get('auth/register', 'Auth\AuthController@getRegister');
+//Route::post('auth/register', ['as' => 'auth/register', 'uses' => 'Auth\AuthController@postRegister']);
+
+// Password reset link request routes...
+//Route::get('password/email', ['as' => 'password/email', 'uses' => 'Auth\PasswordController@getEmail']);
+//Route::post('password/email', ['as' => 'password/postEmail', 'uses' => 'Auth\PasswordController@postEmail']);
+
+// Password reset routes...
+//Route::get('password/reset/{token}', ['as' => 'password/reset', 'uses' => 'Auth\PasswordController@getReset']);
+//Route::post('password/reset', ['as' => 'password/postReset', 'uses' =>  'Auth\PasswordController@postReset']);

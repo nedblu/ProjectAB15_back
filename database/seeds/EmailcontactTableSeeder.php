@@ -11,7 +11,7 @@ class EmailcontactTableSeeder extends Seeder
      */
     public function run()
     {
-		DB::table('emailcontacts')->insert(['name' => 'David Aguilar','email' => 'carlosaguilarnet@gmail.com','user_id' => '1','created_at' => '0000-00-00 00:00:00','updated_at' => '0000-00-00 00:00:00']);
-		DB::table('emailcontacts')->insert(['name' => 'Felipe Pérez','email' => 'perez.camargo7@gmail.com','user_id' => '1','created_at' => '0000-00-00 00:00:00','updated_at' => '0000-00-00 00:00:00']);
+		DB::table('emailcontacts')->insert(['name' => 'Carlos David Aguilar Ruiz','email' => 'carlosaguilarnet@gmail.com','user_id' => '1','created_at' => \Carbon\Carbon::now()->toDateTimeString(),'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
+		DB::table('emailcontacts')->insert(['name' => 'Felipe Arturo Pérez Camargo','email' => 'perez.camargo7@gmail.com','user_id' => '1','created_at' => \Carbon\Carbon::now()->toDateTimeString(),'updated_at' => \Carbon\Carbon::now()->toDateTimeString()]);
     }
 }

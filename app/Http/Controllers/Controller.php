@@ -9,4 +9,25 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 abstract class Controller extends BaseController
 {
     use DispatchesJobs, ValidatesRequests;
+
+    protected $slide_path = 'slide-show/';
+    protected $technique_path = 'technique/';
+    protected $category_path = 'category-images/';
+    protected $color_path = 'colors/';
+
+    protected function admin_content_path() {
+        $path = public_path('assets/content_application/');
+        return $path;
+    }
+
+    protected function app_content_path() {
+
+    	if (\App::environment('local')) {
+		    $path = base_path('../alphabeta_web/public_html/content/');
+		} else if (\App::environment('production')) {
+			$path = base_path('../public_html/content/');
+		}
+    	
+    	return $path;
+    }
 }

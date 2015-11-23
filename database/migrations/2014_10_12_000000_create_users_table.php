@@ -19,12 +19,14 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password', 60);
-            $table->boolean('actived')->default('0');
-            $table->boolean('banned')->default('0');
-            $table->integer('role_id');
-            $table->date('last_login');
+            $table->boolean('active')->default('0');
+            $table->integer('ip_address')->nullable()->unsigned();
+            $table->string('code')->nullable();
+            $table->boolean('tour')->default('0');
+            $table->dateTime('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

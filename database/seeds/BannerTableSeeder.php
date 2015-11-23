@@ -11,9 +11,6 @@ class BannerTableSeeder extends Seeder
      */
     public function run()
     {
-		DB::table('banners')->insert(['title' => 'Oferta Impresoras','image' => 'no.png','published' => '1','uri' => 'uri','user_id' => '1','created_at' => '0000-00-00 00:00:00','updated_at' => '0000-00-00 00:00:00','deleted_at' => '0000-00-00 00:00:00']);
-		DB::table('banners')->insert(['title' => 'Oferta Tintas','image' => 'no.png','published' => '1','uri' => 'uri','user_id' => '1','created_at' => '0000-00-00 00:00:00','updated_at' => '0000-00-00 00:00:00','deleted_at' => '0000-00-00 00:00:00']);
-		DB::table('banners')->insert(['title' => 'Bienvenida','image' => 'no.png','published' => '1','uri' => 'uri','user_id' => '1','created_at' => '0000-00-00 00:00:00','updated_at' => '0000-00-00 00:00:00','deleted_at' => '0000-00-00 00:00:00']);
-		DB::table('banners')->insert(['title' => 'Rocket','image' => 'no.png','published' => '0','uri' => 'uri','user_id' => '1','created_at' => '0000-00-00 00:00:00','updated_at' => '0000-00-00 00:00:00','deleted_at' => '0000-00-00 00:00:00']);
+		DB::table('banners')->insert(['title' => 'Imprime tus momentos','image' => 'momentos.gif','published' => '1','uri' => 'uri','user_id' => '1','created_at' => \Carbon\Carbon::now()->toDateTimeString(),'updated_at' => \Carbon\Carbon::now()->toDateTimeString(),'deleted_at' => null]);
     }
 }
