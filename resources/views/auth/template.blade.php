@@ -7,45 +7,33 @@
     <title>{{ env('SYSTEM_NAME','SYSTEM_NAME') }}  | Inicio de Sesión</title>
 
     {!! Html::style('assets/css/normalize.css') !!}
-    {!! Html::style('assets/css/foundation.min.css') !!}
-    {!! Html::style('assets/css/font-awesome.min.css') !!}
+    {!! Html::style('https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/lumen/bootstrap.min.css') !!}
+    {!! Html::style('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css') !!}
     {!! Html::style('assets/css/app-login.css') !!}
     {!! Html::script('js/vendor/modernizr.js') !!}
 
   </head>
   <body>
-    
-    <nav class="top-bar" data-topbar role="navigation">
-      <ul class="title-area">
-        <li class="name">
-          <h1><a href="{{ url('auth/login') }}">{!! Html::image('img/small-' . env('SYSTEM_LOGO','SYSTEM_LOGO'), env('SYSTEM_NAME','SYSTEM_NAME')) !!} {{ env('SYSTEM_NAME','SYSTEM_NAME') }}</a></h1>
-        </li>
-      </ul>
+  
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{ url('auth/login') }}">
+            {!! Html::image('img/small-' . env('SYSTEM_LOGO','SYSTEM_LOGO'), env('SYSTEM_NAME','SYSTEM_NAME'), ['width' => 30, 'height' => 'auto']) !!}
+          </a>
+          <p class="navbar-text">{{ env('SYSTEM_NAME','SYSTEM_NAME') }}</p>
+        </div>
+      </div>
     </nav>
 
     <div class="row">
-      <div class="large-5 large-centered columns">
-        <div class="login-box">
-          <div class="row">
-            <div class="large-12 columns">
-              <div class="row logo-area">
-                {!! Html::image('img/' .env('SYSTEM_LOGO','SYSTEM_LOGO'), env('SYSTEM_NAME','SYSTEM_NAME'), ['id' => 'login-login']) !!}
-              </div>
-              
-              @yield('content-form')
-
-            </div>
-          </div>
-        </div>
-      </div>
+      @yield('content-form')
     </div>
 
     {!! Html::script('assets/js/vendor/jquery.js') !!}
     {!! Html::script('assets/js/vendor/jquery.cookie.js') !!}
     {!! Html::script('assets/js/vendor/fastclick.js') !!}
-    {!! Html::script('assets/js/foundation.min.js') !!}
-    {!! Html::script('assets/js/plugins.js') !!}
-    {!! Html::script('assets/js/app.js') !!}
+    {!! Html::script('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js') !!}
 
   </body>
 </html>
