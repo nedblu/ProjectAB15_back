@@ -165,4 +165,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('App\Category');
     }
 
+    public function colors()
+    {
+        return $this->hasMany('App\Color');
+    }
+
 }

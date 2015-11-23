@@ -88,6 +88,26 @@ Route::group(['middleware' => 'auth'], function () {
 
 	});
 
+	/* COLORS APP */
+
+	Route::group(['as' => 'Colors::', 'prefix' => 'colors'], function () {
+	    
+	    Route::get('/', ['as' => 'index', 'uses' => 'ColorsController@index']);
+
+	    Route::get('create', ['as' => 'create', 'uses' => 'ColorsController@create']);
+
+	    Route::post('store', ['as' => 'store', 'uses' => 'ColorsController@store']);
+
+	    Route::get('show/{id}', ['as' => 'show', 'uses' => 'ColorsController@show'])->where('id','[0-9]+');
+
+		Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'ColorsController@edit'])->where('id','[0-9]+');
+
+		Route::put('update/{id}', ['as' => 'update', 'uses' => 'ColorsController@update'])->where('id','[0-9]+');
+
+	    Route::delete('destroy/{id}', ['as' => 'destroy', 'uses' => 'ColorsController@destroy'])->where('id','[0-9]+');
+
+	});
+
 	/* SLIDESHOW APP */
 
 	Route::group(['as' => 'Slides::', 'prefix' => 'slides'], function () {
