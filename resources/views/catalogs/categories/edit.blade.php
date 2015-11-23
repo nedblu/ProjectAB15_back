@@ -18,9 +18,14 @@
 
 <hr class="divider">
 
+@include('templates.partials.alerts')
+
 <div class="row col-md-12">
 
-	<form method="post" action="{{ route('Categories::store' ) }}" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off">
+	<form method="post" action="{{ route('Categories::update', $category->id ) }}" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off">
+		
+		{!! method_field('PUT') !!}
+		
 		<div class="col-md-6">
 			<div class="form-group">
 				<label for="name"><strong>Nombre de Categoría</strong></label>
@@ -57,7 +62,7 @@
 					<option value="">No available</option>
 					@endforelse
 				</select>
-				<span id="helpBlock" class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+				<span id="helpBlock" class="help-block">Selcciona la categoría padre.</span>
 			</div>
 
 		</div>
@@ -65,7 +70,8 @@
 		<div class="clearfix"></div>
 
 		{!! csrf_field() !!}
-		<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Agregar</button>
+		
+		<button type="submit" class="btn btn-primary"><i class="fa fa-refresh"></i> Actualizar</button>
 		<a href="{{ route('Categories::index' ) }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancelar</a>
 	</form>
 </div>

@@ -82,6 +82,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 		Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'CategoriesController@edit'])->where('id','[0-9]+');
 
+		Route::put('update/{id}', ['as' => 'update', 'uses' => 'CategoriesController@update'])->where('id','[0-9]+');
+
 	    Route::delete('destroy/{id}', ['as' => 'destroy', 'uses' => 'CategoriesController@destroy'])->where('id','[0-9]+');
 
 	});

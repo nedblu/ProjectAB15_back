@@ -209,13 +209,14 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         //
+
         $category = Category::findOrFail($id);
 
         $categoriesAffected = Category::where('parent_id', $id)->count();
-        $productsAffected = Product::where('parent_id', $id)->count();
+
+        $productsAffected = $this->deleteTree($id);
 
         $uncategorizeCategories = Category::where('parent_id', $id)->update(['parent_id' => 1]);
-        $uncategorizeProducts = Product::where('parent_id', $id)->update(['parent_id' => 1]);
 
         if ($category->image !== null) {
             if (File::exists($this->admin_content_path() . $this->category_path . $category->image) && File::exists($this->app_content_path() . $this->category_path . $category->image)) {
@@ -228,7 +229,21 @@ class CategoriesController extends Controller
 
         $category->delete();
 
-        return redirect()->route('Categories::index')->with('status', 'La eliminación de la categoría <strong>'. $auxName .'</strong> se ha realizado exitosamente: ' . $categoriesAffected . ' categorías afectadas, ' . $productsAffected . ' productos afectados.');
+        return redirect()->route('Categories::index')->with('status', 'La eliminación de la categoría '. $auxName .' se ha realizado exitosamente: ' . $categoriesAffected . ' categorías afectadas, ' . $productsAffected . ' productos afectados.');
+
+    }
+
+    private function deleteTree($id) 
+    {
+        $count = 0;
+        $categories = Category::where('parent_id', $id)->get();
+
+        foreach ($categories as $category) {
+            $count += Product::where('parent_id', $category->id)->count();
+            Product::where('parent_id', $category->id)->update(['parent_id' => 1]);
+        }
+
+       return $count;
 
     }
 }
