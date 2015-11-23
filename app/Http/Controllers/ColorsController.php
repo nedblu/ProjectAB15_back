@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Color;
+use Image;
+use Auth;
+use File;
 
 class ColorsController extends Controller
 {
@@ -16,6 +20,9 @@ class ColorsController extends Controller
     public function index()
     {
         //
+        $colors = Color::all();
+
+        return view('catalogs.colors.index')->with('colors', $colors);
     }
 
     /**
@@ -26,6 +33,7 @@ class ColorsController extends Controller
     public function create()
     {
         //
+        return view('catalogs.colors.create');
     }
 
     /**
@@ -37,6 +45,38 @@ class ColorsController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = \Validator::make($request->all(), [
+            'name'        => 'required',
+            'image'       => 'image|max:3000|required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('Colors::create')
+                            ->withErrors($validator)
+                            ->withInput()
+                            ->with('error', '¡Ops! Algo ha salido mal, por favor atiende a los siguientes mensajes:');
+        }
+
+        if ($request->hasFile('image')) {
+
+            $img = $request->file('image');
+            $ext = $img->getClientOriginalExtension();
+            $image_name = "color" . str_random(16) . "." . $ext;
+
+            $category = Color::create([
+                'name'    => $request->input('name'),
+                'image'   => $image_name,
+                'user_id' => Auth::id()
+            ]);
+
+            $category->code = 'C' . str_pad($category->id, 3, "0", STR_PAD_LEFT);
+            $category->save();
+
+            Image::make($img)->fit(60, 60)->save($this->admin_content_path() . $this->color_path . $image_name, 100);
+            Image::make($img)->fit(60, 60)->save($this->app_content_path() . $this->color_path . $image_name, 100);
+        }
+
+        return redirect()->route('Colors::create')->with('status', '¡El nuevo color se ha agregado exitosamente!');
     }
 
     /**
@@ -59,6 +99,9 @@ class ColorsController extends Controller
     public function edit($id)
     {
         //
+        $color = Color::findOrFail($id);
+
+        return view('catalogs.colors.edit')->with('color', $color);
     }
 
     /**
@@ -71,6 +114,41 @@ class ColorsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validator = \Validator::make($request->all(), [
+            'name'        => 'required',
+            'image'       => 'image|max:3000'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('Colors::edit', $id)
+                            ->withErrors($validator)
+                            ->withInput()
+                            ->with('error', '¡Ops! Algo ha salido mal, por favor atiende a los siguientes mensajes:');
+        }
+
+        if ($request->hasFile('image')) {
+
+            $img = $request->file('image');
+            $ext = $img->getClientOriginalExtension();
+            $image_name = "color" . str_random(16) . "." . $ext;
+
+            $category = Color::where('id', $id)->update([
+                'name'    => $request->input('name'),
+                'image'   => $image_name
+            ]);
+
+            Image::make($img)->fit(60, 60)->save($this->admin_content_path() . $this->color_path . $image_name, 100);
+            Image::make($img)->fit(60, 60)->save($this->app_content_path() . $this->color_path . $image_name, 100);
+        }
+        else 
+        {
+            $category = Color::where('id', $id)->update([
+                'name'  => $request->input('name')
+            ]);
+        }
+
+        return redirect()->route('Colors::edit', $id)->with('status', '¡El color se ha editado correctamente!');
+
     }
 
     /**
@@ -82,5 +160,17 @@ class ColorsController extends Controller
     public function destroy($id)
     {
         //
+        $color = Color::findOrFail($id);
+
+        $auxName = $color->name;
+
+        if (File::exists($this->admin_content_path() . $this->color_path . $color->image) && File::exists($this->app_content_path() . $this->color_path . $color->image)) {
+            File::delete($this->admin_content_path() . $this->color_path . $color->image);
+            File::delete($this->app_content_path() . $this->color_path . $color->image);
+        }
+
+        $color->delete();
+
+        return redirect()->route('Colors::index')->with('status', 'Color ' . $auxName . ' eliminado correctamente');
     }
 }
