@@ -2,48 +2,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>A Responsive Email Template</title>
-<!--
+<title>Restablecimiento de contraseña</title>
 
-    An email present from your friends at Litmus (@litmusapp)
-
-    Email is surprisingly hard. While this has been thoroughly tested, your mileage may vary.
-    It's highly recommended that you test using a service like Litmus (http://litmus.com) and your own devices.
-
-    Enjoy!
-
- -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <style type="text/css">
-    /* CLIENT-SPECIFIC STYLES */
-    #outlook a{padding:0;} /* Force Outlook to provide a "view in browser" message */
-    .ReadMsgBody{width:100%;} .ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */
-    .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;} /* Force Hotmail to display normal line spacing */
-    body, table, td, a{-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;} /* Prevent WebKit and Windows mobile changing default text sizes */
-    table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;} /* Remove spacing between tables in Outlook 2007 and up */
-    img{-ms-interpolation-mode:bicubic;} /* Allow smoother rendering of resized image in Internet Explorer */
-
-    /* RESET STYLES */
+    #outlook a{padding:0;}
+    .ReadMsgBody{width:100%;} .ExternalClass{width:100%;}
+    .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;}
+    body, table, td, a{-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;}
+    table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;}
+    img{-ms-interpolation-mode:bicubic;}
     body{margin:0; padding:0;}
     img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;}
     table{border-collapse:collapse !important;}
     body{height:100% !important; margin:0; padding:0; width:100% !important;}
-
-    /* iOS BLUE LINKS */
     .appleBody a {color:#68440a; text-decoration: none;}
     .appleFooter a {color:#999999; text-decoration: none;}
-
-    /* MOBILE STYLES */
     @media screen and (max-width: 525px) {
-
-        /* ALLOWS FOR FLUID TABLES */
         table[class="wrapper"]{
           width:100% !important;
         }
-
-        /* ADJUSTS LAYOUT OF LOGO IMAGE */
         td[class="logo"]{
           text-align: left;
           padding: 20px 0 20px 0 !important;
@@ -126,26 +106,28 @@
     }
 </style>
 </head>
+
 <body style="margin: 0; padding: 0;">
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
-    <tr>
-        <td bgcolor="#ffffff" align="center" width="100%" style="padding: 20px 15px 20px 15px;" class="section-header">
-            <table border="0" cellpadding="0" cellspacing="0" width="500" class="wrapper" align="center">
-                <!-- LOGO/PREHEADER TEXT -->
-                <tr>
-                    <td align="center">
-                        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                            <tr>
-                                <td bgcolor="#ffffff" align="center"><a href="{{ env('SYSTEM_URL', '#SYSTEM_URL') }}" target="_blank"><img alt="{{ env('SYSTEM_NAME', 'SYSTEM_NAME') }}" src="{{ asset('img/' . {{ env('SYSTEM_LOGO', 'SYSTEM_LOGO') }}) }}" width="150" height="150" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0"></a></td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
-<!-- ONE COLUMN SECTION -->
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td bgcolor="#ffffff" align="center" width="100%" style="padding: 20px 15px 20px 15px;" class="section-header">
+                <table border="0" cellpadding="0" cellspacing="0" width="500" class="wrapper" align="center">
+                    <tr>
+                        <td align="center">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td bgcolor="#ffffff" align="center"><a href="{{ env('SYSTEM_URL', '#SYSTEM_URL') }}" target="_blank"><img alt="{{ env('SYSTEM_NAME', 'SYSTEM_NAME') }}" src="{{ asset('img/' . env('SYSTEM_LOGO', 'SYSTEM_LOGO')) }}" width="150" height="150" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0"></a></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr>
         <td bgcolor="#D8F1FF" align="center" style="padding: 70px 15px 70px 15px;" class="section-padding">
