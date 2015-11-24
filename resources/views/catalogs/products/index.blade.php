@@ -51,7 +51,7 @@
                 @endif
                 </td>
                 <td>{{ $product->category->name }}</td>
-                <td>{{ str_limit(strip_tags($product->description->body), 50)  }}</td>
+                <td>{{ str_limit(strip_tags($product->description), 50)  }}</td>
                 <td>Creado <time datetime="{{ $product->created_at }}" title="{{ $product->created_at }}" class="created_at">{{ $product->created_at }}</time></td>
             </tr>
         @endforeach
