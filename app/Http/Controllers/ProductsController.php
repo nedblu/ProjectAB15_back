@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use Illuminate\Http\Response;
-use App\Http\Controllers\Controller;
-use App\Color;
-use App\Product;
 
-class CatalogsController extends Controller
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\Product;
+use App\Category;
+
+class ProductsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,8 +23,7 @@ class CatalogsController extends Controller
 
         $products->setPath('products');
 
-        return view('catalogs.index')->with('products', $products);
-
+        return view('catalogs.products.index')->with('products', $products);
     }
 
     /**
@@ -35,6 +34,11 @@ class CatalogsController extends Controller
     public function create()
     {
         //
+        $limit = Category::count() - 1;
+
+        $categories = Category::skip(1)->take($limit)->get();
+
+        return view('catalogs.products.create')->with('categories', $categories);
     }
 
     /**
@@ -92,27 +96,4 @@ class CatalogsController extends Controller
     {
         //
     }
-
-    public function getJSONColors(Request $request)
-    {
-        if ($request->has('q')) {
-            return response()->json($this->search($request->q),200)
-                        ->setCallback($request->input('callback'));
-        }
-        else {
-            return response()->json(['error:query no provided'],500)
-                        ->header('X-rate-limit', '8')
-                        ->setCallback($request->input('callback'));
-        }
-        
-    }
-
-    protected function search($item, $type = null) 
-    {
-
-        $search = Color::like('name', $item)->select('id', 'name', 'code', 'image')->get();
-
-        return $search;
-    }
-
 }

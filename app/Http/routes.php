@@ -60,11 +60,21 @@ Route::group(['middleware' => 'auth'], function () {
 
 	/* CATALOG APP */
 
-	Route::group(['as' => 'Catalogs::', 'prefix' => 'products'], function () {
+	Route::group(['as' => 'Products::', 'prefix' => 'products'], function () {
 	    
-	    Route::get('/', ['as' => 'index', 'uses' => 'CatalogsController@index']);
+	    Route::get('/', ['as' => 'index', 'uses' => 'ProductsController@index']);
 
-	    Route::get('json', ['as' => 'json_colors', 'uses' => 'CatalogsController@getJSONColors']);
+	    Route::get('create', ['as' => 'create', 'uses' => 'ProductsController@create']);
+
+	    Route::post('store', ['as' => 'store', 'uses' => 'ProductsController@store']);
+
+	    Route::get('show/{id}', ['as' => 'show', 'uses' => 'ProductsController@show'])->where('id','[0-9]+');
+
+		Route::get('edit/{id}', ['as' => 'edit', 'uses' => 'ProductsController@edit'])->where('id','[0-9]+');
+
+		Route::put('update/{id}', ['as' => 'update', 'uses' => 'ProductsController@update'])->where('id','[0-9]+');
+
+	    Route::delete('destroy/{id}', ['as' => 'destroy', 'uses' => 'ProductsController@destroy'])->where('id','[0-9]+');
 
 	});
 
@@ -105,6 +115,8 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::put('update/{id}', ['as' => 'update', 'uses' => 'ColorsController@update'])->where('id','[0-9]+');
 
 	    Route::delete('destroy/{id}', ['as' => 'destroy', 'uses' => 'ColorsController@destroy'])->where('id','[0-9]+');
+
+	    Route::get('json', ['as' => 'json_colors', 'uses' => 'ColorsController@getJSONColors']);
 
 	});
 
