@@ -1,15 +1,15 @@
 @extends('templates.main')
 
-@section('title') Nuevo producto @stop
+@section('title') {{ $product->name }} @stop
 
 @section('content')
 
 <ol class="breadcrumb">
   <li><a href="{{ route('Products::index' ) }}">Productos</a></li>
-  <li class="active">Nuevo producto</li>
+  <li class="active">{{ $product->name }}</li>
 </ol>
 
-<h3>Nuevo producto</h3>
+<h3>{{ $product->name }}</h3>
 
 <hr class="divider">
 
@@ -19,12 +19,12 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="name"><strong>Nombre del Producto</strong></label>
-            <input type="text" class="form-control" name="name" placeholder="Nombre del Producto" value="{{ old('name') }}" required>
+            <input type="text" class="form-control" name="name" placeholder="Nombre del Producto" value="{{ $product->name }}" required>
         </div>
 
         <div class="form-group">
             <label for="sku"><strong>SKU (Stockkeeping Unit)</strong></label>
-            <input type="text" class="form-control" name="sku" placeholder="Nombre del Producto" value="{{ old('sku') }}" aria-describedby="skuHelp" required>
+            <input type="text" class="form-control" name="sku" placeholder="Nombre del Producto" value="{{ $product->sku }}" aria-describedby="skuHelp" required>
             <span id="skuHelp" class="help-block">Ingresa el código en stock para localización del proucto.</span>
         </div>
 
@@ -72,7 +72,11 @@
                 <option value="0">Principal</option>
                 <option value="">-----------------------------</option>
                 @forelse ($categories as $category)
+                @if($product->parent_id === $category->id)
+                <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                @else
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endif
                 @empty
                 <option value="">No available</option>
                 @endforelse

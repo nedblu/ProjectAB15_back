@@ -100,6 +100,32 @@ $(document).ready(function() {
     /*******************************
     *       NEW PRODUCT APP        *
     ********************************/
-    
+
+    $('#checkColors').bind('change', function () {
+        if ($(this).is(':checked')){
+            $("#colors").prop('disabled', false);
+        }
+        else {
+            $("#colors").prop('disabled', true);
+        }
+    });
+
+    $('#checkInks').bind('change', function () {
+        if ($(this).is(':checked')){
+            $("#inks").prop('disabled', false);
+        }
+        else {
+            $("#inks").prop('disabled', true);
+        }
+    });
+
+    $('#checkEquipment').bind('change', function () {
+        if ($(this).is(':checked')){
+            $("#equipments").prop('disabled', false);
+        }
+        else {
+            $("#equipments").prop('disabled', true);
+        }
+    });
 
 });
