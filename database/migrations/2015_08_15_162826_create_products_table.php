@@ -18,14 +18,15 @@ class CreateProductsTable extends Migration
             $table->string('image')->nullable();
             $table->integer('description_id');
             $table->integer('category_id');
-            $table->integer('parent_id');
+            $table->integer('parent_id')->unsigned();
             $table->string('sku');
-            $table->integer('offer_id');
+            $table->integer('offer_id')->unsigned();
             $table->boolean('stock');
             $table->boolean('colors');
             $table->boolean('ink');
             $table->boolean('equipment');
-            $table->integer('user_id');
+            $table->text('description')->nullable();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
         });
