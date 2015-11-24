@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ColorTableSeeder::class);
         $this->call(TechniqueTableSeeder::class);
         $this->call(EmailcontactTableSeeder::class);
-        $this->call(DescriptionTableSeeder::class);
 
         Model::reguard();
     }
