@@ -12,8 +12,6 @@ use File;
 
 class SlidesController extends Controller
 {
-    //protected $admin_path = '/assets/content_application/';
-    //protected $app_path = '/../alphabeta_web/public_html/content/slide-show/';
     /**
      * Display a listing of the resource.
      *
@@ -90,9 +88,9 @@ class SlidesController extends Controller
             $bannerUpdateOrder->save();
         }
 
-        Image::make($img)->fit(250, 150)->save($this->admin_content_path() . 'thumbnail_' . $fullName, 100);
-        Image::make($img)->fit(1366, 400)->save($this->admin_content_path() . 'photo_' . $fullName, 100);
-        Image::make($img)->fit(489, 253)->save($this->admin_content_path() . 'preview_' . $fullName, 100);
+        Image::make($img)->fit(250, 150)->save($this->admin_content_path() . $this->slide_path . 'thumbnail_' . $fullName, 100);
+        Image::make($img)->fit(1366, 400)->save($this->admin_content_path() . $this->slide_path . 'photo_' . $fullName, 100);
+        Image::make($img)->fit(489, 253)->save($this->admin_content_path() . $this->slide_path . 'preview_' . $fullName, 100);
         Image::make($img)->fit(1366, 400)->save($this->app_content_path() . $this->slide_path . $fullName, 100);
 
         return redirect()->route('Slides::create')->with('status', '¡El slide se ha creado exitosamente!');
@@ -190,10 +188,10 @@ class SlidesController extends Controller
         if ($request->hasFile('image'))
         {
 
-            $thumbnail = $this->admin_content_path() . 'thumbnail_' . $banner->image;
-            $photo = $this->admin_content_path() . 'photo_' . $banner->image;
-            $preview = $this->admin_content_path() . 'preview_' . $banner->image;
-            $slide = $this->app_content_path() . $this->slide_path . $banner->image;
+            $thumbnail = $this->admin_content_path() . $this->slide_path . 'thumbnail_' . $banner->image;
+            $photo     = $this->admin_content_path() . $this->slide_path . 'photo_' . $banner->image;
+            $preview   = $this->admin_content_path() . $this->slide_path . 'preview_' . $banner->image;
+            $slide     = $this->app_content_path() . $this->slide_path . $banner->image;
 
             if (File::exists($thumbnail) && File::exists($photo) && File::exists($slide) && File::exists($preview)) {
                 File::delete($thumbnail);
@@ -210,9 +208,9 @@ class SlidesController extends Controller
 
             $banner->image = $fullName;
 
-            Image::make($img)->fit(250, 150)->save($this->admin_content_path() . 'thumbnail_' . $fullName, 100);
-            Image::make($img)->fit(1366, 400)->save($this->admin_content_path() . 'photo_' . $fullName, 100);
-            Image::make($img)->fit(489, 253)->save($this->admin_content_path() . 'preview_' . $fullName, 100);
+            Image::make($img)->fit(250, 150)->save($this->admin_content_path() . $this->slide_path . 'thumbnail_' . $fullName, 100);
+            Image::make($img)->fit(1366, 400)->save($this->admin_content_path() . $this->slide_path . 'photo_' . $fullName, 100);
+            Image::make($img)->fit(489, 253)->save($this->admin_content_path() . $this->slide_path . 'preview_' . $fullName, 100);
             Image::make($img)->fit(1366, 400)->save($this->app_content_path() . $this->slide_path . $fullName, 100);
 
         }
@@ -237,10 +235,10 @@ class SlidesController extends Controller
 
         $banner = Banner::findOrFail($id);
 
-        $thumbnail = $this->admin_content_path() . 'thumbnail_' . $banner->image;
-        $photo = $this->admin_content_path() . 'photo_' . $banner->image;
-        $preview = $this->admin_content_path() . 'preview_' . $banner->image;
-        $slide = $this->app_content_path() . $this->slide_path . $banner->image;
+        $thumbnail = $this->admin_content_path() . $this->slide_path . 'thumbnail_' . $banner->image;
+        $photo     = $this->admin_content_path() . $this->slide_path . 'photo_' . $banner->image;
+        $preview   = $this->admin_content_path() . $this->slide_path . 'preview_' . $banner->image;
+        $slide     = $this->app_content_path() . $this->slide_path . $banner->image;
 
         if (File::exists($thumbnail) && File::exists($photo) && File::exists($slide) && File::exists($preview)) {
             File::delete($thumbnail);

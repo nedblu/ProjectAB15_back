@@ -173,4 +173,40 @@ class ColorsController extends Controller
 
         return redirect()->route('Colors::index')->with('status', 'Color ' . $auxName . ' eliminado correctamente');
     }
+
+    /**
+     * Get specified resources in AJAX
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getJSONColors(Request $request)
+    {
+        if ($request->has('q')) {
+            return response()->json($this->search($request->q), 200)
+                        ->header('Content-Type', 'application/json; charset=utf-8\n\n')
+                        ->header('X-rate-limit', '10')
+                        ->setCallback($request->input('callback'));
+        }
+        else {
+            return response()->json(['Error' => '100', 'Type' => 'Internal Server Error', 'Description' => 'Query not provided in URL'], 500)
+                        ->header('X-rate-limit', '10')
+                        ->setCallback($request->input('callback'));
+        }
+        
+    }
+
+    /**
+     * Get specified resources in AJAX
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    private function search($item, $type = null) 
+    {
+
+        $search = Color::like('name', $item)->select('id', 'name', 'code', 'image')->get();
+
+        return $search;
+    }
 }
