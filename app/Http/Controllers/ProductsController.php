@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\Category;
+use App\Color;
 
 class ProductsController extends Controller
 {
@@ -34,9 +35,7 @@ class ProductsController extends Controller
     public function create()
     {
         //
-        $limit = Category::count() - 1;
-
-        $categories = Category::skip(1)->take($limit)->get();
+        $categories = Category::all();
 
         return view('catalogs.products.create')->with('categories', $categories);
     }
@@ -61,6 +60,12 @@ class ProductsController extends Controller
     public function show($id)
     {
         //
+        $product = Product::findOrFail($id);
+        
+        if($product->colors)
+            $product->colorResources = $this->getColorsOfProduct($product->getColors->colors_ar);
+
+        return view('catalogs.products.show')->with('product', $product);
     }
 
     /**
@@ -100,5 +105,33 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getColorsOfProduct($array)
+    {
+      if (! is_array ($array))
+          $array = explode(",", $array);
+
+      if( count($array) > 1) {
+          
+          $count = 0;
+          $colors = Color::select('name', 'image')->where('code', strtoupper($array[0]));
+          
+          foreach($array as $item){
+              if($count > 0){
+                  $colors_union = Color::select('name','image')->where('code', strtoupper($item));
+                  $colors = $colors->unionAll($colors_union);
+              }
+              $count++;
+          }
+          $results = $colors->orderBy('name', 'asc')->get();
+          return $results;
+      }
+
+      else {
+          $results = Color::select('name', 'image')->where('code', $array)->get();
+          return $results;
+      }
+
     }
 }

@@ -41,7 +41,7 @@
         <tbody>
         @foreach($products as $product)
             <tr>
-                <td>{{ $product->name }}</td>
+                <td><a href="{{ route('Products::show', $product->id) }}" title="{{ $product->name }}">{{ $product->name }}</a></td>
                 <td>{{ $product->sku }}</td>
                 <td>
                 @if($product->stock)
@@ -50,9 +50,15 @@
                     <span class="label label-danger">NO</span>
                 @endif
                 </td>
-                <td>{{ $product->category->name }}</td>
-                <td>{{ str_limit(strip_tags($product->description), 50)  }}</td>
-                <td>Creado <time datetime="{{ $product->created_at }}" title="{{ $product->created_at }}" class="created_at">{{ $product->created_at }}</time></td>
+                <td>
+                    @if($product->category_id === 1 || $product->parent_id === 1)
+                        <span class="label label-warning"><i class="fa fa-tag"></i> {{ $product->subcategory->name }}</span>
+                    @else
+                        <span class="label label-primary"><i class="fa fa-tag"></i> {{ $product->subcategory->name }}</span>
+                    @endif
+                </td>
+                <td>{{ str_limit(strip_tags($product->description), 30)  }}</td>
+                <td><time datetime="{{ $product->created_at }}" title="{{ $product->created_at }}" class="created_at">{{ $product->created_at }}</time></td>
             </tr>
         @endforeach
         </tbody>
@@ -75,7 +81,8 @@
 
     <script>
         $('#table-products').filterTable({
-            label:             ''
+            label       : '',
+            placeholder : 'Buscar en la página actual...'
         });
     </script>
 

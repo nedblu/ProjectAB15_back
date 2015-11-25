@@ -32,6 +32,13 @@
             <label for="image"><strong>Subir imagen de producto</strong></label>
             <input type="file" accept="image/*" class="form-control" id="image" name="image">
         </div>
+
+        <div class="form-group">
+            <strong>Seleccionar si está en existencia</strong>
+            <div class="checkbox">
+                <label><input type="checkbox" id="inStock" name="inStock"> En stock</label>
+            </div>
+        </div>
     </div>
 
     <div class="col-md-6">
@@ -69,7 +76,7 @@
         
             <select name="parent_id" class="form-control" required>
                 <option value="">- -</option>
-                <option value="0">Principal</option>
+                <option value="0">Categoría principal</option>
                 <option value="">-----------------------------</option>
                 @forelse ($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
