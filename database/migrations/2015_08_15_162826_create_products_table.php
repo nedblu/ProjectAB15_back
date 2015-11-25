@@ -16,11 +16,9 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('image')->nullable();
-            $table->integer('description_id');
             $table->integer('category_id');
             $table->integer('parent_id')->unsigned();
             $table->string('sku');
-            $table->integer('offer_id')->unsigned();
             $table->boolean('stock');
             $table->boolean('colors');
             $table->boolean('ink');

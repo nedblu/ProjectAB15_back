@@ -18,7 +18,7 @@ class ProductInk extends Model
      *
      * @var array
      */
-    protected $fillable = ['product_id', 'inks_ar', 'user_id'];
+    protected $fillable = ['product_id', 'inks_ar'];
 
     public function product()
     {

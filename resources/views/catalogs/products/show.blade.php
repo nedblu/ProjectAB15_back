@@ -19,7 +19,7 @@
     @if($product->image === null)
         <img class="img-rounded" src="http://placehold.it/300x300/A0D2F2/2980b9/?text=300x300" alt="{{ $product->name }}">
     @else
-        {!! Html::image('assets/content_application/products/photo/' . $product->image ) !!}
+        {!! Html::image('assets/content_application/products/' . $product->image ) !!}
     @endif
 </div>
 
@@ -58,7 +58,7 @@
                     <td><strong>Última modificación</strong></td>
                     <td><time datetime="{{ $product->updated_at }}" title="{{ $product->updated_at }}" class="updated_at">{{ $product->updated_at }}</time></td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <td><strong>Categoría</strong></td>
                     <td>
                     @if($product->category_id === 1)
@@ -67,7 +67,7 @@
                         <span class="label label-primary"><i class="fa fa-tag"></i> {{ $product->category->name }}</span>
                     @endif
                     </td>
-                </tr>
+                </tr>-->
                 <tr>
                     <td><strong>Sub-categoría</strong></td>
                     <td>

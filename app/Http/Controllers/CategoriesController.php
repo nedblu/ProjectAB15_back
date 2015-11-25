@@ -68,9 +68,7 @@ class CategoriesController extends Controller
         if ($request->hasFile('image')) {
 
             $img = $request->file('image');
-
             $ext = $img->getClientOriginalExtension();
-
             $image_name = "category_" . str_random(16) . "." . $ext;
 
             $category = Category::create([

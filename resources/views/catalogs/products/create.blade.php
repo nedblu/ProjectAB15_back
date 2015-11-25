@@ -72,6 +72,7 @@
     <div class="col-md-12">
 
         <div class="form-group">
+
             <label for="parent_id"><strong>Seleccione la categoría del producto</strong></label>
         
             <select name="parent_id" class="form-control" required>
@@ -116,13 +117,11 @@
                 {name: 'editing', items: ['Find','Replace','-','SelectAll','-','Scayt'] },
                 {name: 'links', items: ['Link', 'Unlink', 'Anchor'] },
                 {name: 'insert', items: ['Table', 'HorizontalRule', 'SpecialChar'] },
-                {name: 'tools', items: ['Maximize'] },
-                {name: 'document', items: ['Source', 'NewPage'] },
                 '/',
+                {name: 'tools', items: ['Maximize'] },
+                {name: 'document', items: ['Source', 'NewPage'] },           
                 {name: 'basicstyles', items: ['Bold', 'Italic', 'Strike', '-', 'RemoveFormat'] },
-                {name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] },
-                //{ name: 'styles', items: ['Styles', 'Format'] },
-                {name: 'styles', items: ['Format'] }
+                {name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] }
             ]
         });
     </script>

@@ -15,7 +15,10 @@
 
 @include('templates.partials.alerts')
 
-<form method="post" action="{{ route('Products::store' ) }}" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off">
+<form method="post" action="{{ route('Products::update', $product->id) }}" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off">
+
+    {!! method_field('PUT') !!}
+
     <div class="col-md-6">
         <div class="form-group">
             <label for="name"><strong>Nombre del Producto</strong></label>

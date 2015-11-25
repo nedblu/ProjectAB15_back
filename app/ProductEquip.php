@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductEquip extends Model
 {
-    //
     /**
      * The database table used by the model.
      *
@@ -19,7 +18,7 @@ class ProductEquip extends Model
      *
      * @var array
      */
-    protected $fillable = ['product_id', 'equip_ar', 'user_id'];
+    protected $fillable = ['product_id', 'equip_ar'];
 
     public function product()
     {

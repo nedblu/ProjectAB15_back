@@ -18,7 +18,7 @@ class ProductColor extends Model
      *
      * @var array
      */
-    protected $fillable = ['product_id', 'colors_ar', 'user_id'];
+    protected $fillable = ['product_id', 'colors_ar'];
 
     public function product()
     {

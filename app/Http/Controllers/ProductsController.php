@@ -7,8 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Product;
+use App\ProductColor;
+use App\ProductEquip;
+use App\ProductInk;
 use App\Category;
 use App\Color;
+use Auth;
+use Image;
+use File;
 
 class ProductsController extends Controller
 {
@@ -49,6 +55,58 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = \Validator::make($request->all(), [
+            'name'        => 'required',
+            'sku'         => 'required',
+            'image'       => 'sometimes|image|max:3000',
+            'colors'      => 'required_if:checkColors,on',
+            'inks'        => 'required_if:checkInks,on',
+            'equipments'  => 'required_if:checkEquipment,on',
+            'parent_id'   => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('Products::create')
+                            ->withErrors($validator)
+                            ->withInput()
+                            ->with('error', '¡Ops! Algo ha salido mal, por favor atiende a los siguientes mensajes:');
+        }
+
+        if ($request->hasFile('image')) {
+            $img = $request->file('image');
+            $ext = $img->getClientOriginalExtension();
+            $image_name = "image" . str_random(16) . "." . $ext;
+
+            Image::make($img)->fit(300, 300)->save($this->admin_content_path() . $this->products_path . $image_name, 100);
+            Image::make($img)->fit(300, 300)->save($this->app_content_path() . $this->products_path . $image_name, 100);
+        }
+
+        $product = Product::create([ 
+            'name'        => $request->input('name'),
+            'image'       => ($request->hasFile('image')) ? $image_name : null,
+            'sku'         => $request->input('sku'),
+            'stock'       => ($request->has('inStock')) ? 1 : 0,
+            'parent_id'   => $request->input('parent_id'),
+            'colors'      => ($request->has('checkColors')) ? 1 : 0,
+            'ink'         => ($request->has('checkInks')) ? 1 : 0,
+            'equipment'   => ($request->has('checkEquipment')) ? 1 : 0,
+            'description' => (empty(strip_tags($request->input('description')))) ? null : $request->input('description'),
+            'user_id'     => Auth::id()
+        ]);
+
+        if ($product->colors) {
+            ProductColor::create(['product_id' => $product->id, 'colors_ar' => $request->input('colors')]);
+        }
+        if ($product->ink) {
+            ProductInk::create(['product_id' => $product->id, 'inks_ar' => $request->input('inks')]);
+        }
+        if ($product->equipment) {
+            ProductEquip::create(['product_id' => $product->id, 'equip_ar' => $request->input('equipments')]);
+        }
+
+        $link = $this->link_generator(route('Products::show' , $product->id), $product->name);
+
+        return redirect()->route('Products::create')->with('status', '¡El producto se ha creado exitosamente, para verlo, ir a: ' . $link . '!');
     }
 
     /**
@@ -94,6 +152,70 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $validator = \Validator::make($request->all(), [
+            'name'        => 'required',
+            'sku'         => 'required',
+            'image'       => 'sometimes|image|max:3000',
+            'colors'      => 'required_if:checkColors,on',
+            'inks'        => 'required_if:checkInks,on',
+            'equipments'  => 'required_if:checkEquipment,on',
+            'parent_id'   => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('Products::edit', $id)
+                            ->withErrors($validator)
+                            ->withInput()
+                            ->with('error', '¡Ops! Algo ha salido mal, por favor atiende a los siguientes mensajes:');
+        }
+          
+        $product = Product::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+
+          if (File::exists($this->admin_content_path() . $this->products_path . $product->image) && File::exists($this->app_content_path() . $this->products_path . $product->image)) {
+              File::delete($this->admin_content_path() . $this->products_path . $product->image);
+              File::delete($this->app_content_path() . $this->products_path . $product->image);
+          }
+
+          $img = $request->file('image');
+          $ext = $img->getClientOriginalExtension();
+          $image_name = "image" . str_random(16) . "." . $ext;
+
+          Image::make($img)->fit(300, 300)->save($this->admin_content_path() . $this->products_path . $image_name, 100);
+          Image::make($img)->fit(300, 300)->save($this->app_content_path() . $this->products_path . $image_name, 100);
+        }
+
+        
+
+        $product->update([ 
+            'name'        => $request->input('name'),
+            'image'       => ($request->hasFile('image')) ? $image_name : null,
+            'sku'         => $request->input('sku'),
+            'stock'       => ($request->has('inStock')) ? 1 : 0,
+            'parent_id'   => $request->input('parent_id'),
+            'colors'      => ($request->has('checkColors')) ? 1 : 0,
+            'ink'         => ($request->has('checkInks')) ? 1 : 0,
+            'equipment'   => ($request->has('checkEquipment')) ? 1 : 0,
+            'description' => (empty(strip_tags($request->input('description')))) ? null : $request->input('description'),
+            'user_id'     => Auth::id()
+        ]);
+
+        $product->save();
+
+        if ($product->colors) {
+            ProductColor::where('product_id', $id)->update(['colors_ar' => $request->input('colors')]);
+        }
+        if ($product->ink) {
+            ProductInk::where('product_id', $id)->update(['inks_ar' => $request->input('inks')]);
+        }
+        if ($product->equipment) {
+            ProductEquip::where('product_id', $id)->update(['equip_ar' => $request->input('equipments')]);
+        }
+
+        $link = $this->link_generator(route('Products::show' , $product->id), $product->name);
+
+        return redirect()->route('Products::edit', $id)->with('status', '¡El producto se ha creado exitosamente, para verlo, ir a: ' . $link . '!');
     }
 
     /**
@@ -105,6 +227,16 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
+        $product = Product::findOrFail($id);
+
+        if (File::exists($this->admin_content_path() . $this->products_path . $product->image) && File::exists($this->app_content_path() . $this->products_path . $product->image)) {
+            File::delete($this->admin_content_path() . $this->products_path . $product->image);
+            File::delete($this->app_content_path() . $this->products_path . $product->image);
+        }
+
+        $product->delete();
+
+        return redirect()->route('Products::index')->with('status', 'Producto eliminado correctamente');
     }
 
     public function getColorsOfProduct($array)

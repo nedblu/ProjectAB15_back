@@ -16,6 +16,8 @@
 
 <hr class="divider">
 
+@include('templates.partials.alerts')
+
 <div class="panel panel-default">
     <div class="panel-body">
         <strong>Descripción:</strong> Administre aquí los productos de la base de datos que ofrece a sus clientes.
@@ -35,6 +37,7 @@
                 <th>Stock</th>
                 <th>Categoría</th>
                 <th>Description</th>
+                <th>Acciones</th>
                 <th>Creación</th>
             </tr>
         </thead>
@@ -58,6 +61,14 @@
                     @endif
                 </td>
                 <td>{{ str_limit(strip_tags($product->description), 30)  }}</td>
+                <td>
+                    <form action="{{ route('Products::destroy', $product->id) }}" class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">              
+                        {!! method_field('DELETE') !!}
+                        {!! csrf_field() !!}
+                        <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminación de productos" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar <strong>{{ $product->name }}</strong>?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                        <a href="{{ route('Products::edit',  $product->id) }}" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+                    </form>
+                </td>
                 <td><time datetime="{{ $product->created_at }}" title="{{ $product->created_at }}" class="created_at">{{ $product->created_at }}</time></td>
             </tr>
         @endforeach

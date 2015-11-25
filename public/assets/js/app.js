@@ -102,30 +102,21 @@ $(document).ready(function() {
     ********************************/
 
     $('#checkColors').bind('change', function () {
-        if ($(this).is(':checked')){
-            $("#colors").prop('disabled', false);
-        }
-        else {
-            $("#colors").prop('disabled', true);
-        }
+
+        ($(this).is(':checked')) ? $("#colors").prop('disabled', false).prop('required', true) : $("#colors").prop('disabled', true).prop('required', false);
+
     });
 
     $('#checkInks').bind('change', function () {
-        if ($(this).is(':checked')){
-            $("#inks").prop('disabled', false);
-        }
-        else {
-            $("#inks").prop('disabled', true);
-        }
+
+        ($(this).is(':checked')) ? $("#inks").prop('disabled', false).prop('required', true) : $("#inks").prop('disabled', true).prop('required', false);
+
     });
 
     $('#checkEquipment').bind('change', function () {
-        if ($(this).is(':checked')){
-            $("#equipments").prop('disabled', false);
-        }
-        else {
-            $("#equipments").prop('disabled', true);
-        }
+
+        ($(this).is(':checked')) ? $("#equipments").prop('disabled', false).prop('required', true) : $("#equipments").prop('disabled', true).prop('required', false);
+
     });
 
 });
