@@ -30,7 +30,7 @@
     <ul class="slides">
     @foreach($banners as $banner)
       <li>
-      {!! Html::image('assets/content_application/thumbnail_' . $banner->image, $banner->title) !!}
+      {!! Html::image('assets/content_application/slide-show/thumbnail_' . $banner->image, $banner->title) !!}
     	</li>
     @endforeach
     </ul>
@@ -62,7 +62,7 @@
         @else
         <small>Creado <time datetime="{{ $banner->created_at }}" title="{{ $banner->created_at }}" class="created_at">{{ $banner->created_at }}</time> como</small> <span class="label label-default">No público</span>
         @endif
-        <a class="btn btn-primary btn-xs fancy-btn" href="{!! asset('assets/content_application/photo_' . $banner->image) !!}" title="{{ $banner->title }}"><i class="fa fa-picture-o"></i></a>
+        <a class="btn btn-primary btn-xs fancy-btn" href="{!! asset('assets/content_application/slide-show/photo_' . $banner->image) !!}" title="{{ $banner->title }}"><i class="fa fa-picture-o"></i></a>
         <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Slide" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar el slide <strong>{{ $banner->title }}</strong>?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
         <a href="{{ route('Slides::edit',  $banner->id) }}" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
       </form>

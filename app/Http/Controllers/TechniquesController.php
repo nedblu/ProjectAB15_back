@@ -71,8 +71,8 @@ class TechniquesController extends Controller
                 'user_id' => Auth::id()
             ]);
 
-        Image::make($img)->fit(100, 100)->save($this->admin_content_path() . 'thumbnail_' . $image, 100);
-        Image::make($img)->fit(150, 100)->save($this->admin_content_path() . 'thumbnail_show_' . $image, 100);
+        Image::make($img)->fit(100, 100)->save($this->admin_content_path() . $this->technique_path . 'thumbnail_' . $image, 100);
+        Image::make($img)->fit(150, 100)->save($this->admin_content_path() . $this->technique_path . 'thumbnail_show_' . $image, 100);
         Image::make($img)->fit(400, 400)->save($this->app_content_path() . $this->technique_path . $image, 100);
 
         return redirect()->route('Techniques::create')->with('status', '¡La técnica ha sido agregada correctamente!');
@@ -146,8 +146,8 @@ class TechniquesController extends Controller
             $ext = $img->getClientOriginalExtension();
             $image = "img" . str_random(16) . "." . $ext;
 
-            $thumbnail = $this->admin_content_path() . 'thumbnail_' . $technique->image;
-            $thumbnail_show = $this->admin_content_path() . 'thumbnail_show_' . $technique->image;
+            $thumbnail = $this->admin_content_path() . $this->technique_path . 'thumbnail_' . $technique->image;
+            $thumbnail_show = $this->admin_content_path() . $this->technique_path . 'thumbnail_show_' . $technique->image;
             $technique_image = $this->app_content_path() . $this->technique_path . $technique->image;
 
             if (File::exists($thumbnail) && File::exists($thumbnail_show) && File::exists($technique_image)) {
@@ -158,8 +158,8 @@ class TechniquesController extends Controller
 
             $technique->image = $image;
 
-            Image::make($img)->fit(100, 100)->save($this->admin_content_path() . 'thumbnail_' . $image, 100);
-            Image::make($img)->fit(150, 100)->save($this->admin_content_path() . 'thumbnail_show_' . $image, 100);
+            Image::make($img)->fit(100, 100)->save($this->admin_content_path() . $this->technique_path . 'thumbnail_' . $image, 100);
+            Image::make($img)->fit(150, 100)->save($this->admin_content_path() . $this->technique_path . 'thumbnail_show_' . $image, 100);
             Image::make($img)->fit(400, 400)->save($this->app_content_path() . $this->technique_path . $image, 100);
         }
 

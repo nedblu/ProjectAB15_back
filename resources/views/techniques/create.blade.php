@@ -67,26 +67,22 @@
 	{!! Html::script('//cdn.ckeditor.com/4.5.4/full/ckeditor.js') !!}
 
   	<script>
-
 	    CKEDITOR.replace( 'detail', {
-
-		    language: 'es',
+			language: 'es',
 		    uiColor: '#EDEDED',
 		    toolbar: [
-		    	{ name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
-		    	{ name: 'editing', items: ['Find','Replace','-','SelectAll','-','Scayt'] },
-		    	{ name: 'links', items: ['Link', 'Unlink', 'Anchor'] },
-		    	{ name: 'insert', items: ['Table', 'HorizontalRule', 'SpecialChar'] },
-		    	{ name: 'tools', items: ['Maximize'] },
-		    	{ name: 'document', items: ['Source', 'NewPage'] },
-		    	'/',
-		    	{ name: 'basicstyles', items: ['Bold', 'Italic', 'Strike', '-', 'RemoveFormat'] },
-		    	{ name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] },
-		    	//{ name: 'styles', items: ['Styles', 'Format'] },
-		    	{ name: 'styles', items: ['Format'] }
+		        {name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
+		        {name: 'editing', items: ['Find','Replace','-','SelectAll','-','Scayt'] },
+		        {name: 'links', items: ['Link', 'Unlink', 'Anchor'] },
+		        {name: 'insert', items: ['Table', 'HorizontalRule', 'SpecialChar'] },
+		        {name: 'tools', items: ['Maximize'] },
+		        {name: 'document', items: ['Source', 'NewPage'] },
+		        '/',
+		        {name: 'basicstyles', items: ['Bold', 'Italic', 'Strike', '-', 'RemoveFormat'] },
+		        {name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] },
+		        //{ name: 'styles', items: ['Styles', 'Format'] },
+		        {name: 'styles', items: ['Format'] }
 		    ]
-		 
 		});
-
     </script>
 @endsection

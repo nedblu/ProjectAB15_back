@@ -17,7 +17,7 @@
 								<div id="dropdown-lvl1" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul class="nav navbar-nav">
-											<li><a href="{{ route('Catalogs::index') }}"><i class="fa fa-cubes"></i>Productos</a></li>
+											<li><a href="{{ route('Products::index') }}"><i class="fa fa-cubes"></i>Productos</a></li>
 											<li><a href="{{ route('Colors::index') }}"><i class="fa fa-tint"></i>Recurso de colores</a></li>
 										</ul>
 									</div>

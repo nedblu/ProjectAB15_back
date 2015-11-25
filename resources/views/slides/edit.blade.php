@@ -61,7 +61,7 @@
     <div class="alert alert-info" role="alert">
       <small>Esto sólo muestra una previsualización de la imágen.</small>
     </div>
-    {!! Html::image('assets/content_application/preview_' . $banner->image, $banner->title, ['class' => 'img-responsive img-thumbnail']) !!}
+    {!! Html::image('assets/content_application/slide-show/preview_' . $banner->image, $banner->title, ['class' => 'img-responsive img-thumbnail']) !!}
   </div>
   
 </div>
