@@ -68,9 +68,7 @@ class CategoriesController extends Controller
         if ($request->hasFile('image')) {
 
             $img = $request->file('image');
-
             $ext = $img->getClientOriginalExtension();
-
             $image_name = "category_" . str_random(16) . "." . $ext;
 
             $category = Category::create([
@@ -240,7 +238,7 @@ class CategoriesController extends Controller
 
         foreach ($categories as $category) {
             $count += Product::where('parent_id', $category->id)->count();
-            Product::where('parent_id', $category->id)->update(['parent_id' => 1]);
+            Product::where('parent_id', $category->id)->update(['parent_id' => 1, 'category_id' => 1]);
         }
 
        return $count;

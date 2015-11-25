@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductInksTable extends Migration
+class CreateOfferProductPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,12 @@ class CreateProductInksTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_inks', function(Blueprint $table) {
-            $table->increments('id');
+        Schema::create('offer_product', function (Blueprint $table) {
+            $table->increments('id')->unsigned();
+            $table->integer('offer_id')->unsigned()->index();
+            $table->foreign('offer_id')->references('id')->on('offers')->onDelete('cascade');
             $table->integer('product_id')->unsigned()->index();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->string('inks_ar');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateProductInksTable extends Migration
      */
     public function down()
     {
-        Schema::drop('product_inks');
+        Schema::drop('offer_product');
     }
 }

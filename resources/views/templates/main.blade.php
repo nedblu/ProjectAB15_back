@@ -51,7 +51,6 @@
 		{!! Html::script('assets/js/vendor/jquery.cookie.js') !!}
 		{!! Html::script('assets/js/vendor/fastclick.js') !!}
 		{!! Html::script('assets/js/vendor/jquery.flexslider.js') !!}
-		{!! Html::script('assets/js/vendor/dropzone.js') !!}
 		{!! Html::script('assets/js/vendor/moment.min.js') !!}
 		{!! Html::script('assets/js/vendor/moment-with-locales.min.js') !!}
 		{!! Html::script('//cdn.jsdelivr.net/sortable/latest/Sortable.min.js') !!}

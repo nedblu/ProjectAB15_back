@@ -32,7 +32,7 @@
           @if($technique->image === null)
           <img class="media-object img-rounded" src="http://placehold.it/100x100/A0D2F2/2980b9/?text=100x100" alt="{{ $technique->title }}">
           @else
-          <img class="media-object img-rounded" src="{!! asset('assets/content_application/thumbnail_' . $technique->image) !!}" alt="{{ $technique->title }}">
+          <img class="media-object img-rounded" src="{!! asset('assets/content_application/techniques/thumbnail_' . $technique->image) !!}" alt="{{ $technique->title }}">
           @endif
         </a>
       </div>
