@@ -94,6 +94,12 @@ class ProductsController extends Controller
             'user_id'     => Auth::id()
         ]);
 
+        $tree = $this->tree($product, 'desc');
+        
+        $product->category_id = (count($tree) > 0) ? $tree[1]['id'] : $tree[0]['id'];
+
+        $product->save();
+
         if ($product->colors) {
             ProductColor::create(['product_id' => $product->id, 'colors_ar' => $request->input('colors')]);
         }
@@ -186,8 +192,6 @@ class ProductsController extends Controller
           Image::make($img)->fit(300, 300)->save($this->app_content_path() . $this->products_path . $image_name, 100);
         }
 
-        
-
         $product->update([ 
             'name'        => $request->input('name'),
             'image'       => ($request->hasFile('image')) ? $image_name : null,
@@ -202,6 +206,10 @@ class ProductsController extends Controller
         ]);
 
         $product->save();
+
+        $tree = $this->tree($product, 'desc');
+        
+        $product->category_id = (count($tree) > 0) ? $tree[1]['id'] : $tree[0]['id'];
 
         if ($product->colors) {
             ProductColor::where('product_id', $id)->update(['colors_ar' => $request->input('colors')]);
@@ -239,31 +247,4 @@ class ProductsController extends Controller
         return redirect()->route('Products::index')->with('status', 'Producto eliminado correctamente');
     }
 
-    /*public function getColorsOfProduct($array)
-    {
-      if (! is_array ($array))
-          $array = explode(",", $array);
-
-      if( count($array) > 1) {
-          
-          $count = 0;
-          $colors = Color::select('name', 'image')->where('code', strtoupper($array[0]));
-          
-          foreach($array as $item){
-              if($count > 0){
-                  $colors_union = Color::select('name','image')->where('code', strtoupper($item));
-                  $colors = $colors->unionAll($colors_union);
-              }
-              $count++;
-          }
-          $results = $colors->orderBy('name', 'asc')->get();
-          return $results;
-      }
-
-      else {
-          $results = Color::select('name', 'image')->where('code', $array)->get();
-          return $results;
-      }
-
-    }*/
 }

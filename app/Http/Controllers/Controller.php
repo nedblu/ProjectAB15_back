@@ -6,6 +6,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Color;
+use App\Category;
 
 abstract class Controller extends BaseController
 {
@@ -66,4 +67,52 @@ abstract class Controller extends BaseController
       }
 
     }
+
+    protected function tree($item, $sort = 'ASC') {
+
+      $collector = [];
+      $level = 1;
+
+      if($item->parent_id > 0) {
+
+        $parent = Category::select('id', 'name', 'description', 'slug', 'parent_id')->where('id', $item->parent_id)->get();
+
+        $collector[] = [
+          'level'       => $level,
+          'id'          => $parent[0]->id,
+          'name'        => $parent[0]->name,
+          'description' => $parent[0]->description,
+          'slug'        => $parent[0]->slug,
+          'parent_id'   => $parent[0]->parent_id
+
+        ];
+
+        ++$level;
+
+        while($parent[0]->parent_id > 0)
+        {
+          $parentAux = Category::select('id', 'name', 'description', 'slug', 'parent_id')->where('id', $parent[0]->parent_id)->get();
+          $parent[0]->parent_id = $parentAux[0]->parent_id; 
+
+          $collector[] = [
+            'level'       => $level,
+            'id'          => $parentAux[0]->id,
+            'name'        => $parentAux[0]->name,
+            'description' => $parentAux[0]->description,
+            'slug'        => $parentAux[0]->slug,
+            'parent_id'   => $parentAux[0]->parent_id
+
+          ];
+
+          ++$level;
+        }
+
+      }
+
+      if ($sort === 'DESC' || $sort === 'desc')
+        rsort($collector);
+
+      return $collector;
+    }
+
 }
