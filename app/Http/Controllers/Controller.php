@@ -11,7 +11,7 @@ abstract class Controller extends BaseController
 {
     use DispatchesJobs, ValidatesRequests;
 
-    protected $frontendProject = 'ab15_frontend';
+    protected $frontendProject = 'alphabeta_web';
 
     protected $slide_path = 'slide-show/';
     protected $technique_path = 'techniques/';
