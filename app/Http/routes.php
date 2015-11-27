@@ -118,6 +118,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	    Route::get('json', ['as' => 'json_colors', 'uses' => 'ColorsController@getJSONColors']);
 
+	    Route::get('product/json', ['as' => 'json_product_colors', 'uses' => 'ColorsController@getJSONColorsByProduct']);
+
 	});
 
 	/* SLIDESHOW APP */

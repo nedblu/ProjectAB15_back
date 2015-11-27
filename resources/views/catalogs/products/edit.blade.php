@@ -36,6 +36,8 @@
             <input type="file" accept="image/*" class="form-control" id="image" name="image">
         </div>
 
+        <input type="hidden" id="colorList" name="colorList" data-colors="{{route('Colors::json_product_colors', 'prod=' . $product->id) }}">
+
         <div class="form-group">
             <strong>Seleccionar si está en existencia</strong>
             <div class="checkbox">

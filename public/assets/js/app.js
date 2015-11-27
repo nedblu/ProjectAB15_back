@@ -51,9 +51,9 @@ $(document).ready(function() {
 
     moment.locale('es');
 
-    var dateWithId = moment($('#created_at').attr('datetime'));
-    $('#created_at').attr( 'title', dateWithId.format('LLLL') );
-    $('#created_at').text( dateWithId.fromNow() );
+    var created_at = moment($('#created_at').attr('datetime'));
+    $('#created_at').attr( 'title', created_at.format('LLLL') );
+    $('#created_at').text( created_at.fromNow() );
 
     $(".created_at").each(function(){
         var $el = $(this);
@@ -62,9 +62,9 @@ $(document).ready(function() {
         $el.attr('title', moment(date).format("LLLL"));
     });
 
-    var dateWithId = moment($('#updated_at').attr('datetime'));
-    $('#updated_at').attr( 'title', dateWithId.format('LLLL') );
-    $('#updated_at').text( dateWithId.fromNow() );
+    var updated_at = moment($('#updated_at').attr('datetime'));
+    $('#updated_at').attr( 'title', updated_at.format('LLLL') );
+    $('#updated_at').text( updated_at.fromNow() );
 
     $(".updated_at").each(function(){
         var $el = $(this);
@@ -86,13 +86,13 @@ $(document).ready(function() {
         var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
         var to   = "aaaaeeeeiiiioooouuuunc------";
 
-        for (var i=0, l=from.length ; i<l ; i++) {
+        for (var i=0, l=from.length; i<l ; i++) {
             str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
         }
 
-        str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
-            .replace(/\s+/g, '-') // collapse whitespace and replace by -
-            .replace(/-+/g, '-'); // collapse dashes
+        str = str.replace("/[^a-z0-9 -]/g", '') // remove invalid chars
+            .replace("/\s+/g", '-') // collapse whitespace and replace by -
+            .replace("/-+/g", '-'); // collapse dashes
 
         return str;
     }
@@ -103,7 +103,15 @@ $(document).ready(function() {
 
     $('#checkColors').bind('change', function () {
 
-        ($(this).is(':checked')) ? $("#colors").prop('disabled', false).prop('required', true) : $("#colors").prop('disabled', true).prop('required', false);
+        if ($(this).is(':checked')) { 
+            $("#colors").prop('disabled', false).prop('required', true);
+            $('ul.token-input-list-facebook').removeClass('token-input-list-disabled-facebook').css("pointer-events", "auto");
+            $("#token-input-colors").prop('disabled', false);
+        } else {
+            $("#colors").prop('disabled', true).prop('required', false);
+            $('ul.token-input-list-facebook').addClass('token-input-list-disabled-facebook').css("pointer-events", "none");
+            $("#token-input-colors").prop('disabled', true);
+        }
 
     });
 
@@ -117,6 +125,55 @@ $(document).ready(function() {
 
         ($(this).is(':checked')) ? $("#equipments").prop('disabled', false).prop('required', true) : $("#equipments").prop('disabled', true).prop('required', false);
 
+    });
+
+    var JSONresponse = document.location.href + "/../../colors/json";
+    var URLassets = document.location.href + "/../../assets/content_application/colors/";
+    
+
+    var url = document.location.href.split('/');
+    var JSONresponseProd = document.location.href + "/../../../colors/product/json?prod=";
+    var productID = url[url.length-1];
+
+    /*var xhr = $.getJSON("http://localhost:8080/dev/ab15_backend/public/colors/product/json?prod=22", function(data) { return data;} );
+
+    $('#colors').tokenInput(JSONresponse, {
+        propertyToSearch  : "name",
+        preventDuplicates : true,
+        minChars          : 2,
+        excludeCurrent    : true,
+        hintText          : "Escribe el nombre del color",
+        noResultsText     : "No hay resultados",
+        searchingText     : "Buscando...",
+        resultsLimit      : 10,
+        tokenValue        : "code",
+        theme             : "facebook",
+        resultsFormatter  : function(item){ return "<li>" + "<img class=\"img-circle\" src='" + URLassets + item.image + "' title='" + item.name + "' height='25px' width='25px' />" + "<div style='display: inline-block; padding-left: 10px;'><div class='full_name'>" + item.name + "</div></li>"; },
+        tokenFormatter    : function(item) { return "<li><span><img src='" + URLassets + item.image + "' height='15px' width='15px' /> " + item.name + "</span></li>"; },
+        caching           : true
+    });*/
+
+    $.ajax({
+        url:  JSONresponseProd + productID,
+        dataType: 'json',
+        success: function(data){
+            $('#colors').tokenInput(JSONresponse, {
+                propertyToSearch  : "name",
+                preventDuplicates : true,
+                minChars          : 2,
+                excludeCurrent    : true,
+                hintText          : "Escribe el nombre del color",
+                noResultsText     : "No hay resultados",
+                searchingText     : "Buscando...",
+                resultsLimit      : 10,
+                tokenValue        : "code",
+                theme             : "facebook",
+                resultsFormatter  : function(item){ return "<li>" + "<img class=\"img-circle\" src='" + URLassets + item.image + "' title='" + item.name + "' height='25px' width='25px' />" + "<div style='display: inline-block; padding-left: 10px;'><div class='full_name'>" + item.name + "</div></li>"; },
+                tokenFormatter    : function(item) { return "<li><span><img src='" + URLassets + item.image + "' height='15px' width='15px' /> " + item.name + "</span></li>"; },
+                caching           : true,
+                prePopulate       : data,
+            });
+        }
     });
 
 });
