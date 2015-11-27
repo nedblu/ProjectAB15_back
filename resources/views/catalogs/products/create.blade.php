@@ -105,7 +105,7 @@
 
 @section('scripts')
     @parent
-    
+    {!! Html::script('assets/js/product-new.js') !!}
     {!! Html::script('//cdn.ckeditor.com/4.5.4/full/ckeditor.js') !!}
 
     <script>
