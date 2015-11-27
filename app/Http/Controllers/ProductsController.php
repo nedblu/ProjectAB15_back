@@ -239,7 +239,7 @@ class ProductsController extends Controller
         return redirect()->route('Products::index')->with('status', 'Producto eliminado correctamente');
     }
 
-    public function getColorsOfProduct($array)
+    /*public function getColorsOfProduct($array)
     {
       if (! is_array ($array))
           $array = explode(",", $array);
@@ -265,5 +265,5 @@ class ProductsController extends Controller
           return $results;
       }
 
-    }
+    }*/
 }

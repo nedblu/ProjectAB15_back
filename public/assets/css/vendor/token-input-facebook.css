@@ -1,0 +1,186 @@
+/* Example tokeninput style #2: Facebook style */
+ul.token-input-list-facebook {
+    z-index: 999;
+    height: auto !important; 
+    height: 1%;
+    display: block;
+    width: 100%;
+    min-height: 38px;
+    padding: 0;
+    padding: 7px 12px;
+    margin: 0;
+    overflow: hidden;
+    clear: left;
+
+    font-size: 14px;
+    line-height: 1.42857;
+    list-style-type: none;
+
+    cursor: text;
+    transition: border-color .15s ease-in-out 0s, box-shadow .15s ease-in-out 0s;
+
+    color: #555;
+    border: 1px solid #e7e7e7;
+    border-radius: 4px;
+    background-color: #fff;
+    background-color: #fff;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .075) inset;
+}
+
+ul.token-input-list-facebook.token-input-focused-facebook {
+    border-color: rgba(82, 168, 236, .8);
+    outline: 0;
+    outline: thin dotted 9;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+       -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(82, 168, 236, .6);
+}
+
+.token-input-list-disabled-facebook {
+    cursor: not-allowed !important;
+    pointer-events: none;
+
+    opacity: 1 !important;
+    background-color: #eee !important;
+}
+
+ul.token-input-list-facebook li input {
+    border: 0;
+    background-color: white;
+
+    -webkit-appearance: caret;
+}
+ul.token-input-list-facebook li input[disabled] {
+    border: 0;
+    background-color: #eee !important;
+}
+
+li.token-input-token-facebook {
+    float: left;
+    height: auto !important;
+    height: 15px;
+    padding: 2px 3px;
+    margin-right: 5px;
+    margin-top: 5px;
+    overflow: hidden;
+
+    font-size: 12px;
+
+    cursor: default;
+    white-space: nowrap;
+
+    color: #fff;
+    border: 1px solid #107ea8;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+    background-color: #158cba;
+}
+
+li.token-input-token-facebook p {
+    display: inline;
+    padding: 0;
+    margin: 0;
+}
+
+li.token-input-token-facebook span {
+    margin-left: 7px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    color: #fff;
+}
+
+li.token-input-selected-token-facebook {
+    color: #fff;
+    border: 1px solid #3b5998;
+    background-color: #5670a6;
+}
+
+li.token-input-input-token-facebook {
+    float: left;
+    padding: 0;
+    margin: 0;
+
+    list-style-type: none;
+}
+
+div.token-input-dropdown-facebook {
+    position: absolute;
+    z-index: 1;
+    /*width: 400px;*/
+
+    overflow: hidden;
+
+    font-family: Verdana, sans-serif;
+    font-size: 12px;
+
+    cursor: default;
+
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    background-color: #fff;
+    background-clip: padding-box;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .176);
+}
+
+div.token-input-dropdown-facebook p {
+    padding: 5px;
+    margin: 0;
+
+    font-weight: bold;
+
+    color: #555;
+}
+
+div.token-input-dropdown-facebook ul {
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+
+    float: left;
+    /*min-width: 160px;*/
+    width: 100%;
+    padding: 5px 0;
+    margin: 2px 0 0;
+
+    font-size: 14px;
+    list-style: outside none none;
+
+    text-align: left;
+
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 4px;
+    background-color: #fff;
+    background-clip: padding-box;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .176);
+}
+
+div.token-input-dropdown-facebook ul li {
+    padding: 3px;
+    margin: 0;
+
+    list-style-type: none;
+
+    /*background-color: #f5f5f5;*/
+}
+
+div.token-input-dropdown-facebook ul li.token-input-dropdown-item-facebook {
+    /*background-color: #f5f5f5;*/
+}
+
+div.token-input-dropdown-facebook ul li.token-input-dropdown-item2-facebook {
+    /*background-color: #f5f5f5;*/
+}
+
+div.token-input-dropdown-facebook ul li em {
+    font-style: normal;
+    font-weight: bold;
+}
+
+div.token-input-dropdown-facebook ul li.token-input-selected-dropdown-item-facebook {
+    color: #f5f5f5;
+    background-color: #08c;
+}

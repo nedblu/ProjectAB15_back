@@ -12,6 +12,9 @@
 		{!! Html::style('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css') !!}
 		{!! Html::style('assets/css/vendor/flexslider.css') !!}
 		{!! Html::style('assets/js/vendor/fancybox/jquery.fancybox.css') !!}
+		{!! Html::style('assets/css/vendor/token-input.css') !!}
+		{!! Html::style('assets/css/vendor/token-input-facebook.css') !!}
+		{!! Html::style('assets/css/vendor/token-input-mac.css') !!}
 		{!! Html::style('assets/css/app.css') !!}
 		{!! Html::script('assets/js/vendor/modernizr.js') !!}
 	</head>
@@ -56,6 +59,7 @@
 		{!! Html::script('//cdn.jsdelivr.net/sortable/latest/Sortable.min.js') !!}
 		{!! Html::script('assets/js/vendor/fancybox/jquery.fancybox.pack.js') !!}
 		{!! Html::script('//cdn.jsdelivr.net/jquery.dirtyforms/2.0.0-beta00005/jquery.dirtyforms.min.js') !!}
+		{!! Html::script('assets/js/vendor/jquery.tokeninput.js') !!}
 		{!! Html::script('assets/js/plugins.js') !!}
 		{!! Html::script('assets/js/app.js') !!}
         @show
