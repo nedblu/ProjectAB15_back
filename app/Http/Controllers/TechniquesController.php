@@ -180,12 +180,11 @@ class TechniquesController extends Controller
         //
         $technique = Technique::findOrFail($id);
 
-        $thumbnail = $this->admin_content_path() . 'thumbnail_' . $technique->image;
-        $thumbnail_show = $this->admin_content_path() . 'thumbnail_show_' . $technique->image;
+        $thumbnail = $this->admin_content_path() . $this->technique_path . 'thumbnail_' . $technique->image;
+        $thumbnail_show = $this->admin_content_path() . $this->technique_path . 'thumbnail_show_' . $technique->image;
         $technique_image = $this->app_content_path() . $this->technique_path . $technique->image;
 
         if (File::exists($thumbnail) && File::exists($thumbnail_show) && File::exists($technique_image)) {
-
             File::delete($thumbnail);
             File::delete($thumbnail_show);
             File::delete($technique_image);

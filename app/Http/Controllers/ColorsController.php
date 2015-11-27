@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Color;
+use App\Product;
 use Image;
 use Auth;
 use File;
@@ -187,6 +188,40 @@ class ColorsController extends Controller
                         ->header('Content-Type', 'application/json; charset=utf-8\n\n')
                         ->header('X-rate-limit', '10')
                         ->setCallback($request->input('callback'));
+        }
+        else {
+            return response()->json(['Error' => '100', 'Type' => 'Internal Server Error', 'Description' => 'Query not provided in URL'], 500)
+                        ->header('X-rate-limit', '10')
+                        ->setCallback($request->input('callback'));
+        }
+        
+    }
+
+    /**
+     * Get specified resources in AJAX
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getJSONColorsByProduct(Request $request)
+    {
+        if ($request->has('prod')) {
+
+            $product = Product::findOrFail($request->prod);
+
+            if($product->colors) {
+
+                $colors = $this->getColorsOfProduct($product->getColors->colors_ar);
+            
+                return response()->json($colors, 200)
+                            ->header('Content-Type', 'application/json; charset=utf-8\n\n')
+                            ->header('X-rate-limit', '10')
+                            ->setCallback($request->input('callback'));
+            } else {
+                return response()->json(['Error' => '102', 'Type' => 'Model Error', 'Description' => 'Query hasn\'t colors'], 500)
+                        ->header('X-rate-limit', '10')
+                        ->setCallback($request->input('callback'));
+            }
         }
         else {
             return response()->json(['Error' => '100', 'Type' => 'Internal Server Error', 'Description' => 'Query not provided in URL'], 500)
