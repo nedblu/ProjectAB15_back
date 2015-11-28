@@ -62,7 +62,7 @@
 					<td class="col-md-2"><strong><i class="fa fa-power-off"></i> Última sesión</strong></td>
 					<td>
 						@if($profile->last_login)
-							@datetime($profile->last_login)
+							<time datetime="{{ $profile->last_login }}" title="{{ $profile->last_login }}" class="updated_at">{{ $profile->last_login }}</time>
 						@else
 							<span class="label label-warning">No dispnible</span>
 						@endif
@@ -72,7 +72,7 @@
 					<td class="col-md-2"><strong><i class="fa fa-pencil-square-o"></i> Última modificación</strong></td>
 					<td>
 						@if($profile->updated_at)
-							@datetime($profile->updated_at)
+							<time datetime="{{ $profile->updated_at }}" title="{{ $profile->updated_at }}" class="updated_at">{{ $profile->updated_at }}</time>
 						@else
 							<span class="label label-warning">No dispnible</span>
 						@endif
