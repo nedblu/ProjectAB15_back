@@ -33,7 +33,7 @@
 									<li class="dropdown-header">CONFIGURACIONES</li>
 									<li class=""><a href="{{ route('Profile::index') }}"><i class="fa fa-user"></i> Perfil</a></li>
 
-								@role('support|owner')
+								@role('support|owner|admin')
 						    		<li><a href="{{ route('Accounts::index') }}"><i class="fa fa-users"></i> Cuentas</a></li>
 						    		<li><a href="{{ route('Accounts::notice') }}"><i class="fa fa-bullhorn"></i> Publicar aviso</a></li>
 								@endrole

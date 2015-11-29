@@ -43,7 +43,10 @@
     {!! csrf_field() !!}
     <button class="btn btn-primary" id="saveorder" type="submit"><i class="fa fa-floppy-o"></i> Guardar orden</button>
     <button class="btn btn-primary" id="switcher" type="button"><i class="fa fa-unlock"></i> Habilitar edición</button>
+    
+    @role('support|owner|admin|editor')
     <a class="btn btn-primary" href="{{ route('Slides::create') }}" role="button"><i class="fa fa-plus-circle"></i> Nuevo slide</a>
+    @endrole
   </form>
 
   <ul id="slideList" class="list-group">

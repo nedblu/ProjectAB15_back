@@ -115,7 +115,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             foreach ($roles as $role) {
 
                 if ($iterator > 1) {
-                    
+
                     $new_instance = \DB::table('users')->join('role_user', 'users.id','=', 'role_user.user_id')
                         ->join('roles', 'roles.id', '=', 'role_user.role_id')
                         ->where('users.id', '<>', \Auth::id())
@@ -123,7 +123,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
                         ->whereNull('users.deleted_at')
                         ->select('users.*', 'roles.name as role', 'roles.slug', 'roles.level');
 
-                    $users = $users->unionAll($new_instance);
+                    $users = $users->union($new_instance);
 
                 }
 

@@ -8,6 +8,7 @@
 							<li><a href="{{ route('Slides::index') }}"><i class="fa fa-picture-o"></i>Slider</a></li>
 
 							<!-- Dropdown-->
+							@role('support|owner|admin|editor')
 							<li class="panel panel-default" id="dropdown">
 								<a data-toggle="collapse" href="#dropdown-lvl1">
 									<i class="fa fa-book"></i>Catálogo <span class="caret"></span>
@@ -23,9 +24,14 @@
 									</div>
 								</div>
 							</li>
-							<li><a href="{{ route('Categories::index') }}"><i class="fa fa-code-fork"></i>Categorías</a></li>
+							@endrole
+
 							<li><a href="{{ route('Techniques::index') }}"><i class="fa fa-briefcase"></i>Técnicas</a></li>
 							<li><a href="{{ route('Recipients::index') }}"><i class="fa fa-envelope"></i>Destinatarios</a></li>
+							
+							@role('support')
+							<li><a href="{{ route('Categories::index') }}"><i class="fa fa-code-fork"></i>Categorías</a></li>
+							@endrole
 						</ul>
 					</div><!-- /.navbar-collapse -->
 				</nav>

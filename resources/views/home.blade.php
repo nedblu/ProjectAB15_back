@@ -43,7 +43,7 @@ Bienvenido
 					<td class="col-md-2"><strong><i class="fa fa-power-off"></i> Última sesión</strong></td>
 					<td>
 						@if(Auth::user()->last_login)
-							@datetime(Auth::user()->last_login)
+							<time datetime="{{ Auth::user()->last_login }}" title="{{ Auth::user()->last_login }}" class="updated_at">{{ Auth::user()->last_login }}</time>
 						@else
 							<span class="label label-warning">No dispnible</span>
 						@endif
@@ -53,7 +53,7 @@ Bienvenido
 					<td class="col-md-2"><strong><i class="fa fa-pencil-square-o"></i> Última modificación</strong></td>
 					<td>
 						@if(Auth::user()->updated_at)
-							@datetime(Auth::user()->updated_at)
+							<time datetime="{{ Auth::user()->updated_at }}" title="{{ Auth::user()->updated_at }}" class="updated_at">{{ Auth::user()->updated_at }}</time>
 						@else
 							<span class="label label-warning">No dispnible</span>
 						@endif
