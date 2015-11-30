@@ -13,7 +13,8 @@
     <li class="active">{{ $color->name }}</li>
 </ol>
 
-<h3>{{ $color->name }}</h3>
+<h3>{{ $color->name }} <small>edición</small></h3>
+
 <small>Creado por <strong>{{ $color->user->first_name . ' ' . $color->user->last_name }}</strong> <time datetime="{{ $color->created_at }}" title="@datetime($color->created_at)" id="created_at">{{ $color->created_at }}</time></small>
 
 <hr class="divider">

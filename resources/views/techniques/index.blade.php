@@ -12,7 +12,7 @@
   <li class="active">Técnicas</li>
 </ol>
 
-<h3><i class="fa fa-magic"></i> Técnicas</h3>
+<h3>Técnicas</h3>
 
 <hr class="divider">
 

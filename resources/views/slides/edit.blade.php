@@ -1,6 +1,6 @@
 @extends('templates.main')
 
-@section('title') Slideshow @stop
+@section('title') {{ $banner->title }} @stop
 
 @section('extra-content')
 	@include('templates.partials.modals-delete')
@@ -13,7 +13,7 @@
   <li class="active">{{ $banner->title }}</li>
 </ol>
 
-<h3><i class="fa fa-picture-o"></i> {{ $banner->title }} <small>edición</small></h3>
+<h3>{{ $banner->title }} <small>edición</small></h3>
 
 <hr class="divider">
 

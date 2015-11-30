@@ -26,6 +26,8 @@
 	</div>
 </div>
 
+@if(count($colors) > 0)
+
 <div class="btn-group" role="group" aria-label="ad">
 	<a href="{{ route('Colors::create') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Agregar un nuevo recurso</a> 
 </div>
@@ -61,5 +63,15 @@
 		</tbody>
 	</table>
 </div>
+
+@else
+<div class="col-md-12 row">
+    <div class="text-center">
+        <h3>Upsss! <i class="fa fa-frown-o"></i></h3>
+        <p>Parece que no has agregado colores hasta el momento, ¿Te gustaría comenzar añadiendo uno?</p>
+        <a href="{{ route('Colors::create') }}" class="btn btn-primary btn-lg" role="button"><i class="fa fa-plane"></i> Empezar aquí</a>
+    </div>
+</div>
+@endif
 
 @stop
