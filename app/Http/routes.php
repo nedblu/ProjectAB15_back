@@ -64,17 +64,17 @@ Route::group(['middleware' => 'auth'], function () {
 	    
 	    Route::get('/', ['as' => 'index', 'uses' => 'ProductsController@index']);
 
-	    Route::get('create', ['as' => 'create', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'ProductsController@create']);
+	    Route::get('create', ['as' => 'create', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'ProductsController@create']);
 
-	    Route::post('store', ['as' => 'store', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'ProductsController@store']);
+	    Route::post('store', ['as' => 'store', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'ProductsController@store']);
 
-	    Route::get('show/{id}', ['as' => 'show', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'ProductsController@show'])->where('id','[0-9]+');
+	    Route::get('show/{id}', ['as' => 'show', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'ProductsController@show'])->where('id','[0-9]+');
 
-		Route::get('edit/{id}', ['as' => 'edit', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'ProductsController@edit'])->where('id','[0-9]+');
+		Route::get('edit/{id}', ['as' => 'edit', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'ProductsController@edit'])->where('id','[0-9]+');
 
-		Route::put('update/{id}', ['as' => 'update', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'ProductsController@update'])->where('id','[0-9]+');
+		Route::put('update/{id}', ['as' => 'update', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'ProductsController@update'])->where('id','[0-9]+');
 
-	    Route::delete('destroy/{id}', ['as' => 'destroy', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'ProductsController@destroy'])->where('id','[0-9]+');
+	    Route::delete('destroy/{id}', ['as' => 'destroy', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'ProductsController@destroy'])->where('id','[0-9]+');
 
 	});
 
@@ -104,17 +104,17 @@ Route::group(['middleware' => 'auth'], function () {
 	    
 	    Route::get('/', ['as' => 'index', 'uses' => 'ColorsController@index']);
 
-	    Route::get('create', ['as' => 'create', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'ColorsController@create']);
+	    Route::get('create', ['as' => 'create', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'ColorsController@create']);
 
-	    Route::post('store', ['as' => 'store', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'ColorsController@store']);
+	    Route::post('store', ['as' => 'store', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'ColorsController@store']);
 
 	    Route::get('show/{id}', ['as' => 'show', 'uses' => 'ColorsController@show'])->where('id','[0-9]+');
 
-		Route::get('edit/{id}', ['as' => 'edit', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'ColorsController@edit'])->where('id','[0-9]+');
+		Route::get('edit/{id}', ['as' => 'edit', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'ColorsController@edit'])->where('id','[0-9]+');
 
-		Route::put('update/{id}', ['as' => 'update', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'ColorsController@update'])->where('id','[0-9]+');
+		Route::put('update/{id}', ['as' => 'update', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'ColorsController@update'])->where('id','[0-9]+');
 
-	    Route::delete('destroy/{id}', ['as' => 'destroy', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'ColorsController@destroy'])->where('id','[0-9]+');
+	    Route::delete('destroy/{id}', ['as' => 'destroy', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'ColorsController@destroy'])->where('id','[0-9]+');
 
 	    Route::get('json', ['as' => 'json_colors', 'uses' => 'ColorsController@getJSONColors']);
 
@@ -130,15 +130,15 @@ Route::group(['middleware' => 'auth'], function () {
 
 	    Route::put('order', ['as' => 'saveorder', 'uses' => 'SlidesController@saveOrder']);
 
-	    Route::get('create', ['as' => 'create', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'SlidesController@create']);
+	    Route::get('create', ['as' => 'create', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'SlidesController@create']);
 
-	    Route::post('create', ['as' => 'create', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'SlidesController@store']);
+	    Route::post('create', ['as' => 'create', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'SlidesController@store']);
 
-	    Route::delete('destroy/{id}', ['as' => 'destroy', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'SlidesController@destroy'])->where('id','[0-9]+');
+	    Route::delete('destroy/{id}', ['as' => 'destroy', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'SlidesController@destroy'])->where('id','[0-9]+');
 
-	    Route::get('edit/{id}', ['as' => 'edit', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'SlidesController@edit'])->where('id','[0-9]+');
+	    Route::get('edit/{id}', ['as' => 'edit', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'SlidesController@edit'])->where('id','[0-9]+');
 
-	    Route::put('update/{id}', ['as' => 'update', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'SlidesController@update'])->where('id','[0-9]+');
+	    Route::put('update/{id}', ['as' => 'update', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'SlidesController@update'])->where('id','[0-9]+');
 
 	});
 
@@ -169,15 +169,15 @@ Route::group(['middleware' => 'auth'], function () {
 
 	    Route::get('show/{id}', ['as' => 'show', 'uses' => 'TechniquesController@show'])->where('id','[0-9]+');
 
-	    Route::get('create', ['as' => 'create', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'TechniquesController@create']);
+	    Route::get('create', ['as' => 'create', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'TechniquesController@create']);
 
-	    Route::post('create', ['as' => 'store', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'TechniquesController@store']);
+	    Route::post('create', ['as' => 'store', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'TechniquesController@store']);
 
-	    Route::get('edit/{id}', ['as' => 'edit', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'TechniquesController@edit'])->where('id','[0-9]+');
+	    Route::get('edit/{id}', ['as' => 'edit', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'TechniquesController@edit'])->where('id','[0-9]+');
 
-	    Route::put('update/{id}', ['as' => 'update', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'TechniquesController@update'])->where('id','[0-9]+');
+	    Route::put('update/{id}', ['as' => 'update', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'TechniquesController@update'])->where('id','[0-9]+');
 
-	    Route::delete('destroy/{id}', ['as' => 'destroy', 'middleware' => 'role:support|owner|admin|editor', 'uses' => 'TechniquesController@destroy'])->where('id','[0-9]+');
+	    Route::delete('destroy/{id}', ['as' => 'destroy', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'TechniquesController@destroy'])->where('id','[0-9]+');
 
 	});
 

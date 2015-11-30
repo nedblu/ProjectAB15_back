@@ -1,12 +1,12 @@
 @extends('templates.main')
 
-@section('title') Crear nuevo destinatario @stop
+@section('title') Nuevo destinatario @stop
 
 @section('content')
 
 <ol class="breadcrumb">
 	<li><a href="{{ route('Recipients::index' ) }}">Destinatarios</a></li>
-	<li class="active">Nuevo</li>
+	<li class="active">Nuevo destinatario</li>
 </ol>
 
 <h3>Nuevo destinatario</h3>

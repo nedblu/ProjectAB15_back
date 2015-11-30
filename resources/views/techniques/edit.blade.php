@@ -1,6 +1,6 @@
 @extends('templates.main')
 
-@section('title') Crear nuevo destinatario @stop
+@section('title') {{ $technique->title }} @stop
 
 @section('content')
 

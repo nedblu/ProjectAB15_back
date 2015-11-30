@@ -20,7 +20,7 @@
     		<div class="row">
       			<div class="col-md-6">
 	      			<h2>¿Que sucedió?</h2>
-        			<p class="lead">Un error 403 indica que tú no tienes permiso para accesar al archivo o página. En general, los servidores o sitios web tienen directorios o archivos que requieren permisos especiales para acceder por razones de seguridad.</p>
+        			<p class="lead">Un error 403 indica que tú no tienes permiso para accesar al archivo, realizar esta operación o abrir esta página. En general, los servidores o sitios web tienen directorios o archivos que requieren permisos especiales para acceder por razones de seguridad.</p>
         			<p>Para poder acceder a este recurso es necesario que pidas a tu administrador que te otorgue los permisos suficientes.</p>
       			</div>
       			

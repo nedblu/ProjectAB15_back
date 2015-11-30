@@ -45,7 +45,7 @@
 					<td>{{ $profile->first_name . ' ' . $profile->last_name }}</td>
 				</tr>
 				<tr>
-					<td class="col-md-2"><strong><i class="fa fa-at"></i> Username</strong></td>
+					<td class="col-md-2"><strong><i class="fa fa-at"></i> Usuario</strong></td>
 					<td>{{ $profile->username }}</td>
 				</tr>
 				<tr>
@@ -55,7 +55,7 @@
 				<tr>
 					<td class="col-md-2"><strong><i class="fa fa-shield"></i> Tipo de Cuenta</strong></td>
 					<td>
-						<a tabindex="0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="{{ Auth::user()->roles[0]->name }}" data-content="{{ Auth::user()->roles[0]->description }}">{{ Auth::user()->roles[0]->name }} <i class="fa fa-question-circle"></i></a>
+						<a tabindex="0" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="{{ $profile->roles[0]->name }}" data-content="{{ $profile->roles[0]->description }}">{{ $profile->roles[0]->name }} <i class="fa fa-question-circle"></i></a>
 					</td>
 				</tr>
 				<tr>

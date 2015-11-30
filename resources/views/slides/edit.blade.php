@@ -1,6 +1,6 @@
 @extends('templates.main')
 
-@section('title') Slideshow @stop
+@section('title') {{ $banner->title }} @stop
 
 @section('extra-content')
 	@include('templates.partials.modals-delete')
@@ -13,7 +13,7 @@
   <li class="active">{{ $banner->title }}</li>
 </ol>
 
-<h3><i class="fa fa-picture-o"></i> {{ $banner->title }} <small>edición</small></h3>
+<h3>{{ $banner->title }} <small>edición</small></h3>
 
 <hr class="divider">
 
@@ -52,8 +52,8 @@
 
       {!! csrf_field() !!}
 
-      <button type="submit" id="add" class="btn btn-primary">Actualizar</button>
-      <a href="{!! route('Slides::index') !!}" class="btn btn-default">Cancelar</a>
+      <button type="submit" id="add" class="btn btn-primary"><i class="fa fa-refresh"></i> Actualizar</button>
+      <a href="{!! route('Slides::index') !!}" class="btn btn-default"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancelar</a>
     </form>
   </div>
   <div class="col-md-6">

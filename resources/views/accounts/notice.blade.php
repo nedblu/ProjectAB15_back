@@ -12,6 +12,12 @@
 
 <hr class="divider">
 
+<div class="panel panel-default">
+  <div class="panel-body">
+    <strong>Descripción:</strong> Si tiene algún aviso para compartir entre sus colaboradores, esta aplicación le ayudará a transmitirlo a todas las cuentas conectadas a través de un banner superior.
+  </div>
+</div>
+
 <div class="col-md-12">
 	
 	<form class="row" action="{{ route('Accounts::update-notice') }}" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">
@@ -79,7 +85,7 @@
 
 		{!! csrf_field() !!}
 
-		<button type="submit" class="btn btn-primary">Guardar Cambios</button>
+		<button type="submit" class="btn btn-primary"><i class="fa fa-floppy-o"></i> Guardar Cambios</button>
 	</form>
 
 </div>

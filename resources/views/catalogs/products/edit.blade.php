@@ -9,7 +9,7 @@
   <li class="active">{{ $product->name }}</li>
 </ol>
 
-<h3>{{ $product->name }}</h3>
+<h3>{{ $product->name }} <small>edición</small></h3>
 
 <hr class="divider">
 

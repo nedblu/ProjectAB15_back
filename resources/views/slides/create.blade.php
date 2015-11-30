@@ -1,6 +1,6 @@
 @extends('templates.main')
 
-@section('title') Slideshow @stop
+@section('title') Nuevo slider @stop
 
 @section('extra-content')
 	@include('templates.partials.modals-delete')
@@ -13,7 +13,7 @@
   <li class="active">Nuevo slider</li>
 </ol>
 
-<h3><i class="fa fa-picture-o"></i> Agregar nuevo slide</h3>
+<h3>Nuevo slider</h3>
 
 <hr class="divider">
 
@@ -25,30 +25,30 @@
     <form enctype="multipart/form-data" method="post" action="{{ route('Slides::create' ) }}" accept-charset="UTF-8" autocomplete="off">
       <div class="form-group">
         <label for="title"><strong>Título del Slider</strong></label>
-        <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" placeholder="Nuevo slider" required>
+        <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" placeholder="Título del Slider" required>
       </div>
       
       <div class="form-group">
         <label for="url"><strong>Dirección de vinculación</strong></label>
-        <input type="text" class="form-control" id="url"  name="url" value="{{ old('url') }}" placeholder="http://www.alphabeta.com.mx/" >
+        <input type="text" class="form-control" id="url"  name="url" value="{{ old('url') }}" placeholder="{{ env('SYSTEM_URL', '#SYSTEM_URL') }}" >
       </div>
 
       <div class="form-group">
         <label for="image"><strong>Subir imagen</strong></label>
-        <input type="file" name="image" id="image" accept="image/*" value="{{ old('image') }}">
+        <input type="file" name="image" class="form-control" id="image" accept="image/*" value="{{ old('image') }}">
         <p class="help-block">Para mejor visualización, las dimensiones deben ser <strong>1366px x 400px</strong> </p>
       </div>
 
       <div class="checkbox">
         <label for="published">
-          <input type="checkbox" name="published" value="1"> Publicar slideshow en el sitio web
+          <input type="checkbox" name="published" value="1"> Publicarlo en el sitio web
         </label>        
       </div>
 
       {!! csrf_field() !!}
 
-      <button type="submit" id="add" class="btn btn-primary">Agregar</button>
-      <button type="reset" class="btn btn-default">Cancelar</button>
+      <button type="submit" id="add" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Agregar</button>
+      <button type="reset" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancelar</button>
     </form>
   </div>
   
