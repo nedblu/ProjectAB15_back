@@ -42,7 +42,8 @@
 		<thead>
 			<tr>
 				<th>Nombre</th>
-				<th>Correo Electrónico</th>
+                <th>Correo Electrónico</th>
+				<th>Agregado</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
@@ -50,7 +51,8 @@
 		@forelse ($recipients as $recipient)
 			<tr>
 				<td>{{ $recipient->name }}</td>
-				<td>{{ $recipient->email }}</td>
+                <td>{{ $recipient->email }}</td>
+				<td><time datetime="{{ $recipient->updated_at }}" title="{{ $recipient->updated_at }}" class="updated_at">{{ $recipient->updated_at }}</time></td>
 				<td>
 
 				<form action="{{ route('Recipients::destroy', $recipient->id) }}" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">

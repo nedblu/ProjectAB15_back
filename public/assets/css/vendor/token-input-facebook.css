@@ -1,10 +1,11 @@
 /* Example tokeninput style #2: Facebook style */
 ul.token-input-list-facebook {
     z-index: 999;
-    height: auto !important; 
-    height: 1%;
+
     display: block;
     width: 100%;
+    height: auto !important;
+    height: 1%;
     min-height: 38px;
     padding: 0;
     padding: 7px 12px;
@@ -43,6 +44,9 @@ ul.token-input-list-facebook.token-input-focused-facebook {
     opacity: 1 !important;
     background-color: #eee !important;
 }
+.token-input-list-disabled-facebook[disabled] {
+    cursor: not-allowed !important;
+}
 
 ul.token-input-list-facebook li input {
     border: 0;
@@ -60,8 +64,8 @@ li.token-input-token-facebook {
     height: auto !important;
     height: 15px;
     padding: 2px 3px;
-    margin-right: 5px;
     margin-top: 5px;
+    margin-right: 5px;
     overflow: hidden;
 
     font-size: 12px;

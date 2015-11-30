@@ -44,7 +44,7 @@
 			<thead>
 				<tr>
 					<th>Nombre</th>
-					<th>UserName</th>
+					<th>Usuario</th>
 					<th>Tipo</th>
 					<th>Correo Electrónico</th>
 					<th>Activado</th>

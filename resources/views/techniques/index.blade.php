@@ -18,7 +18,7 @@
 
 <div class="panel panel-default">
   <div class="panel-body">
-    <strong>Descripción:</strong> Administre la página de tecnicas.
+    <strong>Descripción:</strong> El contenido de la página de técnicas.
   </div>
 </div>
 

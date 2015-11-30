@@ -52,8 +52,8 @@
 
       {!! csrf_field() !!}
 
-      <button type="submit" id="add" class="btn btn-primary">Actualizar</button>
-      <a href="{!! route('Slides::index') !!}" class="btn btn-default">Cancelar</a>
+      <button type="submit" id="add" class="btn btn-primary"><i class="fa fa-refresh"></i> Actualizar</button>
+      <a href="{!! route('Slides::index') !!}" class="btn btn-default"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancelar</a>
     </form>
   </div>
   <div class="col-md-6">

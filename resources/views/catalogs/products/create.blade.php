@@ -24,13 +24,14 @@
 
         <div class="form-group">
             <label for="sku"><strong>SKU (Stockkeeping Unit)</strong></label>
-            <input type="text" class="form-control" name="sku" placeholder="Nombre del Producto" value="{{ old('sku') }}" aria-describedby="skuHelp" required>
+            <input type="text" class="form-control" name="sku" placeholder="SKU (Stockkeeping Unit)" value="{{ old('sku') }}" aria-describedby="skuHelp" required>
             <span id="skuHelp" class="help-block">Ingresa el código en stock para localización del proucto.</span>
         </div>
 
         <div class="form-group">
             <label for="image"><strong>Subir imagen de producto</strong></label>
-            <input type="file" accept="image/*" class="form-control" id="image" name="image">
+            <input type="file" accept="image/*" class="form-control" id="image" name="image" value="{{ old('image') }}">
+            <p class="help-block">Suba la imagen que represente el producto.</p>
         </div>
 
         <div class="form-group">

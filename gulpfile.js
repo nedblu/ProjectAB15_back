@@ -1,26 +1,19 @@
+var gulp = require('gulp');
+var uglify = require('gulp-uglify');
+var minifyCss = require('gulp-minify-css');
 
-var elixir = require('laravel-elixir');
-
- /*
- |--------------------------------------------------------------------------
- | Elixir Asset Management
- |--------------------------------------------------------------------------
- |
- | Elixir provides a clean, fluent API for defining some basic Gulp tasks
- | for your Laravel application. By default, we are compiling the Sass
- | file for our application, as well as publishing vendor resources.
- |
- */
-
-elixir.config.sourcemaps = false;
-
-elixir(function (mix) {
-
-    mix.styles('app-login.css', 'public/assets/css/app-login.css')
-        .styles(['normalize.css', 'app.css'], 'public/assets/css/app.css');
-
-    mix.scripts(['app.js'], 'public/assets/js/app.js')
-        .scripts(['plugins.js'], 'public/assets/js/plugins.js')
-        .scripts(['slide_app.js'], 'public/assets/js/slide_app.js');
-
+// css compressor
+gulp.task('compress-css', function() {
+  return gulp.src('resources/assets/css/*.css')
+    .pipe(minifyCss({compatibility: 'ie8'}))
+    .pipe(gulp.dest('public/assets/css/'));
 });
+
+// js compressor
+gulp.task('compress-js', function() {
+  return gulp.src('resources/assets/js/*.js')
+    .pipe(uglify())
+    .pipe(gulp.dest('public/assets/js/'));
+});
+
+gulp.task('default', ['compress-css', 'compress-js']);
