@@ -1,6 +1,6 @@
 @extends('templates.main')
 
-@section('title') Editar destinatario @stop
+@section('title') {{ $recipient->name }} @stop
 
 @section('content')
 
@@ -9,7 +9,7 @@
 	<li class="active">Edición</li>
 </ol>
 
-<h3>Editando destinatario</h3>
+<h3>{{ $recipient->name }} <small>edición</small></h3>
 
 <hr class="divider">
 

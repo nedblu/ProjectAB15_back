@@ -1,6 +1,6 @@
 @extends('templates.main')
 
-@section('title') Editar cuenta @stop
+@section('title') {{ $account->first_name . " " . $account->last_name  }} @stop
 
 @section('content')
 
@@ -8,12 +8,12 @@
 	<li><a href="{{ route('Accounts::index' ) }}">Cuentas</a></li>
 	<li class="active">Editar cuenta</li>
 </ol>
-@if($account->active)
-	<h3>Edición de Cuenta</h3>
-@else
-	<h3>Edición de Cuenta <small>Cuenta temporalmente desactivada</small></h3>
-@endif
 
+@if($account->active)
+	<h3>{{ $account->first_name . " " . $account->last_name  }} <small>edicón</small></h3>
+@else
+	<h3>{{ $account->first_name . " " . $account->last_name  }} <small>Cuenta temporalmente desactivada</small></h3>
+@endif
 
 <hr class="divider">
 

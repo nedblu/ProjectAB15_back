@@ -29,13 +29,19 @@ class AccountsController extends Controller
             
             $accounts = User::noBelongsToRoles(['support']);
         }
-        else {
-            $accounts = User::noBelongsToRoles(['support','owner']);
+        else if (Auth::user()->is('admin')) {
+            $accounts = \DB::table('users')->join('role_user', 'users.id','=', 'role_user.user_id')
+                        ->join('roles', 'roles.id', '=', 'role_user.role_id')
+                        ->where('users.id', '<>', Auth::id())
+                        ->where('roles.slug', '<>', 'support')
+                        ->where('roles.slug', '<>', 'owner')
+                        ->whereNull('users.deleted_at')
+                        ->select('users.*', 'roles.name as role', 'roles.slug', 'roles.level')->get();
         }
         
         $used = User::where('id','<>',1)->where('id','<>',2)->count();
 
-        return view('accounts.index')->with('accounts',$accounts)->with('used',$used)->with('max',env('ACCOUNTS_LIMIT'));
+        return view('accounts.index')->with('accounts',$accounts)->with('used', $used)->with('max',env('ACCOUNTS_LIMIT'));
 
     }
 

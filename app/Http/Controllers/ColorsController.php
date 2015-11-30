@@ -127,25 +127,31 @@ class ColorsController extends Controller
                             ->with('error', '¡Ops! Algo ha salido mal, por favor atiende a los siguientes mensajes:');
         }
 
+        $color = Color::findOrFail($id);
+
         if ($request->hasFile('image')) {
+
+            if (File::exists($this->admin_content_path() . $this->color_path . $color->image) && File::exists($this->app_content_path() . $this->color_path . $color->image)) {
+                File::delete($this->admin_content_path() . $this->color_path . $color->image);
+                File::delete($this->app_content_path() . $this->color_path . $color->image);
+            }
 
             $img = $request->file('image');
             $ext = $img->getClientOriginalExtension();
             $image_name = "color" . str_random(16) . "." . $ext;
 
-            $category = Color::where('id', $id)->update([
-                'name'    => $request->input('name'),
-                'image'   => $image_name
-            ]);
+            $color->name = $request->input('name');
+            $color->image = $image_name;
+
+            $color->save();
 
             Image::make($img)->fit(60, 60)->save($this->admin_content_path() . $this->color_path . $image_name, 100);
             Image::make($img)->fit(60, 60)->save($this->app_content_path() . $this->color_path . $image_name, 100);
         }
         else 
         {
-            $category = Color::where('id', $id)->update([
-                'name'  => $request->input('name')
-            ]);
+            $color->name = $request->input('name');
+            $color->save();
         }
 
         return redirect()->route('Colors::edit', $id)->with('status', '¡El color se ha editado correctamente!');

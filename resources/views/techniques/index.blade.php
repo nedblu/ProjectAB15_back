@@ -12,13 +12,13 @@
   <li class="active">Técnicas</li>
 </ol>
 
-<h3><i class="fa fa-magic"></i> Técnicas</h3>
+<h3>Técnicas</h3>
 
 <hr class="divider">
 
 <div class="panel panel-default">
   <div class="panel-body">
-    <strong>Descripción:</strong> Administre la página de tecnicas.
+    <strong>Descripción:</strong> El contenido de la página de técnicas.
   </div>
 </div>
 

@@ -1,6 +1,6 @@
 @extends('templates.main')
 
-@section('title') Slideshow @stop
+@section('title') Slideshow Manager @stop
 
 @section('extra-content')
 	@include('templates.partials.modals-delete')
@@ -12,9 +12,15 @@
   <li class="active">Slideshow Manager</li>
 </ol>
 
-<h3><i class="fa fa-picture-o"></i> Slideshow Manager</h3>
+<h3>Slideshow Manager</h3>
 
 <hr class="divider">
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <strong>Descripción:</strong> Agregue y/o elimine las imágenes del slider que se muestra en la página principal.
+  </div>
+</div>
 
 <div class="col-md-12 row">
 
@@ -43,7 +49,10 @@
     {!! csrf_field() !!}
     <button class="btn btn-primary" id="saveorder" type="submit"><i class="fa fa-floppy-o"></i> Guardar orden</button>
     <button class="btn btn-primary" id="switcher" type="button"><i class="fa fa-unlock"></i> Habilitar edición</button>
+    
+    @role('support|owner|admin|editor')
     <a class="btn btn-primary" href="{{ route('Slides::create') }}" role="button"><i class="fa fa-plus-circle"></i> Nuevo slide</a>
+    @endrole
   </form>
 
   <ul id="slideList" class="list-group">

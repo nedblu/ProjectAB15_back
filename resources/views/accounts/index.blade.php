@@ -16,7 +16,7 @@
 
 <hr class="divider">
 
-@if (Auth::user()->is('admin'))
+@if (Auth::user()->is('admin|owner'))
 
 	<div class="panel panel-default">
 		<div class="panel-body">
@@ -25,7 +25,7 @@
 	</div>
 
 	<div class="alert alert-warning" role="alert">
-		El sistema tiene un máximo de <strong>{{ $max }} usuarios</strong> para agregar. (Recomendable)<br>
+		El sistema tiene un máximo de <strong>{{ $max }} usuarios</strong> para agregar.<br>
 		<p class="lead"><strong>Usados:</strong> {{ $used }} | <strong>Restan:</strong> {{ $max - $used }}</p>
 	</div>
 
@@ -44,7 +44,7 @@
 			<thead>
 				<tr>
 					<th>Nombre</th>
-					<th>UserName</th>
+					<th>Usuario</th>
 					<th>Tipo</th>
 					<th>Correo Electrónico</th>
 					<th>Activado</th>
@@ -76,7 +76,7 @@
 					</td>
 					<td>
 						@if($account->last_login)
-							@datetime($account->last_login)
+							<time datetime="{{ $account->last_login }}" title="{{ $account->last_login }}" class="updated_at">{{ $account->last_login }}</time>
 						@else
 							<span class="label label-warning">No ha iniciado sesión</span>
 						@endif
