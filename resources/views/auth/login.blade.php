@@ -54,7 +54,7 @@
     
     <div class="row text-center">
 
-      <button type="submit" class="btn btn-default"><i class="fa fa-key"></i> Iniciar Sesión</button>
+      <button type="submit" name="login" class="btn btn-default"><i class="fa fa-key"></i> Iniciar Sesión</button>
 
     </div>
 

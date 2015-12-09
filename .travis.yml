@@ -1,17 +1,20 @@
 language: php
 
 php:
-  - 5.5.9
+  - 5.6
   - hhvm
 
 env:
   - DB=mysql
 
 before_script:
+  - composer self-update
   - composer install
   - mv .env.example .env
   - php artisan key:generate
-  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS abproject15;" -uroot; fi
+  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS abproject15db_test;" -u root; fi
+  - php artisan migrate
+  - php artisan db:seed
 
 script:
-  - phpunit
+  - vendor/bin/phpunit
