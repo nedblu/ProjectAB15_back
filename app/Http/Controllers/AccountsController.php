@@ -104,7 +104,7 @@ class AccountsController extends Controller
         $validator = \Validator::make($request->all(), [
             'first_name'   => 'required',
             'last_name'    => 'required',
-            'email'        => 'required|email|unique:users,email,deleted_at,NULL',
+            'email'        => 'required|email|unique:users,email,NULL,id,deleted_at,NULL',
             'type_account' => 'required|numeric'
         ]);
 
