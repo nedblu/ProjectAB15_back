@@ -16,7 +16,7 @@
 @include('templates.partials.alerts')
 
 <form class="form" method="post" action="{{ route('Techniques::store' ) }}" accept-charset="UTF-8" enctype="multipart/form-data" autocomplete="off">
-	
+
 	<div class="col-md-6">
 
 		<div class="form-group">
@@ -26,9 +26,9 @@
 
 		<div class="form-group">
 			<label for="image"><strong>Imagen</strong></label>
-			<input type="file" tabindex="3" class="form-control" id="image" accept="image/*" name="image" value="{{ old('image') }}" required>
+			<input type="file" tabindex="3" class="form-control" id="image" accept="image/*" name="image" value="{{ old('image') }}">
 		</div>
-		
+
 	</div>
 
 	<div class="col-md-6">
@@ -37,7 +37,7 @@
 			<label for="about"><strong>Acerca de</strong></label>
 			<textarea name="about" tabindex="2" class="form-control" placeholder="Escribe acerca de la técnica..." rows="5" required></textarea>
 		</div>
-		
+
 	</div>
 
 	<div class="col-md-12">
@@ -56,7 +56,7 @@
 
 	<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Agregar</button>
 	<a href="{{ route('Techniques::index' ) }}" class="btn btn-danger" role="button"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancelar</a>
-	
+
 </form>
 
 @stop

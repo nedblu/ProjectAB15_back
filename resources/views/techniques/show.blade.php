@@ -15,7 +15,12 @@
 
 <h3>{{ $technique->title }} <small>vista</small></h3>
 <small>
-  Creado por <strong>{{ $technique->user->first_name . ' ' . $technique->user->last_name }}</strong> <time datetime="{{ $technique->created_at }}" title="@datetime($technique->created_at)" id="created_at">{{ $technique->created_at }}</time>.
+  @if($technique->user()->count() > 0)
+    Creado por <strong>{{ $technique->user->first_name . ' ' . $technique->user->last_name }}</strong>
+  @else
+    Creado por <span class="label label-warning">No disponible</span>
+  @endif
+  <time datetime="{{ $technique->created_at }}" title="@datetime($technique->created_at)" id="created_at">{{ $technique->created_at }}</time>.
   @if($edited)
   | Editado <time datetime="{{ $technique->updated_at }}" title="@datetime($technique->created_at)" id="updated_at">{{ $technique->updated_at }}</time>.
   @endif
