@@ -28,7 +28,7 @@
         <label for="title"><strong>Título del Slider</strong></label>
         <input type="text" class="form-control" id="title" name="title" placeholder="Nuevo slider" value="{{ $banner->title }}" required>
       </div>
-      
+
       <div class="form-group">
         <label for="url"><strong>Dirección de vinculación</strong></label>
         <input type="text" class="form-control" id="url"  name="url" placeholder="http://www.alphabeta.com.mx/" value="{{ $banner->uri }}" >
@@ -47,7 +47,7 @@
           @else
           <input type="checkbox" name="published" value="1"> Publicar slideshow en el sitio web
           @endif
-        </label>        
+        </label>
       </div>
 
       {!! csrf_field() !!}
@@ -63,7 +63,7 @@
     </div>
     {!! Html::image('assets/content_application/slide-show/preview_' . $banner->image, $banner->title, ['class' => 'img-responsive img-thumbnail']) !!}
   </div>
-  
+
 </div>
 
 @stop
