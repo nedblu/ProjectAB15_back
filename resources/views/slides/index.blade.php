@@ -31,7 +31,7 @@
 	<p class="bg-custom-grey">
 		Las imágenes que se muestran aquí, han sido recortadas con el fin de presentarlas de manera óptima, si deseas ver las imágenes que actualmente se encuentran en el sitio, te recomentamos presionar el botón superior que dice "Visualizar el Sitio".
 	</p>
-  
+
 	<div class="flexslider carousel">
     <ul class="slides">
     @foreach($banners as $banner)
@@ -49,7 +49,7 @@
     {!! csrf_field() !!}
     <button class="btn btn-primary" id="saveorder" type="submit"><i class="fa fa-floppy-o"></i> Guardar orden</button>
     <button class="btn btn-primary" id="switcher" type="button"><i class="fa fa-unlock"></i> Habilitar edición</button>
-    
+
     @role('support|owner|admin|editor')
     <a class="btn btn-primary" href="{{ route('Slides::create') }}" role="button"><i class="fa fa-plus-circle"></i> Nuevo slide</a>
     @endrole
@@ -63,7 +63,7 @@
       @if($banner->uri)
         <a href="{{ $banner->uri }}" target="_blank" title="Enlace disponible a {{ $banner->uri }}"><span class="glyphicon glyphicon-link" aria-hidden="true"></span></a>
       @endif
-      <form action="{{ route('Slides::destroy', $banner->id) }}" class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">                        
+      <form action="{{ route('Slides::destroy', $banner->id) }}" class="pull-right" accept-charset="UTF-8" method="POST" enctype="application/x-www-form-urlencoded" autocomplete="off">
         {!! method_field('DELETE') !!}
         {!! csrf_field() !!}
         @if($banner->published)

@@ -27,7 +27,7 @@
         <label for="title"><strong>Título del Slider</strong></label>
         <input type="text" class="form-control" id="title" name="title" value="{{ old('title') }}" placeholder="Título del Slider" required>
       </div>
-      
+
       <div class="form-group">
         <label for="url"><strong>Dirección de vinculación</strong></label>
         <input type="text" class="form-control" id="url"  name="url" value="{{ old('url') }}" placeholder="{{ env('SYSTEM_URL', '#SYSTEM_URL') }}" >
@@ -40,18 +40,18 @@
       </div>
 
       <div class="checkbox">
-        <label for="published">
+        <label>
           <input type="checkbox" name="published" value="1"> Publicarlo en el sitio web
-        </label>        
+        </label>
       </div>
 
       {!! csrf_field() !!}
 
       <button type="submit" id="add" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Agregar</button>
-      <button type="reset" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancelar</button>
+      <a href="{{ route('Slides::index' ) }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancelar</a>
     </form>
   </div>
-  
+
 </div>
 
 @stop
