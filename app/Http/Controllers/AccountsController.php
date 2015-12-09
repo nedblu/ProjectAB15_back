@@ -24,9 +24,9 @@ class AccountsController extends Controller
         if (Auth::user()->is('support')) {
 
             $accounts = User::allUsersWithRoles();
-        } 
+        }
         else if (Auth::user()->is('owner')) {
-            
+
             $accounts = User::noBelongsToRoles(['support']);
         }
         else if (Auth::user()->is('admin')) {
@@ -38,7 +38,7 @@ class AccountsController extends Controller
                         ->whereNull('users.deleted_at')
                         ->select('users.*', 'roles.name as role', 'roles.slug', 'roles.level')->get();
         }
-        
+
         $used = User::where('id','<>',1)->where('id','<>',2)->count();
 
         return view('accounts.index')->with('accounts',$accounts)->with('used', $used)->with('max',env('ACCOUNTS_LIMIT'));
@@ -66,7 +66,7 @@ class AccountsController extends Controller
 
             return abort('404');
         }
-        
+
         if (Auth::user()->is('support'))
             $rolesAvailables = Role::all();
         elseif (Auth::user()->is('admin'))
@@ -104,7 +104,7 @@ class AccountsController extends Controller
         $validator = \Validator::make($request->all(), [
             'first_name'   => 'required',
             'last_name'    => 'required',
-            'email'        => 'required|email|unique:users,email',
+            'email'        => 'required|email|unique:users,email,deleted_at,NULL',
             'type_account' => 'required|numeric'
         ]);
 
@@ -149,7 +149,7 @@ class AccountsController extends Controller
             $message->from('no-reply@alphabeta.com.mx', 'No-Reply');
             $message->to($account->email, $account->first_name);
             $message->subject('Hola ' . $account->first_name . ' ' . $account->last_name . ' AlphaBeta te ha agregado como ' . $roleAssigned->name);
-        
+
         });
 
         Log::info(
@@ -218,7 +218,7 @@ class AccountsController extends Controller
             $message->from('no-reply@alphabeta.com.mx', 'No-Reply');
             $message->to($account->email, $account->first_name);
             $message->subject('Hola ' . $account->first_name . ' ' . $account->last_name . ' AlphaBeta te ha reasignado a ' . $roleAssigned->name);
-        
+
         });
 
         Log::info(
@@ -245,7 +245,7 @@ class AccountsController extends Controller
 
 
         $account = User::findOrFail($id);
-        
+
         if ($account->active) {
             $account->active = 0;
             $message = 'La cuenta se ha desactivado exitosamente.';
@@ -258,7 +258,7 @@ class AccountsController extends Controller
         }
 
         $account->save();
-        
+
         return redirect()->route('Accounts::edit',$id)->with('status', $message);
 
 
@@ -274,11 +274,11 @@ class AccountsController extends Controller
     {
 
         $account = User::findOrFail($id);
-        
+
         $account->password = \Hash::make('Password123@');
 
         $account->save();
-        
+
         return redirect()->route('Accounts::edit',$id)->with('status', 'La contraseña ha sido restablecida exitosamente a Password123@');
 
 
@@ -295,7 +295,7 @@ class AccountsController extends Controller
         //
 
         $account = User::find($id);
-        
+
         $aux = $account->first_name . ' ' . $account->last_name;
 
         $account->delete();
@@ -362,7 +362,7 @@ class AccountsController extends Controller
             {
                 return redirect()->route('Accounts::notice');
             }
-            
+
         }
 
     }
@@ -379,7 +379,7 @@ class AccountsController extends Controller
         if (!is_null($id)) {
 
             $profile = User::findOrFail($id);
-            
+
             return view('accounts.profile_index')->with('profile',$profile)->with('flag', true);
 
         } else {
@@ -388,7 +388,7 @@ class AccountsController extends Controller
 
             return view('accounts.profile_index')->with('profile',$profile)->with('flag', false);
 
-        }  
+        }
 
     }
 
@@ -401,7 +401,7 @@ class AccountsController extends Controller
     {
 
         $profile = User::findOrFail(Auth::id());
-        
+
         return view('accounts.profile_edit')->with('profile',$profile);
 
 
