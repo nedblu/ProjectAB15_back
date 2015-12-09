@@ -75,11 +75,9 @@
         <div class="form-group">
 
             <label for="parent_id"><strong>Seleccione la categoría del producto</strong></label>
-        
+
             <select name="parent_id" class="form-control" required>
                 <option value="">- -</option>
-                <option value="0">Categoría principal</option>
-                <option value="">-----------------------------</option>
                 @forelse ($categories as $category)
                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @empty
@@ -87,7 +85,7 @@
                 @endforelse
             </select>
         </div>
-        
+
         <div class="form-group">
             <label for="description"><strong>Descripción del producto</strong></label>
             <textarea class="form-control" name="description" rows="3">{{ old('description') }}</textarea>
@@ -120,7 +118,7 @@
                 {name: 'insert', items: ['Table', 'HorizontalRule', 'SpecialChar'] },
                 '/',
                 {name: 'tools', items: ['Maximize'] },
-                {name: 'document', items: ['Source', 'NewPage'] },           
+                {name: 'document', items: ['Source', 'NewPage'] },
                 {name: 'basicstyles', items: ['Bold', 'Italic', 'Strike', '-', 'RemoveFormat'] },
                 {name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote'] }
             ]

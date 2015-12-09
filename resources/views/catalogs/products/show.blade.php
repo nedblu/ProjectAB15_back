@@ -48,7 +48,11 @@
                 </tr>
                 <tr>
                     <td><strong>Creado por</strong></td>
+                    @if($product->user()->count() > 0)
                     <td>{{ $product->user->first_name . ' ' . $product->user->last_name }}</td>
+                    @else
+                    <td><span class="label label-warning">No disponible</span></td>
+                    @endif
                 </tr>
                 <tr>
                     <td><strong>Creación</strong></td>
@@ -58,7 +62,7 @@
                     <td><strong>Última modificación</strong></td>
                     <td><time datetime="{{ $product->updated_at }}" title="{{ $product->updated_at }}" class="updated_at">{{ $product->updated_at }}</time></td>
                 </tr>
-                <!--<tr>
+                <tr>
                     <td><strong>Categoría</strong></td>
                     <td>
                     @if($product->category_id === 1)
@@ -67,7 +71,7 @@
                         <span class="label label-primary"><i class="fa fa-tag"></i> {{ $product->category->name }}</span>
                     @endif
                     </td>
-                </tr>-->
+                </tr>
                 <tr>
                     <td><strong>Sub-categoría</strong></td>
                     <td>

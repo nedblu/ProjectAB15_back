@@ -106,11 +106,9 @@
 
         <div class="form-group">
             <label for="parent_id"><strong>Seleccione la categoría del producto</strong></label>
-        
+
             <select name="parent_id" class="form-control" required>
                 <option value="">- -</option>
-                <option value="0">Categoría principal</option>
-                <option value="">-----------------------------</option>
                 @forelse ($categories as $category)
                 @if($product->parent_id === $category->id)
                 <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
@@ -122,7 +120,7 @@
                 @endforelse
             </select>
         </div>
-        
+
         <div class="form-group">
             <label for="description"><strong>Descripción del producto</strong></label>
             <textarea class="form-control" name="description" rows="3">{{ $product->description }}</textarea>

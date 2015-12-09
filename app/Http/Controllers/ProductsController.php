@@ -41,7 +41,9 @@ class ProductsController extends Controller
     public function create()
     {
         //
-        $categories = Category::all();
+        $withoutCategory = Category::where('id', 1)->get();
+        $withoutMainCategories = Category::where('parent_id', '<>', 0)->get();
+        $categories = $withoutCategory->merge($withoutMainCategories);
 
         return view('catalogs.products.create')->with('categories', $categories);
     }
@@ -81,7 +83,7 @@ class ProductsController extends Controller
             Image::make($img)->fit(300, 300)->save($this->app_content_path() . $this->products_path . $image_name, 100);
         }
 
-        $product = Product::create([ 
+        $product = Product::create([
             'name'        => $request->input('name'),
             'image'       => ($request->hasFile('image')) ? $image_name : null,
             'sku'         => $request->input('sku'),
@@ -95,8 +97,8 @@ class ProductsController extends Controller
         ]);
 
         $tree = $this->tree($product, 'desc');
-        
-        $product->category_id = (count($tree) > 0) ? $tree[1]['id'] : $tree[0]['id'];
+
+        $product->category_id = (count($tree) > 1) ? $tree[1]['id'] : $tree[0]['id'];
 
         $product->save();
 
@@ -113,6 +115,7 @@ class ProductsController extends Controller
         $link = $this->link_generator(route('Products::show' , $product->id), $product->name);
 
         return redirect()->route('Products::create')->with('status', '¡El producto se ha creado exitosamente, para verlo, ir a: ' . $link . '!');
+
     }
 
     /**
@@ -125,9 +128,10 @@ class ProductsController extends Controller
     {
         //
         $product = Product::findOrFail($id);
-        
-        if($product->colors)
-            $product->colorResources = $this->getColorsOfProduct($product->getColors->colors_ar);
+
+        if($product->colors) {
+          $product->colorResources = $this->getColorsOfProduct($product->getColors->colors_ar);
+        }
 
         return view('catalogs.products.show')->with('product', $product);
     }
@@ -143,7 +147,9 @@ class ProductsController extends Controller
         //
         $product = Product::findOrFail($id);
 
-        $categories = Category::all();
+        $withoutCategory = Category::where('id', 1)->get();
+        $withoutMainCategories = Category::where('parent_id', '<>', 0)->get();
+        $categories = $withoutCategory->merge($withoutMainCategories);
 
         return view('catalogs.products.edit')->with('product', $product)->with('categories', $categories);
     }
@@ -174,8 +180,20 @@ class ProductsController extends Controller
                             ->withInput()
                             ->with('error', '¡Ops! Algo ha salido mal, por favor atiende a los siguientes mensajes:');
         }
-          
+
         $product = Product::findOrFail($id);
+
+        $product->update([
+            'name'        => $request->input('name'),
+            'sku'         => $request->input('sku'),
+            'stock'       => ($request->has('inStock')) ? 1 : 0,
+            'parent_id'   => $request->input('parent_id'),
+            'colors'      => ($request->has('checkColors')) ? 1 : 0,
+            'ink'         => ($request->has('checkInks')) ? 1 : 0,
+            'equipment'   => ($request->has('checkEquipment')) ? 1 : 0,
+            'description' => (empty(strip_tags($request->input('description')))) ? null : $request->input('description'),
+            'user_id'     => Auth::id()
+        ]);
 
         if ($request->hasFile('image')) {
 
@@ -188,42 +206,51 @@ class ProductsController extends Controller
           $ext = $img->getClientOriginalExtension();
           $image_name = "image" . str_random(16) . "." . $ext;
 
+          $product->image = $image_name;
+
           Image::make($img)->fit(300, 300)->save($this->admin_content_path() . $this->products_path . $image_name, 100);
           Image::make($img)->fit(300, 300)->save($this->app_content_path() . $this->products_path . $image_name, 100);
         }
 
-        $product->update([ 
-            'name'        => $request->input('name'),
-            'image'       => ($request->hasFile('image')) ? $image_name : null,
-            'sku'         => $request->input('sku'),
-            'stock'       => ($request->has('inStock')) ? 1 : 0,
-            'parent_id'   => $request->input('parent_id'),
-            'colors'      => ($request->has('checkColors')) ? 1 : 0,
-            'ink'         => ($request->has('checkInks')) ? 1 : 0,
-            'equipment'   => ($request->has('checkEquipment')) ? 1 : 0,
-            'description' => (empty(strip_tags($request->input('description')))) ? null : $request->input('description'),
-            'user_id'     => Auth::id()
-        ]);
+        $tree = $this->tree($product, 'desc');
+
+        $product->category_id = (count($tree) > 1) ? $tree[1]['id'] : $tree[0]['id'];
 
         $product->save();
 
-        $tree = $this->tree($product, 'desc');
-        
-        $product->category_id = (count($tree) > 0) ? $tree[1]['id'] : $tree[0]['id'];
-
         if ($product->colors) {
-            ProductColor::where('product_id', $id)->update(['colors_ar' => $request->input('colors')]);
+
+            $check = ProductColor::where('product_id', $id)->get();
+
+            if(count($check) > 0) {
+              ProductColor::where('product_id', $id)->update(['colors_ar' => $request->input('colors')]);
+            } else {
+              ProductColor::create(['product_id' => $product->id, 'colors_ar' => $request->input('colors')]);
+            }
         }
         if ($product->ink) {
-            ProductInk::where('product_id', $id)->update(['inks_ar' => $request->input('inks')]);
+
+            $check = ProductInk::where('product_id', $id)->get();
+
+            if(count($check) > 0) {
+              ProductInk::where('product_id', $id)->update(['inks_ar' => $request->input('inks')]);
+            } else {
+              ProductInk::create(['product_id' => $product->id, 'inks_ar' => $request->input('inks')]);
+            }
+
         }
         if ($product->equipment) {
-            ProductEquip::where('product_id', $id)->update(['equip_ar' => $request->input('equipments')]);
+
+            $check = ProductEquip::where('product_id', $id)->get();
+
+            if(count($check) > 0) {
+              ProductEquip::where('product_id', $id)->update(['equip_ar' => $request->input('equipments')]);
+            } else {
+              ProductEquip::create(['product_id' => $product->id, 'equip_ar' => $request->input('equipments')]);
+            }
         }
 
-        $link = $this->link_generator(route('Products::show' , $product->id), $product->name);
-
-        return redirect()->route('Products::edit', $id)->with('status', '¡El producto se ha creado exitosamente, para verlo, ir a: ' . $link . '!');
+        return redirect()->route('Products::edit', $id)->with('status', '¡El producto se ha actualizado exitosamente!');
     }
 
     /**
