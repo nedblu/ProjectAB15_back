@@ -1,93 +1,99 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-	if ( $('#slideList').length > 0 ) {
+    if ($('#slideList').length > 0) {
 
-		$('.flexslider').flexslider({
-	        animation: "slide",
-	        animationLoop: false,
-	        itemWidth: 250,
-	        itemMargin: 5,
-	    	directionNav: false
-	    });
-    
-    	var sortableList = Sortable.create(slideList, { 
-			animation: 150,
-			group: "slides",
-			disabled: true,
-			dataIdAttr: 'data-id',
-	    	onSort: function (evt) {
-	  
-		    },
-		    store: {
-		    	get: function (sortable) {
-		            var order = localStorage.getItem('slides');
-		            return order ? order.split('|') : [];
-		        },
-		        set: function (sortable) {
-		        	localStorage.clear();
-		            var order = sortable.toArray();
-		            localStorage.setItem('slides', order.join('|'));
-		        }     
-	    	}
-	    });
+        $('.flexslider').flexslider({
+            animation: "slide",
+            animationLoop: false,
+            itemWidth: 250,
+            itemMargin: 5,
+            directionNav: false
+        });
 
-		$('#switcher').on('click', function() { 
-			var state = sortableList.option("disabled"); // get
+        var sortableList = Sortable.create(slideList, {
+            animation: 150,
+            group: "slides",
+            disabled: true,
+            dataIdAttr: 'data-id',
+            onSort: function (evt) {
 
-		    sortableList.option("disabled", !state); // set
+            },
+            store: {
+                get: function (sortable) {
+                    var order = localStorage.getItem('slides');
+                    return order ? order.split('|') : [];
+                },
+                set: function (sortable) {
+                    localStorage.clear();
+                    var order = sortable.toArray();
+                    localStorage.setItem('slides', order.join('|'));
+                }
+            }
+        });
 
-			if (state) {
-				$(this).addClass('btn-default').removeClass('btn-primary');
-	    		$(this).html('<i class="fa fa-lock"></i> Deshabilitar edición');
-			} else {
-				$(this).addClass('btn-primary').removeClass('btn-default');
-	    		$(this).html('<i class="fa fa-unlock"></i> Habilitar edición');
-			}
-			
-		});
+        $('#switcher').on('click', function () {
+            var state = sortableList.option("disabled"); // get
 
-		$('#saveOrder').on( 'submit', function(e) {
-	        e.preventDefault();
+            sortableList.option("disabled", !state); // set
 
-	        if (localStorage.getItem('slides')) {
-	        	var data = $(this).serialize();
-	        	var slides = '&order=' + localStorage.getItem('slides').split('|');
+            if (state) {
+                $(this).addClass('btn-default').removeClass('btn-primary');
+                $(this).html('<i class="fa fa-lock"></i> Deshabilitar edición');
+            } else {
+                $(this).addClass('btn-primary').removeClass('btn-default');
+                $(this).html('<i class="fa fa-unlock"></i> Habilitar edición');
+            }
 
-	        	$.ajax({
-	               	type: "PUT",
-	               	url: document.location.href + "/order",
-	               	data: data + slides,
-	               	beforeSend: function( xhr ) {
-	               		$('#saveorder').addClass('btn-success').removeClass('btn-primary');
-	    				$('#saveorder').html('<i class="fa fa-refresh fa-spin"></i> Guardando...');
-	  				}
-	            })
-	            .done(function( response ) {
-	            	localStorage.clear();
+        });
 
-	            	console.log( );
-					$('#saveorder').addClass('btn-primary').removeClass('btn-success');
-	    			$('#saveorder').html('<i class="fa fa-floppy-o"></i> Guardar orden');
-	    			$('#alertForAjax').append("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Guardado exitosamente</strong> " + response.msg + "</div>");
-				});
+        $('#saveOrder').on('submit', function (e) {
+            e.preventDefault();
 
-	        } else {
-	        	
-	        	$('#alertForAjax').append("<div class='alert alert-warning alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Alerta SYS126:</strong> No hay datos que guardar, por favor haz las modificaciones pertinentes y posteriormente presiona este botón para guardar.</div>");
-	        	
-	        }
+            if (localStorage.getItem('slides')) {
+                var data = $(this).serialize();
+                var slides = '&order=' + localStorage.getItem('slides').split('|');
 
-	    });
+                $.ajax({
+                        type: "POST",
+                        url: document.location.href + "/order",
+                        data: data + slides,
+                        beforeSend: function (xhr) {
+                            $('#saveorder').addClass('btn-success').removeClass('btn-primary');
+                            $('#saveorder').html('<i class="fa fa-refresh fa-spin"></i> Guardando...');
+                        }
+                    })
+                    .fail(function (err, textStatus) {
+                        localStorage.clear();
 
-		$(".fancy-btn").fancybox({
-	    	openEffect	: 'elastic',
-	    	closeEffect	: 'elastic',
-	    	helpers : {
-	    		title : {
-	    			type : 'float'
-	    		}
-	    	}
-	    });
+                        $('#saveorder').addClass('btn-primary').removeClass('btn-success');
+                        $('#saveorder').html('<i class="fa fa-floppy-o"></i> Guardar orden');
+                        $('#alertForAjax').append("<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Oh rayos! Algo ha salido mal:</strong> " + err.statusText + " code: " + err.status + "</div>");
+                    })
+                    .done(function (response) {
+                        localStorage.clear();
+
+                        $('#saveorder').addClass('btn-primary').removeClass('btn-success');
+                        $('#saveorder').html('<i class="fa fa-floppy-o"></i> Guardar orden');
+                        $('#alertForAjax').append("<div class='alert alert-success alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Guardado exitosamente</strong> " + response.msg + "</div>");
+                    });
+
+            } else {
+
+                $('#alertForAjax').append("<div class='alert alert-warning alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Alerta SYS126:</strong> No hay datos que guardar, por favor haz las modificaciones pertinentes y posteriormente presiona este botón para guardar.</div>");
+
+            }
+
+        });
+
+        $(".fancy-btn").fancybox({
+            openEffect: 'elastic',
+            closeEffect: 'elastic',
+            helpers: {
+                title: {
+                    type: 'float'
+                }
+            }
+        });
     }
 
 });
