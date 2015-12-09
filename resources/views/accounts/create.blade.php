@@ -46,7 +46,7 @@
 			{!! csrf_field() !!}
 		</div>
 		<div class="col-md-12">
-			<button tabindex="5" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Crear</button>
+			<button tabindex="5" type="submit" name="create" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Crear</button>
 			<a href="{{ route('Accounts::index' ) }}" class="btn btn-danger"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span> Cancelar</a>
 		</div>
 	</form>
