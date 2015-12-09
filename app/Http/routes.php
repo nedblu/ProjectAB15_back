@@ -133,7 +133,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/', ['as' => 'index', 'uses' => 'SlidesController@index']);
 
-        Route::put('order', ['as' => 'saveorder', 'uses' => 'SlidesController@saveOrder']);
+        Route::post('order', ['as' => 'saveorder', 'uses' => 'SlidesController@saveOrder']);
 
         Route::get('create', ['as' => 'create', 'middleware' => 'role:support|owner|admin|editor|design', 'uses' => 'SlidesController@create']);
 

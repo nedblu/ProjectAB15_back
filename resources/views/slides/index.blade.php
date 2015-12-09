@@ -44,8 +44,8 @@
 
   <div id="alertForAjax"></div>
 
-  <form action="" id="saveOrder" accept-charset="UTF-8" method="POST">
-    {!! method_field('PUT') !!}
+  <form action="{{ route('Slides::saveorder', $banner->id) }}" id="saveOrder" accept-charset="UTF-8" method="POST">
+    
     {!! csrf_field() !!}
     <button class="btn btn-primary" id="saveorder" type="submit"><i class="fa fa-floppy-o"></i> Guardar orden</button>
     <button class="btn btn-primary" id="switcher" type="button"><i class="fa fa-unlock"></i> Habilitar edición</button>
