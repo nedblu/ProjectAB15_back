@@ -48,7 +48,7 @@ class TechniquesController extends Controller
         $validator = \Validator::make($request->all(), [
             'title'  => 'required',
             'about'  => 'required',
-            'image'  => 'required|image|max:3000',
+            'image'  => 'image|max:3000',
             'detail' => 'required'
         ]);
 
@@ -59,21 +59,26 @@ class TechniquesController extends Controller
                             ->with('error', '¡Ops! Algo ha salido mal, por favor atiende a los siguientes mensajes:');
         }
 
-        $img = $request->file('image');
-        $ext = $img->getClientOriginalExtension();
-        $image = "img" . str_random(16) . "." . $ext;
-
         $technique = Technique::create([
-                'title'   => $request->input('title'),
-                'about'   => $request->input('about'),
-                'detail'  => $request->input('detail'),
-                'image'   => $image,
-                'user_id' => Auth::id()
-            ]);
+            'title'   => $request->input('title'),
+            'about'   => $request->input('about'),
+            'detail'  => $request->input('detail'),
+            'user_id' => Auth::id()
+        ]);
 
-        Image::make($img)->fit(100, 100)->save($this->admin_content_path() . $this->technique_path . 'thumbnail_' . $image, 100);
-        Image::make($img)->fit(150, 100)->save($this->admin_content_path() . $this->technique_path . 'thumbnail_show_' . $image, 100);
-        Image::make($img)->fit(400, 400)->save($this->app_content_path() . $this->technique_path . $image, 100);
+        if ($request->hasFile('image')) {
+            $img = $request->file('image');
+            $ext = $img->getClientOriginalExtension();
+            $image = "img" . str_random(16) . "." . $ext;
+
+            $technique->image = $image;
+
+            Image::make($img)->fit(100, 100)->save($this->admin_content_path() . $this->technique_path . 'thumbnail_' . $image, 100);
+            Image::make($img)->fit(150, 100)->save($this->admin_content_path() . $this->technique_path . 'thumbnail_show_' . $image, 100);
+            Image::make($img)->fit(400, 400)->save($this->app_content_path() . $this->technique_path . $image, 100);
+
+            $technique->save();
+        }
 
         return redirect()->route('Techniques::create')->with('status', '¡La técnica ha sido agregada correctamente!');
     }
@@ -88,8 +93,8 @@ class TechniquesController extends Controller
     {
 
         $technique = Technique::findOrFail($id);
-       
-        $edited = $technique->created_at->ne($technique->updated_at);   
+
+        $edited = $technique->created_at->ne($technique->updated_at);
 
         return view('techniques.show')->with('technique', $technique)->with('edited', $edited);
 

@@ -12,7 +12,7 @@ abstract class Controller extends BaseController
 {
     use DispatchesJobs, ValidatesRequests;
 
-    protected $frontendProject = 'alphabeta_web';
+    protected $frontendProject = 'ProjectAB15_front';
 
     protected $slide_path = 'slide-show/';
     protected $technique_path = 'techniques/';
@@ -32,7 +32,7 @@ abstract class Controller extends BaseController
 		} else if (\App::environment('production')) {
 			$path = base_path('../public_html/content/');
 		}
-    	
+
     	return $path;
     }
 
@@ -46,10 +46,10 @@ abstract class Controller extends BaseController
           $array = explode(",", $array);
 
       if( count($array) > 1) {
-          
+
           $count = 0;
           $colors = Color::select('id', 'name', 'image', 'code')->where('code', strtoupper($array[0]));
-          
+
           foreach($array as $item){
               if($count > 0){
                   $colors_union = Color::select('id', 'name','image', 'code')->where('code', strtoupper($item));
@@ -92,7 +92,7 @@ abstract class Controller extends BaseController
         while($parent[0]->parent_id > 0)
         {
           $parentAux = Category::select('id', 'name', 'description', 'slug', 'parent_id')->where('id', $parent[0]->parent_id)->get();
-          $parent[0]->parent_id = $parentAux[0]->parent_id; 
+          $parent[0]->parent_id = $parentAux[0]->parent_id;
 
           $collector[] = [
             'level'       => $level,
