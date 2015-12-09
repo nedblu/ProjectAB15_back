@@ -5,3 +5,4 @@
 .env.production
 .env.testing
 .DS_Store
+composer.lock
