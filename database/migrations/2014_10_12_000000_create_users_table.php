@@ -16,8 +16,8 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('username')->unique();
-            $table->string('email')->unique();
+            $table->string('username');
+            $table->string('email');
             $table->string('password', 60);
             $table->boolean('active')->default('0');
             $table->integer('ip_address')->nullable()->unsigned();
