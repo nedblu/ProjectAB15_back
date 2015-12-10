@@ -8,7 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Color;
 use App\Category;
 
-abstract class Controller extends BaseController
+class Controller extends BaseController
 {
     use DispatchesJobs, ValidatesRequests;
 
