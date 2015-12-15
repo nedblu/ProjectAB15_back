@@ -2,6 +2,10 @@
 
 @section('title') {{ $product->name }} @stop
 
+@section('extra-head')
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
+
 @section('content')
 
 <ol class="breadcrumb">

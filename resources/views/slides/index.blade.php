@@ -2,6 +2,10 @@
 
 @section('title') Slideshow Manager @stop
 
+@section('extra-head')
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+@stop
+
 @section('extra-content')
 	@include('templates.partials.modals-delete')
 @stop
@@ -75,6 +79,7 @@
         <button type="button" class="btn btn-danger btn-xs btn-animated" data-toggle="modal" data-target="#confirmDelete" data-title="Eliminar Slide" data-message="¿<strong>{{ Auth::user()->first_name }}</strong> estás seguro de eliminar el slide <strong>{{ $banner->title }}</strong>?"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
         <a href="{{ route('Slides::edit',  $banner->id) }}" class="btn btn-primary btn-xs btn-animated"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
       </form>
+      <div class="token_crf"></div>
     </li>
 
     @endforeach

@@ -1,8 +1,13 @@
 $(document).ready(function () {
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     var JSONresponse = document.location.href + "/../../../colors/json";
     var URLassets = document.location.href + "/../../../assets/content_application/colors/";
-
 
     var url = document.location.href.split('/');
     var JSONresponseProd = document.location.href + "/../../../colors/product/json";
